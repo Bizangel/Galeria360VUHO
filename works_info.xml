@@ -1,0 +1,290 @@
+<krpano>
+	<!-- Scroll Area Textbox -->
+	
+	<style name="works_text"
+	       type="text"
+	       background="false"
+	       css=" font-family: Varela-Round; font-size: 20px;  color:#FFFFFF; text-align: justify;"
+	       enabled="false"
+		   textalign="center"
+	       />
+		   
+	<style name="works_text_small"
+	       type="text"
+	       background="false"
+	       css=" font-family: Varela-Round; font-size: 16px;  color:#FFFFFF; text-align: justify;"
+	       enabled="false"
+		   textalign="center"
+	       />
+		   
+	<style name="works_title"
+	       type="text"
+	       background="false"
+	       css=" font-family: Varela-Round; font-size: 45px;  color:#FFFFFF"
+	       enabled="false"
+		   textalign="center"
+	       />
+		   
+	<data name="lorem_ipsum">
+		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		
+		"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+		
+		"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
+	</data>
+	
+	
+	
+	<action name="fix_scroll_area_height" scope="local">
+		set(layer[work1_scrollarea].height,get(layer[work1_desc].height));
+		set(layer[work2_scrollarea].height,get(layer[work2_desc].height));
+		set(layer[work3_scrollarea].height,get(layer[work3_desc].height));
+		set(layer[work4_scrollarea].height,get(layer[work4_desc].height));
+		set(layer[work5_scrollarea].height,get(layer[work5_desc].height));
+		set(layer[work6_scrollarea].height,get(layer[work6_desc].height));
+		set(layer[work7_scrollarea].height,get(layer[work7_desc].height));
+		
+	</action>
+	
+	<action name="toggle_workdisplay" scope="local" args="n_work">
+		calc(workname, 'workdisplay' + n_work);
+		
+		if(layer[get(workname)].enabled == true,
+			set(layer[get(workname)].enabled,false);
+			tween(layer[get(workname)].alpha,0);
+			,
+			set(layer[get(workname)].enabled,true);
+			tween(layer[get(workname)].alpha,1);
+		);
+		
+	</action>
+	
+	<action name="disable_works" scope="local">
+		for(set(i,1), i LT 8, inc(i),
+			calc(workname, 'workdisplay' + i);
+			set(layer[get(workname)].enabled,false);
+			tween(layer[get(workname)].alpha,0);
+		);
+	</action>
+	
+	<!-- Set size based on font-->
+	<layer name="workdisplay1" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work1_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work1_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work1_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work1_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work1_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work1_image" type="image" url="%ROOT%/works/work1.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay1"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay2" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work2_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work2_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work2_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work2_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work2_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work2_image" type="image" url="%ROOT%/works/work2.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay2"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay3" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work3_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work3_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work3_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work3_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work3_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work3_image" type="image" url="%ROOT%/works/work3.jpg" scale="1.3" y="100" x="50%" parent="workdisplay3"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay4" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work4_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work4_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work4_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work4_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work4_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work4_image" type="image" url="%ROOT%/works/work4.jpg" scale="1.4" y="50" x="40%" parent="workdisplay4"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay5" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work5_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work5_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work5_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work5_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work5_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work5_image" type="image" url="%ROOT%/works/work5.jpg" scale="1.3" y="50" x="50%" parent="workdisplay5"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay6" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work6_scroller_container" keep="true" type="container" align="bottomleft" width="68%" height="20%" 
+		y="4%" x="22%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work6_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work6_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work6_title" style="works_title" html="Título de la Obra" align="bottomleft" x="3%" y="10%"/>
+		
+		<layer name="work6_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="30" y="50"
+			scale="0.3"
+			/>
+		<layer name="work6_image" type="image" url="%ROOT%/works/work6.jpg" scale="1.1" y="50" align="topcenter" parent="workdisplay6"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	<layer name="workdisplay7" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
+	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+		
+		<!-- only modify container -->
+		<layer name="work7_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
+		y="30%" x="5%"
+		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
+		
+		
+			<layer name="work7_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+				<layer name="work7_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
+			</layer>
+			
+			
+		</layer>
+		
+		<layer name="work7_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		
+		<layer name="work7_close_button" type="image" url="%ROOT%/icons/closeoff.png"
+			onover="set(url,%ROOT%/icons/closeon.png);"
+			onout="set(url,%ROOT%/icons/closeoff.png);"
+			onclick="disable_works();"
+			align="bottomright" x="100" y="100"
+			scale="0.3"
+			/>
+		<layer name="work7_image" type="image" url="%ROOT%/works/work7.jpg" scale="0.65" x="50%" y="50" parent="workdisplay7"
+		handcursor="false"
+		/>
+	
+	</layer>
+	
+	
+	
+</krpano>

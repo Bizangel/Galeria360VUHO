@@ -1,0 +1,2538 @@
+﻿<krpano version="1.20.6" title="Galería Virtual - VUHO" showerrors="true" logkey="true">
+	
+	
+	
+	<include url="skin/vtourskin.xml" if="0"/>
+	<include url="vuho_overlay.xml" />
+
+	<include url="works_info.xml" />
+	<include url="helper360.xml" />
+
+	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
+	<skin_settings maps="false"
+	               maps_type="google"
+	               maps_bing_api_key=""
+	               maps_google_api_key=""
+	               maps_zoombuttons="false"
+	               maps_loadonfirstuse="true"
+	               gyro="true"
+	               gyro_keeplookingdirection="false"
+	               webvr="true"
+	               webvr_keeplookingdirection="true"
+	               webvr_prev_next_hotspots="true"
+	               autotour="false"
+	               littleplanetintro="false"
+	               followmousecontrol="false"
+	               title="true"
+	               thumbs="true"
+	               thumbs_width="120" thumbs_height="80" thumbs_padding="10" thumbs_crop="0|40|240|160"
+	               thumbs_opened="false"
+	               thumbs_text="false"
+	               thumbs_dragging="true"
+	               thumbs_onhoverscrolling="false"
+	               thumbs_scrollbuttons="false"
+	               thumbs_scrollindicator="false"
+	               thumbs_loop="false"
+	               tooltips_buttons="false"
+	               tooltips_thumbs="false"
+	               tooltips_hotspots="false"
+	               tooltips_mapspots="false"
+	               deeplinking="false"
+	               loadscene_flags="MERGE"
+	               loadscene_blend="OPENBLEND(0.5, 0.0, 0.75, 0.05, linear)"
+	               loadscene_blend_prev="SLIDEBLEND(0.5, 180, 0.75, linear)"
+	               loadscene_blend_next="SLIDEBLEND(0.5,   0, 0.75, linear)"
+	               loadingtext="loading..."
+	               layout_width="100%"
+	               layout_maxwidth="814"
+	               controlbar_width="-24"
+	               controlbar_height="40"
+	               controlbar_offset="20"
+	               controlbar_offset_closed="-40"
+	               controlbar_overlap.no-fractionalscaling="10"
+	               controlbar_overlap.fractionalscaling="0"
+	               design_skin_images="vtourskin.png"
+	               design_bgcolor="0x2D3E50"
+	               design_bgalpha="0.8"
+	               design_bgborder="0"
+	               design_bgroundedge="1"
+	               design_bgshadow="0 4 10 0x000000 0.3"
+	               design_thumbborder_bgborder="3 0xFFFFFF 1.0"
+	               design_thumbborder_padding="2"
+	               design_thumbborder_bgroundedge="0"
+	               design_text_css="color:#FFFFFF; font-family:Arial;"
+	               design_text_shadow="1"
+	               />
+				
+	
+	
+	
+	
+	
+	
+	<style name="text"
+	       type="text"
+	       background="false"
+	       css="color:#FFFFFF;"
+	       enabled="false"
+	       />
+	
+	
+	<include url="%VIEWER%/plugins/tour_edithelper.xml" if="0" />
+	
+	<include url="%VIEWER%/plugins/fps.xml" if="0" />
+	<events onkeydown="debugaction();" if="0"/>
+	<action name="debugaction" if="0" >
+		if(keycode == 89,
+			
+		);
+		if(keycode == 85,
+			
+		);
+	</action>
+	
+	
+	<include url="%VIEWER%/toolbox/toolbox.xml" if="0" />
+	
+	
+	<events onclick="check_navigation();"/>
+	
+	<include url="plugins/depthmap_navigation.xml" if="0"/>
+	<include url="plugins/depthmap_helpertool.xml" if="0" /> 
+	
+	<display depthmaprendermode="depthmap" />
+	<style name="depthmapsettings" background="none" />
+	
+	<action name="skin_loadscene" scope="local" args="newscenenameorindex, blendmode">
+		if(webvr.isenabled AND scene.count GT 1,
+			set(hotspot[skin_webvr_prev_scene].visible, false);
+			set(hotspot[skin_webvr_next_scene].visible, false);
+		);
+
+		calc(layer[skin_thumbborder].parent, 'skin_thumb_' + scene[get(newscenenameorindex)].index);
+		layer[skin_thumbs].scrolltocenter(get(scene[get(newscenenameorindex)].thumbx), get(scene[get(newscenenameorindex)].thumby));
+		tour_loadscene(get(scene[get(newscenenameorindex)].name));
+		
+		
+	</action>
+	
+
+	<!-- startup action - load the first scene -->
+	<action name="startup" autorun="onstart">
+		if(startscene === null OR !scene[get(startscene)], copy(startscene,scene[0].name); );
+		loadscene(get(startscene), null, MERGE);
+		
+		<!-- Set scene 1 start location -->
+		set(view.tx,4502);
+		set(view.ty,0);
+		set(view.tz,2914);
+		
+		
+		tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), 2.0, default);	
+		
+		if(startactions !== null, startactions() );
+		
+	</action>
+
+	
+	
+	
+	<!-- Space location of each scene -->
+	
+	<!-- LEFT ROOM -->
+	<style name="scene_1"  ox="4502"    oy="0"   oz="2914"   linkedscene="scene_1" autohotspot="true" 
+	allowed="scene_2"/>
+	
+	<style name="scene_11"  ox="4518"    oy="0"   oz="564"   linkedscene="scene_11" autohotspot="true" 
+	allowed="scene_25|scene_26|scene_24|scene_23"/>
+	
+	<style name="scene_2"  ox="4518"    oy="0"   oz="2222"   linkedscene="scene_2" autohotspot="true" 
+	allowed="scene_1|scene_21|scene_22|scene_12|scene_27"/>
+	
+	<!-- First Circle -->
+	<style name="scene_3"  ox="4518"    oy="0"   oz="1926"   linkedscene="scene_3" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_4"  ox="4728"    oy="0"   oz="1822"   linkedscene="scene_4" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_5"  ox="4865"    oy="0"   oz="1633"   linkedscene="scene_5" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_6"  ox="4728"    oy="0"   oz="1439"   linkedscene="scene_6" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_7"  ox="4518"    oy="0"   oz="1355"   linkedscene="scene_7" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_8"  ox="4325"    oy="0"   oz="1460"   linkedscene="scene_8" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_9"  ox="4255"    oy="0"   oz="1633"   linkedscene="scene_9" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_10"  ox="4325"    oy="0"   oz="1839"   linkedscene="scene_10" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<!-- Second Circle -->
+	
+	<style name="scene_13"  ox="4518"    oy="0"   oz="1443"   linkedscene="scene_13" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_17"  ox="4518"    oy="0"   oz="859"   linkedscene="scene_17" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_14"  ox="4728"    oy="0"   oz="1326"   linkedscene="scene_14" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_16"  ox="4728"    oy="0"   oz="959"   linkedscene="scene_16" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_15"  ox="4804"    oy="0"   oz="1137"   linkedscene="scene_15" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_19"  ox="4248"    oy="0"   oz="1153"   linkedscene="scene_19" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_20"  ox="4341"    oy="0"   oz="1339"   linkedscene="scene_20" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_18"  ox="4341"    oy="0"   oz="955"   linkedscene="scene_18" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	
+	<!-- Right Side of Room -->
+	<style name="scene_27"  ox="4079"    oy="0"   oz="2085"   linkedscene="scene_27" autohotspot="true" 
+	allowed="scene_2|scene_21|scene_22|scene_12|scene_26"/>
+	
+	<style name="scene_12"  ox="4079"    oy="0"   oz="1653"   linkedscene="scene_12" autohotspot="true" 
+	allowed="scene_27|scene_21|scene_23|scene_26|scene_25|scene_28"/>
+	
+	<style name="scene_26"  ox="4079"    oy="0"   oz="1129"   linkedscene="scene_26" autohotspot="true" 
+	allowed="scene_25|scene_24|scene_22|scene_12|scene_27"/>
+	
+	<style name="scene_25"  ox="4079"    oy="0"   oz="600"   linkedscene="scene_25" autohotspot="true" 
+	allowed="scene_11|scene_24|scene_23|scene_26|scene_12"/>
+	
+	<!-- Left Side of Room -->
+	
+	<style name="scene_21"  ox="4990"    oy="0"   oz="2085"   linkedscene="scene_21" autohotspot="true" 
+	allowed="scene_2|scene_27|scene_12|scene_22|scene_23"/>
+	
+	<style name="scene_22"  ox="4990"    oy="0"   oz="1629"   linkedscene="scene_22" autohotspot="true" 
+	allowed="scene_21|scene_27|scene_26|scene_23|scene_24"/>
+	
+	<style name="scene_23"  ox="4990"    oy="0"   oz="1129"   linkedscene="scene_23" autohotspot="true" 
+	allowed="scene_24|scene_25|scene_12|scene_22|scene_21"/>
+	
+	<style name="scene_24"  ox="4990"    oy="0"   oz="600"   linkedscene="scene_24" autohotspot="true" 
+	allowed="scene_22|scene_23|scene_25|scene_11|scene_26"/>
+	
+	
+	
+	<!-- Paint Hallway -->
+	
+	<style name="scene_28"  ox="3819"    oy="0"   oz="1658"   linkedscene="scene_28" autohotspot="true" 
+	allowed="scene_12|scene_29"/>
+	
+	<style name="scene_29"  ox="3371"    oy="0"   oz="1658"   linkedscene="scene_29" autohotspot="true" 
+	allowed="scene_12|scene_28|scene_30"/>
+	
+	<style name="scene_30"  ox="2923"    oy="0"   oz="1658"   linkedscene="scene_30" autohotspot="true" 
+	allowed="scene_28|scene_29|scene_31|scene_32"/>
+	
+	<style name="scene_31"  ox="2463"    oy="0"   oz="1658"   linkedscene="scene_31" autohotspot="true" 
+	allowed="scene_30|scene_32"/>
+	
+	<style name="scene_32"  ox="2031"    oy="0"   oz="1658"   linkedscene="scene_32" autohotspot="true" 
+	allowed="scene_31|scene_38"/>
+	
+	<style name="scene_33"  ox="2195"    oy="0"   oz="1467"   linkedscene="scene_33" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_34"  ox="3191"    oy="0"   oz="1467"   linkedscene="scene_34" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_35"  ox="3659"    oy="0"   oz="1467"   linkedscene="scene_35" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_36"  ox="3659"    oy="0"   oz="1830"   linkedscene="scene_36" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<style name="scene_37"  ox="2667"    oy="0"   oz="1762"   linkedscene="scene_37" autohotspot="true" 
+	allowed="ANY!"/>
+	
+	<!-- FULL SECOND ROOM -->
+	<style name="scene_38"  ox="1731"    oy="0"   oz="1650"   linkedscene="scene_38" autohotspot="true" 
+	allowed="scene_32|scene_46|scene_45|scene_43|scene_39|scene_40"/>
+	
+	<style name="scene_39"  ox="1731"    oy="0"   oz="2146"   linkedscene="scene_39" autohotspot="true" 
+	allowed="scene_46|scene_38|scene_44|scene_42|scene_40"/>
+	
+	<style name="scene_40"  ox="1731"    oy="0"   oz="2718"   linkedscene="scene_40" autohotspot="true" 
+	allowed="scene_38|scene_39|scene_41|scene_42|scene_43"/>
+	
+	<style name="scene_41"  ox="1319"    oy="0"   oz="2682"   linkedscene="scene_41" autohotspot="true" 
+	allowed="scene_40|scene_39|scene_43|scene_42"/>
+	
+	<style name="scene_42"  ox="883"    oy="0"   oz="2718"   linkedscene="scene_42" autohotspot="true" 
+	allowed="scene_41|scene_40|scene_39|scene_43|scene_44"/>
+	
+	<style name="scene_43"  ox="883"    oy="0"   oz="2146"   linkedscene="scene_43" autohotspot="true" 
+	allowed="scene_42|scene_40|scene_38|scene_44|scene_45"/>
+	
+	<style name="scene_44"  ox="883"    oy="0"   oz="1650"   linkedscene="scene_44" autohotspot="true" 
+	allowed="scene_42|scene_43|scene_39|scene_46|scene_45"/>
+	
+	<style name="scene_45"  ox="883"    oy="0"   oz="1151"   linkedscene="scene_45" autohotspot="true" 
+	allowed="scene_43|scene_44|scene_38|scene_47|scene_46"/>
+	
+	<style name="scene_46"  ox="1731"    oy="0"   oz="1151"   linkedscene="scene_46" autohotspot="true" 
+	allowed="scene_45|scene_47|scene_38|scene_44|scene_39"/>
+	
+	<style name="scene_47"  ox="1319"    oy="0"   oz="1978"   linkedscene="scene_47" autohotspot="true" 
+	allowed="scene_46|scene_38|scene_45|scene_44"/>
+	
+	<style name="scene_48" ox="1319"    oy="0"   oz="1978" linkedscene="scene_48" autohotspot="true"
+	allowed="ANY!"
+	/>
+	
+	<style name="scene_49" ox="1479"    oy="0"   oz="1954" linkedscene="scene_48" autohotspot="true"
+	allowed="ANY!"
+	/>
+	
+	
+	
+	
+	
+	
+	
+	<scene name="scene_1" title="01" onstart="infodisplay(1);delayedcall(3,fix_scroll_area_height(););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="-176.610" vlookat="0.194" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/01.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_1">
+			<cube url="panos/01.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/01_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_1">
+			<cube url="panos/01.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/01_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="-5.53" ty="90" tz="-401" keep="false" visible="true" enabled="true" linkedscene="scene_2"/>
+		
+	</scene>
+
+	<scene name="scene_2" title="02" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/02.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/02.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_2">
+			<cube url="panos/02.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/02_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_2">
+			<cube url="panos/02.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/02_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="-5.53" ty="90" tz="401" keep="false" visible="true" enabled="true" linkedscene="scene_1"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_21"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="178.52" ty="84.5" tz="-358" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-178.52" ty="84.5" tz="-358" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<!-- Circle -->
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="173.603229427" atv="13.260932368394002" />
+			<point ath="173.68328122537503" atv="9.506485685524265" />
+			<point ath="175.09444759206318" atv="7.536776639685054" />
+			<point ath="178.3122580169241" atv="7.425200802309482" />
+			<point ath="178.36530473590517" atv="7.270309027307799" />
+			<point ath="178.1059106904783" atv="7.0605885336023055" />
+			<point ath="177.84717953846206" atv="6.798995482594893" />
+			<point ath="177.5881245648257" atv="6.640968974753404" />
+			<point ath="177.12285573302657" atv="6.325351060296981" />
+			<point ath="176.91785050203754" atv="6.01196409318017" />
+			<point ath="176.66180125338113" atv="5.64681316762436" />
+			<point ath="176.45705561491167" atv="5.385842366838069" />
+			<point ath="176.20188983145087" atv="5.020955697307445" />
+			<point ath="175.94773838373817" atv="4.655794961912862" />
+			<point ath="175.69576243419522" atv="4.084663858496728" />
+			<point ath="175.5451026624503" atv="3.721612285281866" />
+			<point ath="175.346536789815" atv="3.0487050426400035" />
+			<point ath="175.2471934502217" atv="2.7384004498013406" />
+			<point ath="174.94664198125366" atv="2.1180139323851663" />
+			<point ath="174.8073706454348" atv="0.8312660471557339" />
+			<point ath="174.81184660235616" atv="0.42046837740774173" />
+			<point ath="174.81687607517566" atv="-0.0411797910517217" />
+			<point ath="174.8224569676582" atv="-0.5534331650303377" />
+			<point ath="174.92867793554828" atv="-0.9628984138791107" />
+			<point ath="175.18702570407714" atv="-1.3214007012916633" />
+			<point ath="175.44594034236172" atv="-1.7309040036254386" />
+			<point ath="175.65287714643165" atv="-2.0379588425064696" />
+			<point ath="176.01432610097004" atv="-2.4985545892468184" />
+			<point ath="176.06677565595453" atv="-2.651653071803649" />
+			<point ath="176.06959848165994" atv="-2.957018304422365" />
+			<point ath="176.0747675125194" atv="-3.515741378368563" />
+			<point ath="176.07805275912855" atv="-3.8705043521395104" />
+			<point ath="176.29146909451634" atv="-4.932841288243108" />
+			<point ath="176.55140334301743" atv="-5.538837815162055" />
+			<point ath="177.01414137541258" atv="-6.045132332023628" />
+			<point ath="177.32205606387464" atv="-6.298629729076082" />
+			<point ath="177.7839313645307" atv="-6.653243710462685" />
+			<point ath="178.14413252506824" atv="-7.055918660779217" />
+			<point ath="178.50339613696752" atv="-7.308357989223195" />
+			<point ath="178.9643777000349" atv="-7.611318335841345" />
+			<point ath="179.34513955604967" atv="-7.7323936459875595" />
+			<point ath="179.96143338532335" atv="-8.182825442930914" />
+			<point ath="-179.67950609075854" atv="-8.333435311641542" />
+			<point ath="-179.26944952633949" atv="-8.38503865676275" />
+			<point ath="-178.1923737667335" atv="-8.635755912521892" />
+			<point ath="-177.57702495127077" atv="-8.488401584195232" />
+			<point ath="-177.06565591338423" atv="-8.537650189286097" />
+			<point ath="-176.2452114055801" atv="-8.585305245943452" />
+			<point ath="-175.93742550247075" atv="-8.485439285182604" />
+			<point ath="-175.37521739301485" atv="-8.437820863654455" />
+			<point ath="-175.08895802199237" atv="-8.450134015810178" />
+			<point ath="-174.52442554449226" atv="-8.198410957599311" />
+			<point ath="-174.01080569076998" atv="-7.846842589528944" />
+			<point ath="-173.44652477320696" atv="-7.393583651280955" />
+			<point ath="-172.72826266723303" atv="-6.937661415338337" />
+			<point ath="-172.51737070070342" atv="-5.984445756255631" />
+			<point ath="-172.46342525289836" atv="-5.581808977587279" />
+			<point ath="-171.6430206841027" atv="-5.120949851537728" />
+			<point ath="-171.28452233570562" atv="-4.915882801370166" />
+			<point ath="-170.56994416818276" atv="-4.656685022678303" />
+			<point ath="-170.15874743104035" atv="-4.147998298435375" />
+			<point ath="-170.00127493281786" atv="-3.693099455379496" />
+			<point ath="-169.63715644777528" atv="-3.089637905715411" />
+			<point ath="-169.37601630173157" atv="-2.4279168638553394" />
+			<point ath="-169.36708711676155" atv="-1.561603973174032" />
+			<point ath="-169.3597195652943" atv="-0.84624578074607" />
+			<point ath="-169.2517780488785" atv="-0.23181398063836112" />
+			<point ath="-169.2422518334449" atv="0.6397593983174452" />
+			<point ath="-169.33457531318223" atv="1.564957981257" />
+			<point ath="-169.47925144594797" atv="2.2349066670932434" />
+			<point ath="-169.52533083811545" atv="2.7504098436281" />
+			<point ath="-169.72681257526875" atv="3.0611839219076824" />
+			<point ath="-169.92769744620034" atv="3.4754735982242893" />
+			<point ath="-170.07583382373815" atv="4.096172252548713" />
+			<point ath="-170.4285056821193" atv="4.874364209839488" />
+			<point ath="-170.78196338821175" atv="5.704880193109089" />
+			<point ath="-171.39903367687234" atv="6.022258948680677" />
+			<point ath="-171.8593469394931" atv="6.80307644757394" />
+			<point ath="-172.58342943771572" atv="7.225091591411962" />
+			<point ath="-170.923805474907" atv="7.3064217673381435" />
+			<point ath="-168.27991003537903" atv="9.45459226183125" />
+			<point ath="-168.2892774221716" atv="13.142319496151169" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_3" title="03" onstart="delayedcall(0.1,tweenlookat(180,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/03.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/03.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_3">
+			<cube url="panos/03.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/03_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_3">
+			<cube url="panos/03.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/03_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_4" title="04" onstart="delayedcall(0.1,tweenlookat(-135,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/04.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/04.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_4">
+			<cube url="panos/04.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/04_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_4">
+			<cube url="panos/04.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/04_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_5" title="05" onstart="delayedcall(0.1,tweenlookat(-90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/05.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/05.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_5">
+			<cube url="panos/05.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/05_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_5">
+			<cube url="panos/05.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/05_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_6" title="06" onstart="delayedcall(0.1,tweenlookat(-45,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/06.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/06.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_6">
+			<cube url="panos/06.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/06_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_6">
+			<cube url="panos/06.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/06_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_7" title="07" onstart="delayedcall(0.1,tweenlookat(0,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/07.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/07.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_7">
+			<cube url="panos/07.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/07_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_7">
+			<cube url="panos/07.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/07_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_8" title="08" onstart="delayedcall(0.1,tweenlookat(45,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/08.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/08.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_8">
+			<cube url="panos/08.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/08_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_8">
+			<cube url="panos/08.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/08_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_9" title="09" onstart="delayedcall(0.1,tweenlookat(90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/09.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/09.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_9">
+			<cube url="panos/09.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/09_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_9">
+			<cube url="panos/09.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/09_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_10" title="10" onstart="delayedcall(0.1,tweenlookat(135,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/10.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/10.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_10">
+			<cube url="panos/10.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/10_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_10">
+			<cube url="panos/10.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/10_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_11" title="11" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/11.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/11.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_11">
+			<cube url="panos/11.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/11_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_11">
+			<cube url="panos/11.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/11_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="290.53" ty="95" tz="+67.5" keep="false" visible="true" enabled="true" linkedscene="scene_24"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="178.52" ty="84.5" tz="+358" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-290.53" ty="95" tz="+67.5" keep="false" visible="true" enabled="true" linkedscene="scene_25"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-178.52" ty="84.5" tz="+358" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="-9.526450648659079" atv="13.556141594881142" />
+			<point ath="-9.405709503931064" atv="9.769396858697712" />
+			<point ath="-7.2780939654547865" atv="7.627511412694997" />
+			<point ath="-2.7726510155306983" atv="7.6917501127077585" />
+			<point ath="-2.8170103649001703" atv="7.4338260523973005" />
+			<point ath="-2.803129745774754" atv="6.920391676392879" />
+			<point ath="-2.77274569618271" atv="5.792709213818094" />
+			<point ath="-3.022003385201117" atv="5.584171044512793" />
+			<point ath="-3.2662511564695365" atv="5.222783738450629" />
+			<point ath="-3.4141409859880696" atv="5.067516817533255" />
+			<point ath="-3.7596965964105493" atv="4.756794550310814" />
+			<point ath="-4.053454983297627" atv="4.447543107535764" />
+			<point ath="-4.163778165891756" atv="4.750973927801733" />
+			<point ath="-4.176462763557083" atv="5.2079260715604345" />
+			<point ath="-4.19243456055699" atv="5.717192414596346" />
+			<point ath="-4.159393013341003" atv="6.279152434142614" />
+			<point ath="-4.1278230667186335" atv="6.8931121260485995" />
+			<point ath="-4.091344442152661" atv="7.354468544929138" />
+			<point ath="-4.243879854626698" atv="7.351002003614748" />
+			<point ath="-4.857662681372005" atv="7.489781104344054" />
+			<point ath="-5.004322318710251" atv="7.33295089849088" />
+			<point ath="-5.152446007347692" atv="7.22724210207089" />
+			<point ath="-5.195906141012188" atv="7.0221743448282" />
+			<point ath="-5.286155917590236" atv="6.714256840781668" />
+			<point ath="-5.211169106062357" atv="6.003235482139654" />
+			<point ath="-5.194914688791641" atv="4.076239848910674" />
+			<point ath="-5.325439500235689" atv="3.519191263601993" />
+			<point ath="-5.466035553508732" atv="3.265632620086773" />
+			<point ath="-5.60621903639543" atv="3.1132954483125093" />
+			<point ath="-5.694567248195767" atv="2.81105040331864" />
+			<point ath="-5.969410398134755" atv="2.2076001128895197" />
+			<point ath="-6.096844734388981" atv="1.6578307569340722" />
+			<point ath="-6.219932147229315" atv="1.0109649000793102" />
+			<point ath="-6.246318913066489" atv="0.4166609764632329" />
+			<point ath="-6.2236844753157925" atv="-0.17538763067705695" />
+			<point ath="-6.249963285633839" atv="-0.7651124922367323" />
+			<point ath="-6.182400666184378" atv="-1.2550615629037336" />
+			<point ath="-5.959606144076531" atv="-1.9880924236813515" />
+			<point ath="-5.5877636179902765" atv="-2.81652862680158" />
+			<point ath="-5.322283042575862" atv="-3.445223593385867" />
+			<point ath="-4.617148733309875" atv="-4.07966442981335" />
+			<point ath="-3.5624931309179146" atv="-4.90921713511931" />
+			<point ath="-2.709041911619522" atv="-5.542304331037553" />
+			<point ath="-1.8600089276412177" atv="-5.983045637747394" />
+			<point ath="-0.6695939720091246" atv="-6.14167283622191" />
+			<point ath="1.0696667189525897" atv="-6.064904936526168" />
+			<point ath="1.9664633288651885" atv="-5.880684668884678" />
+			<point ath="3.1657686111133785" atv="-5.503238515380751" />
+			<point ath="3.9653664646509696" atv="-4.780708558688902" />
+			<point ath="4.668792959852283" atv="-4.1491682392347755" />
+			<point ath="5.32388321814949" atv="-3.069964517278325" />
+			<point ath="5.525523154788402" atv="-2.1294413099293674" />
+			<point ath="5.7284710360765985" atv="-1.2820526175232532" />
+			<point ath="5.9325226036083905" atv="-0.42947419864506586" />
+			<point ath="5.881043040455893" atv="0.47850703241699316" />
+			<point ath="5.829415307350246" atv="1.0866204714748675" />
+			<point ath="5.7259778500787775" atv="1.7987082463815829" />
+			<point ath="5.518608813436174" atv="2.6156925109271816" />
+			<point ath="5.361688963055144" atv="3.58986486729201" />
+			<point ath="5.153170928638588" atv="4.052550408341679" />
+			<point ath="4.944404444670795" atv="4.4128498125709905" />
+			<point ath="4.785844312336451" atv="5.135019649043348" />
+			<point ath="4.62702250699482" atv="5.755183208973454" />
+			<point ath="4.467602460679018" atv="6.376280801629396" />
+			<point ath="4.311120416726226" atv="6.323975604001094" />
+			<point ath="4.206648725750654" atv="6.323631194644878" />
+			<point ath="4.102188853582447" atv="6.323265973471613" />
+			<point ath="3.997741492531418" atv="6.322879951311393" />
+			<point ath="3.7888870704997544" atv="6.322045550415541" />
+			<point ath="3.6322842371060347" atv="6.321365236712918" />
+			<point ath="3.5818062637740127" atv="6.114268714741243" />
+			<point ath="3.5314220633703144" atv="5.9073544541574945" />
+			<point ath="3.377234929119197" atv="5.648140774109337" />
+			<point ath="3.2228868046565253" atv="5.440782770878875" />
+			<point ath="3.2236441401795446" atv="5.389299508641246" />
+			<point ath="3.121579511974687" atv="5.182394232886622" />
+			<point ath="3.07060436352333" atv="5.079000202617401" />
+			<point ath="2.759126829602451" atv="5.077502817084979" />
+			<point ath="2.4452057843727744" atv="5.28165722677797" />
+			<point ath="2.4416892039508866" atv="5.591269833115715" />
+			<point ath="2.386166097762384" atv="5.90082370960469" />
+			<point ath="2.3317520279106816" atv="6.107197279412856" />
+			<point ath="2.3269016332837396" atv="6.5209532352676005" />
+			<point ath="2.2672237560532835" atv="7.141740297128028" />
+			<point ath="2.2635302750411483" atv="7.452726882876164" />
+			<point ath="6.718187736816844" atv="7.624091091814658" />
+			<point ath="8.887303280795152" atv="9.746404087161173" />
+			<point ath="9.03121461839305" atv="13.798471191412286" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_12" title="12" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/12.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/12.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_12">
+			<cube url="panos/12.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/12_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_12">
+			<cube url="panos/12.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/12_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="54.4" tz="-415.5" keep="false" visible="true" enabled="true" linkedscene="scene_25"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="+240" keep="false" visible="true" enabled="true" linkedscene="scene_21"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot6" style="visual_floorspot" tx="-250" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_28"/>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="82.55888539103523" atv="13.340523637709927" />
+			<point ath="84.77849698882324" atv="9.325581861030587" />
+			<point ath="87.50204181330656" atv="9.415338986176554" />
+			<point ath="85.54514937284449" atv="6.901704544824963" />
+			<point ath="85.2031873015925" atv="5.500916484047724" />
+			<point ath="85.11510940390531" atv="4.519449957343324" />
+			<point ath="85.13114931211345" atv="3.489951413942607" />
+			<point ath="85.35232164791364" atv="2.464605054705481" />
+			<point ath="85.51454949109063" atv="1.9020839990378329" />
+			<point ath="85.21020254456073" atv="1.6966935350331984" />
+			<point ath="84.90734020699483" atv="1.440665515462524" />
+			<point ath="84.607821771327" atv="1.032534745977662" />
+			<point ath="84.41904941899645" atv="0.16957364423760624" />
+			<point ath="84.28376687179406" atv="-0.7896856481211507" />
+			<point ath="84.24668915699021" atv="-1.543118731543524" />
+			<point ath="84.30891293201523" atv="-2.1935752794423298" />
+			<point ath="84.50405161884476" atv="-4.211314052301252" />
+			<point ath="85.18636773786363" atv="-5.972675563917362" />
+			<point ath="85.85590044818247" atv="-7.18370589365913" />
+			<point ath="86.61680740126906" atv="-7.95575853250707" />
+			<point ath="87.22597330233816" atv="-8.720312532489666" />
+			<point ath="87.88246817907856" atv="-9.385309032807516" />
+			<point ath="89.33862982611709" atv="-10.421870721499362" />
+			<point ath="90.7381282765974" atv="-10.981190122679173" />
+			<point ath="92.08453092484538" atv="-11.255670630204264" />
+			<point ath="92.98066237297382" atv="-11.388881504257126" />
+			<point ath="93.77681674316977" atv="-11.382716346466145" />
+			<point ath="94.92093345256959" atv="-11.232785066620083" />
+			<point ath="95.46892623428568" atv="-11.04191149648321" />
+			<point ath="95.9671566437355" atv="-10.850664009568321" />
+			<point ath="96.81456141830625" atv="-10.468002493161029" />
+			<point ath="97.41432904076655" atv="-10.087276753400722" />
+			<point ath="98.11361183250128" atv="-9.65616524837056" />
+			<point ath="98.41921165688052" atv="-9.184351354907447" />
+			<point ath="98.82385738286496" atv="-8.708396188428924" />
+			<point ath="99.18278762683514" atv="-8.09000830101221" />
+			<point ath="99.80387538869749" atv="-6.845321986212752" />
+			<point ath="100.53226066835208" atv="-5.345898387822803" />
+			<point ath="100.87788170262067" atv="-3.4941253641427004" />
+			<point ath="101.18358013600363" atv="-1.3714487992914457" />
+			<point ath="101.26909250243125" atv="-0.07543497212904003" />
+			<point ath="101.25792565844344" atv="1.3304625206154013" />
+			<point ath="101.19088843779548" atv="2.543581449018975" />
+			<point ath="101.07041656442456" atv="3.6101679832643545" />
+			<point ath="100.65240077786402" atv="5.0445801162548385" />
+			<point ath="100.41504465157678" atv="5.71411532923975" />
+			<point ath="99.33806218873085" atv="7.8420955581280785" />
+			<point ath="98.98816695466348" atv="8.364873018721713" />
+			<point ath="98.31549722374618" atv="8.37773965055687" />
+			<point ath="97.10967511143684" atv="7.724511593356578" />
+			<point ath="96.31793629475979" atv="6.957228451392408" />
+			<point ath="95.26554529896592" atv="6.033990307174317" />
+			<point ath="94.92295029826798" atv="8.165386159873151" />
+			<point ath="94.73529782613738" atv="10.40208612619999" />
+			<point ath="94.82915544892529" atv="9.25782941256048" />
+			<point ath="101.32118005991458" atv="9.132178083274498" />
+			<point ath="105.96664776113406" atv="13.249955660286357" />
+			<point ath="105.95310459604002" atv="17.828764037418843" />
+			<point ath="82.54090540864081" atv="18.41496369419339" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="128.71364473698506" atv="10.286591671755517" />
+			<point ath="128.6234786056059" atv="7.319788425354545" />
+			<point ath="135.6883714476876" atv="6.5186909206393615" />
+			<point ath="135.77428967926443" atv="5.119564939176648" />
+			<point ath="135.61948382590649" atv="5.172517294011582" />
+			<point ath="135.41331395220178" atv="5.277617453682892" />
+			<point ath="135.20572494590422" atv="5.279160517972025" />
+			<point ath="135.10188533815108" atv="5.279906528483613" />
+			<point ath="134.8421601351747" atv="5.281696941980462" />
+			<point ath="134.68571585985012" atv="5.230906005653427" />
+			<point ath="134.57867871198175" atv="4.920744415217898" />
+			<point ath="134.36744530116746" atv="4.5594697164318445" />
+			<point ath="134.0500309601298" atv="3.888447609962099" />
+			<point ath="133.78652350484327" atv="3.372776613323103" />
+			<point ath="133.67866493086788" atv="2.857652399833815" />
+			<point ath="133.4841343844451" atv="2.5643465664035414" />
+			<point ath="133.11674808506163" atv="1.7422926221995083" />
+			<point ath="132.95761951144306" atv="1.0247150919113466" />
+			<point ath="132.85082111312988" atv="0.3603148011728052" />
+			<point ath="132.84832289191732" atv="-0.09844182924343138" />
+			<point ath="132.84555400467016" atv="-0.6068845308789899" />
+			<point ath="132.9445379375339" atv="-1.2656312071961926" />
+			<point ath="133.09651711195608" atv="-1.56866208648187" />
+			<point ath="133.29639273823406" atv="-2.323726791163072" />
+			<point ath="133.59927792011132" atv="-2.8244806882934403" />
+			<point ath="133.89997979532077" atv="-3.472651152480431" />
+			<point ath="134.65791699425458" atv="-3.966515172580043" />
+			<point ath="134.95907695477166" atv="-4.262044977669604" />
+			<point ath="135.56176892536084" atv="-4.653121452827748" />
+			<point ath="136.01431764354652" atv="-4.79744200427474" />
+			<point ath="136.16494516519063" atv="-4.845398976480115" />
+			<point ath="136.19571830851518" atv="12.020753024062865" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_13" title="13" onstart="delayedcall(0.1,tweenlookat(180,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/13.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/13.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_13">
+			<cube url="panos/13.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/13_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_13">
+			<cube url="panos/13.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/13_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_14" title="14" onstart="delayedcall(0.1,tweenlookat(-135,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/14.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/14.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_14">
+			<cube url="panos/14.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/14_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_14">
+			<cube url="panos/14.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/14_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_15" title="15" onstart="delayedcall(0.1,tweenlookat(-90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/15.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/15.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_15">
+			<cube url="panos/15.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/15_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_15">
+			<cube url="panos/15.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/15_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_16" title="16" onstart="delayedcall(0.1,tweenlookat(-45,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/16.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/16.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_16">
+			<cube url="panos/16.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/16_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_16">
+			<cube url="panos/16.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/16_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_17" title="17" onstart="delayedcall(0.1,tweenlookat(0,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/17.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/17.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_17">
+			<cube url="panos/17.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/17_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_17">
+			<cube url="panos/17.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/17_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_18" title="18" onstart="delayedcall(0.1,tweenlookat(45,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/18.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/18.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_18">
+			<cube url="panos/18.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/18_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_18">
+			<cube url="panos/18.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/18_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_19" title="19" onstart="delayedcall(0.1,tweenlookat(90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/19.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/19.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_19">
+			<cube url="panos/19.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/19_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_19">
+			<cube url="panos/19.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/19_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_20" title="20" onstart="delayedcall(0.1,tweenlookat(135,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/20.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/20.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_20">
+			<cube url="panos/20.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/20_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_20">
+			<cube url="panos/20.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/20_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_21" title="21" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/21.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/21.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_21">
+			<cube url="panos/21.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/21_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_21">
+			<cube url="panos/21.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/21_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="-434" ty="62.9" tz="+5.3" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-290.53" ty="95" tz="67.5" keep="false" visible="true" enabled="true" linkedscene="scene_2"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="-190" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="-159.33091445343535" atv="6.484776803526195" />
+			<point ath="-159.27175223944414" atv="4.639191937030703" />
+			<point ath="-155.14891134536697" atv="4.572625487439313" />
+			<point ath="-154.9921894420657" atv="4.10695505233977" />
+			<point ath="-154.8881471579578" atv="4.003738926554512" />
+			<point ath="-154.9913050082729" atv="3.6919480323650635" />
+			<point ath="-154.99064193196799" atv="3.3805525901567504" />
+			<point ath="-155.14592896855717" atv="3.224175947812706" />
+			<point ath="-155.30231595164912" atv="3.5867108392700553" />
+			<point ath="-155.61366782521256" atv="3.74070001329575" />
+			<point ath="-155.92438376030623" atv="3.7389692208170158" />
+			<point ath="-156.0790734514357" atv="3.530810570533895" />
+			<point ath="-156.07809743306314" atv="3.168005469187075" />
+			<point ath="-156.28404527663633" atv="2.8559788252887714" />
+			<point ath="-156.3862044101078" atv="2.4408319186299763" />
+			<point ath="-156.48843459351107" atv="2.0775780410946676" />
+			<point ath="-156.59043757367044" atv="1.6625864252507399" />
+			<point ath="-156.69251581622797" atv="1.2995578565664794" />
+			<point ath="-156.79404410876117" atv="0.7812939175311607" />
+			<point ath="-156.84413606223876" atv="0.31516735001267515" />
+			<point ath="-156.89451603276635" atv="-0.047191816267245355" />
+			<point ath="-156.89387321978427" atv="-0.2541767653903744" />
+			<point ath="-156.89258800425273" atv="-0.6679892178540814" />
+			<point ath="-156.68521602679476" atv="-1.1336539998244322" />
+			<point ath="-156.4777917246779" atv="-1.599271637284176" />
+			<point ath="-156.37384136147523" atv="-1.909508042964765" />
+			<point ath="-156.06322363033013" atv="-2.3752397538513024" />
+			<point ath="-155.6590322797706" atv="-2.53182222529792" />
+			<point ath="-155.40036164637084" atv="-2.687646654608755" />
+			<point ath="-154.98574519499383" atv="-3.153668614259082" />
+			<point ath="-154.67595461261655" atv="-3.1551956898760816" />
+			<point ath="-154.13565049245602" atv="-3.312227888156258" />
+			<point ath="-153.32518855728017" atv="-3.417761176756043" />
+			<point ath="-153.01375527863772" atv="-3.36673074201528" />
+			<point ath="-152.39063563216297" atv="-3.1092030698345208" />
+			<point ath="-151.9230230101166" atv="-2.8509199710585027" />
+			<point ath="-151.09121838324452" atv="-2.3849818605463815" />
+			<point ath="-150.83114708986318" atv="-2.0220162388883525" />
+			<point ath="-150.72704814475804" atv="-1.7631111867047804" />
+			<point ath="-150.51879962390336" atv="-1.3073621648890332" />
+			<point ath="-150.25847999754166" atv="-0.891517960587777" />
+			<point ath="-150.20602632925676" atv="-0.11137295134157701" />
+			<point ath="-150.20580795458588" atv="0.24868030562928506" />
+			<point ath="-150.30967102144976" atv="0.8735098948723933" />
+			<point ath="-150.41368900678074" atv="1.2380896496504878" />
+			<point ath="-150.4136293855749" atv="1.4167856151088203" />
+			<point ath="-150.41354868478084" atv="1.6771781633910459" />
+			<point ath="-150.46556617867145" atv="1.9375774095709446" />
+			<point ath="-150.46542532326635" atv="2.406169073222417" />
+			<point ath="-150.51749208751212" atv="2.5623658327867074" />
+			<point ath="-150.62168517165733" atv="2.7185741677529567" />
+			<point ath="-150.9344275310647" atv="2.666659130167587" />
+			<point ath="-150.93442921339846" atv="2.718670461376255" />
+			<point ath="-150.88230190777762" atv="2.8561096247049003" />
+			<point ath="-150.88228787431896" atv="2.96017260905789" />
+			<point ath="-150.88226726867873" atv="3.220197857023331" />
+			<point ath="-150.88223390205602" atv="3.480190804508438" />
+			<point ath="-150.8822072049134" atv="3.6881123434140926" />
+			<point ath="-150.88217382867853" atv="3.9479143135011125" />
+			<point ath="-151.03858245073698" atv="4.103804166630079" />
+			<point ath="-151.19501498804271" atv="4.103839734955601" />
+			<point ath="-151.35144741103045" atv="3.999964544344888" />
+			<point ath="-151.507862366718" atv="3.792122113280131" />
+			<point ath="-151.50784901672762" atv="3.5842311007824974" />
+			<point ath="-151.5078256583564" atv="3.2202616996890527" />
+			<point ath="-151.4556856252939" atv="3.0122057635322412" />
+			<point ath="-151.45567061414738" atv="2.70001041018362" />
+			<point ath="-151.45566561107222" atv="2.595922034151586" />
+			<point ath="-151.5077756223194" atv="2.4397629639108307" />
+			<point ath="-151.82050380018268" atv="2.6478680208470573" />
+			<point ath="-151.97689409620358" atv="2.855933037581314" />
+			<point ath="-151.97702420032988" atv="3.4800399184319595" />
+			<point ath="-151.97712181121574" atv="3.947743220477797" />
+			<point ath="-151.9771652028572" atv="4.155489250521105" />
+			<point ath="-151.9771760516356" atv="4.2074130288388085" />
+			<point ath="-151.35145241880704" atv="4.311543570975885" />
+			<point ath="-147.65316740828044" atv="4.92416072910866" />
+			<point ath="-147.5986827964172" atv="7.141521881356681" />
+			<point ath="-155.83143631932145" atv="7.646972009864605" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="-144.21248630406035" atv="10.825954852814373" />
+			<point ath="-144.19066215469633" atv="7.82040620096831" />
+			<point ath="-140.2016638116901" atv="7.368154465230863" />
+			<point ath="-140.20295144334713" atv="4.816370117169402" />
+			<point ath="-140.62069608971876" atv="4.244075410804054" />
+			<point ath="-140.93327002385846" atv="3.5161374931131903" />
+			<point ath="-141.34918368735165" atv="2.8927715038482518" />
+			<point ath="-141.50353348270292" atv="1.9596350958473818" />
+			<point ath="-142.0182582083121" atv="0.35844026762948716" />
+			<point ath="-142.11906425598713" atv="-0.5155876818439594" />
+			<point ath="-142.1161896810764" atv="-1.437515793902244" />
+			<point ath="-141.90776062220885" atv="-2.202928822406487" />
+			<point ath="-141.648918960636" atv="-2.762473196557333" />
+			<point ath="-140.670981293573" atv="-4.5271840096400044" />
+			<point ath="-140.15847219531815" atv="-5.028159539334812" />
+			<point ath="-140.09145347598206" atv="11.934857885802238" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_22" title="22" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/22.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/22.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_22">
+			<cube url="panos/22.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/22_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_22">
+			<cube url="panos/22.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/22_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_21"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="54.4" tz="-415.5" keep="false" visible="true" enabled="true" linkedscene="scene_24"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="hs9" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="-101.26973018634487" atv="17.807182294782457" />
+			<point ath="-101.10247273851991" atv="12.916146599106298" />
+			<point ath="-97.86632412578808" atv="9.25749294201359" />
+			<point ath="-91.58710814693467" atv="9.35328299459232" />
+			<point ath="-91.7268205241511" atv="8.63098427971126" />
+			<point ath="-91.9748300622943" atv="8.217877963654825" />
+			<point ath="-92.05926140368734" atv="7.460908468919685" />
+			<point ath="-92.4569334626276" atv="6.894734325427006" />
+			<point ath="-93.41435082191828" atv="7.951489118641971" />
+			<point ath="-93.51665510847852" atv="7.948836559616756" />
+			<point ath="-93.83020675621196" atv="8.096360645051533" />
+			<point ath="-94.44622024326219" atv="8.084527860528919" />
+			<point ath="-94.71555861938208" atv="8.435882664381099" />
+			<point ath="-95.70374380213616" atv="8.818946852316623" />
+			<point ath="-95.89284237086139" atv="8.457859508482654" />
+			<point ath="-96.43632832425294" atv="8.08880766134452" />
+			<point ath="-96.7670536764561" atv="7.624280698221626" />
+			<point ath="-97.19609071646329" atv="7.10933135987792" />
+			<point ath="-97.56449635065707" atv="6.447502809692247" />
+			<point ath="-97.78586444589865" atv="5.89214236300739" />
+			<point ath="-98.06048407213478" atv="5.437688814371161" />
+			<point ath="-98.33344598150177" atv="4.985174108696968" />
+			<point ath="-98.49845957042328" atv="4.388261021700289" />
+			<point ath="-98.56983375591619" atv="3.8940609145379437" />
+			<point ath="-98.77647674543965" atv="3.2040324114495444" />
+			<point ath="-98.90712303909226" atv="0.8160707750019901" />
+			<point ath="-98.93122024306399" atv="0.12120958368830283" />
+			<point ath="-98.90815650872185" atv="-0.5215241928486902" />
+			<point ath="-98.87107262349838" atv="-1.5546236675635194" />
+			<point ath="-98.6831823182178" atv="-2.728361276529298" />
+			<point ath="-98.2836822884409" atv="-4.426455989638166" />
+			<point ath="-97.79807562385633" atv="-5.869462306914364" />
+			<point ath="-97.43960887469314" atv="-6.446252020372182" />
+			<point ath="-97.13002342572429" atv="-7.019827238864815" />
+			<point ath="-96.36486078749454" atv="-8.210144105880257" />
+			<point ath="-95.5682338880622" atv="-8.83501919039992" />
+			<point ath="-95.06396561407712" atv="-9.449400360091532" />
+			<point ath="-94.11667768558283" atv="-10.208920503881581" />
+			<point ath="-93.17409105554458" atv="-10.734196343022" />
+			<point ath="-91.83837419479846" atv="-11.172041605580514" />
+			<point ath="-90.7005555819224" atv="-11.373447583828447" />
+			<point ath="-89.81167910026466" atv="-11.346568523454508" />
+			<point ath="-88.32424815578133" atv="-11.178258654785559" />
+			<point ath="-87.67905008052867" atv="-10.907093137496467" />
+			<point ath="-86.8828440116169" atv="-10.633827473016167" />
+			<point ath="-86.1370570868695" atv="-10.224345012253522" />
+			<point ath="-85.13600796528237" atv="-9.47744956652136" />
+			<point ath="-84.17870365586748" atv="-8.2964019052805" />
+			<point ath="-83.77378472752468" atv="-7.771570052512005" />
+			<point ath="-83.26323356569748" atv="-6.763099577243344" />
+			<point ath="-82.65135224972056" atv="-5.938277599829283" />
+			<point ath="-82.54288110182671" atv="-5.208171591649896" />
+			<point ath="-82.27789096427364" atv="-4.079277628336029" />
+			<point ath="-81.85858419836592" atv="-2.8902177656011068" />
+			<point ath="-81.69304335535503" atv="-1.842552975520563" />
+			<point ath="-81.47360240520743" atv="-0.6366253291855278" />
+			<point ath="-81.41579654740008" atv="-0.13172178888071398" />
+			<point ath="-81.35714275506552" atv="0.42526065798700685" />
+			<point ath="-81.60493209111337" atv="1.0351393642560145" />
+			<point ath="-81.80617658377389" atv="1.34108081583272" />
+			<point ath="-82.41317694597348" atv="2.2111681218479697" />
+			<point ath="-82.87468396268179" atv="2.4686519825305386" />
+			<point ath="-82.6125627444336" atv="2.8785910333507085" />
+			<point ath="-82.55512397592281" atv="3.4440341568107833" />
+			<point ath="-82.55029005270012" atv="3.8552259506105675" />
+			<point ath="-82.43594084857261" atv="4.887394098703349" />
+			<point ath="-82.53556580389517" atv="5.301861040627994" />
+			<point ath="-82.58182037812452" atv="5.871924912813303" />
+			<point ath="-82.52444530844559" atv="6.390057098378984" />
+			<point ath="-82.52019135714369" atv="6.805149407704305" />
+			<point ath="-82.52019135714369" atv="6.805149407704305" />
+			<point ath="-82.98931575280056" atv="6.91237851615595" />
+			<point ath="-83.35449798396428" atv="7.018633157267109" />
+			<point ath="-83.56074112894959" atv="7.435716358275257" />
+			<point ath="-83.81708853048883" atv="8.426272427779612" />
+			<point ath="-84.6027772639572" atv="9.211166456552053" />
+			<point ath="-81.97123312478533" atv="9.190515946911962" />
+			<point ath="-78.23968170446142" atv="12.788144550662079" />
+			<point ath="-78.01829498482317" atv="17.92532781766143" />
+		</hotspot>
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="-131.72357842743526" atv="3.4315983569004413" />
+			<point ath="-131.56705431226987" atv="3.2237154016964453" />
+			<point ath="-131.35838809961254" atv="2.963749168286937" />
+			<point ath="-131.2019555383083" atv="2.85979382440084" />
+			<point ath="-131.1497751258948" atv="2.755717504665854" />
+			<point ath="-130.99337422922025" atv="2.7037710730123954" />
+			<point ath="-130.94139815425834" atv="3.0682343293556658" />
+			<point ath="-130.9936509415689" atv="3.3284337816679654" />
+			<point ath="-130.99372014834213" atv="3.4845462740606097" />
+			<point ath="-130.99383551847706" atv="3.7446750629975813" />
+			<point ath="-130.99390165676454" atv="3.952639514811938" />
+			<point ath="-130.9940136231576" atv="4.212592347124057" />
+			<point ath="-130.88971729786954" atv="4.316651950177475" />
+			<point ath="-130.78537133197295" atv="4.31674467323479" />
+			<point ath="-130.57665643006212" atv="4.2649090363960775" />
+			<point ath="-130.36793045084312" atv="4.109030506240196" />
+			<point ath="-130.31574367591787" atv="3.9530429328210643" />
+			<point ath="-130.31572409538342" atv="3.6930325310748997" />
+			<point ath="-130.31570246039544" atv="3.4328619761287467" />
+			<point ath="-130.36777337667547" atv="2.6519665403407275" />
+			<point ath="-130.31561165873126" atv="2.3395080088302604" />
+			<point ath="-130.26346985593756" atv="2.0790957922060835" />
+			<point ath="-130.26344969896888" atv="1.7144908276036879" />
+			<point ath="-130.26342667197673" atv="1.2978037439657912" />
+			<point ath="-130.26339502647215" atv="0.7249444543947997" />
+			<point ath="-130.26335477816522" atv="-0.0038405797782931957" />
+			<point ath="-130.26332892067393" atv="-0.47206209224444595" />
+			<point ath="-130.41933371893606" atv="-1.5113928733276725" />
+			<point ath="-130.52332299117094" atv="-1.7709014248133679" />
+			<point ath="-130.67924127166668" atv="-2.185788874867382" />
+			<point ath="-130.88702636648316" atv="-2.7037535471320084" />
+			<point ath="-131.14669159885847" atv="-3.1174636491339998" />
+			<point ath="-131.35442461842095" atv="-3.2723194859397555" />
+			<point ath="-131.51000483180175" atv="-3.6336424466982846" />
+			<point ath="-131.6657125027773" atv="-3.736603808042666" />
+			<point ath="-131.97715745323606" atv="-3.787598200272532" />
+			<point ath="-131.93990567910498" atv="11.661303236443024" />
+			<point ath="-126.13442963136458" atv="10.4750756710847" />
+			<point ath="-126.40124307285836" atv="7.409555160113667" />
+			<point ath="-131.72643697798816" atv="6.854925743859211" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_23" title="23" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/23.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/23.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_23">
+			<cube url="panos/23.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/23_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_23">
+			<cube url="panos/23.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/23_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_24"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_25"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="+447" keep="false" visible="true" enabled="true" linkedscene="scene_21"/>
+		
+		<hotspot name="hs7" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="-96.97838060224689" atv="12.965405304725016" />
+			<point ath="-96.97640417599371" atv="18.027857564036402" />
+			<point ath="-74.32792351868068" atv="17.66441357754267" />
+			<point ath="-74.34505846575968" atv="12.696854788667654" />
+			<point ath="-78.81288719908605" atv="9.105450965776496" />
+			<point ath="-82.9236485571792" atv="9.141501851885158" />
+			<point ath="-82.70877598116863" atv="8.623426563038485" />
+			<point ath="-82.70558479798734" atv="8.259420547783275" />
+			<point ath="-82.64909127314576" atv="7.791872611216448" />
+			<point ath="-82.48549620258575" atv="7.013275337804662" />
+			<point ath="-82.2730693207277" atv="6.598875919055786" />
+			<point ath="-81.8527509778637" atv="6.2893267147848695" />
+			<point ath="-81.22287123449678" atv="5.772393562910987" />
+			<point ath="-80.85588893235939" atv="5.462047956655597" />
+			<point ath="-80.64783664644813" atv="5.722064667664853" />
+			<point ath="-80.02061415569358" atv="5.671037479265581" />
+			<point ath="-79.70699741476284" atv="5.619302178809146" />
+			<point ath="-79.55019771755246" atv="5.463570806667712" />
+			<point ath="-79.5501035163291" atv="4.789177883995309" />
+			<point ath="-79.55006737549309" atv="4.530079458780005" />
+			<point ath="-79.55001686240746" atv="4.167635477971613" />
+			<point ath="-79.44595338013858" atv="3.8055600432919388" />
+			<point ath="-79.1863548195384" atv="3.288957638044634" />
+			<point ath="-78.92764269754173" atv="2.670191796919662" />
+			<point ath="-78.7730163458994" atv="2.2070625238247157" />
+			<point ath="-78.51577549884757" atv="1.5909054322905622" />
+			<point ath="-78.5173935287674" atv="0.9765598601400259" />
+			<point ath="-78.4676344004792" atv="0.3130457839341286" />
+			<point ath="-78.46932589725992" atv="-0.29739830853346694" />
+			<point ath="-78.42190940384438" atv="-1.6110398657600773" />
+			<point ath="-78.62862419083837" atv="-2.364873990450243" />
+			<point ath="-78.83387972031409" atv="-2.765418061553754" />
+			<point ath="-79.2429533993976" atv="-3.3641006582068753" />
+			<point ath="-79.44702133907901" atv="-3.811272444186234" />
+			<point ath="-79.80296912571703" atv="-4.552957381230994" />
+			<point ath="-80.31016513315569" atv="-5.044507551426218" />
+			<point ath="-80.66367976425107" atv="-5.5826519827644905" />
+			<point ath="-81.06748078126594" atv="-5.92311489997747" />
+			<point ath="-81.52144132693235" atv="-6.1647965093947805" />
+			<point ath="-82.07444036318554" atv="-6.550158084822722" />
+			<point ath="-82.57624511240249" atv="-6.837085327988676" />
+			<point ath="-83.02696350049797" atv="-7.074725071369759" />
+			<point ath="-83.42749075190937" atv="-7.215624145517219" />
+			<point ath="-83.67683065892925" atv="-7.357260353848581" />
+			<point ath="-84.17567764023192" atv="-7.543688814441582" />
+			<point ath="-84.97297092413959" atv="-7.725207036281197" />
+			<point ath="-85.5690030537566" atv="-7.8598400987364805" />
+			<point ath="-85.66858293778967" atv="-7.85839364002345" />
+			<point ath="-86.3149145106749" atv="-7.848435384086286" />
+			<point ath="-86.76136586235566" atv="-7.840980448851919" />
+			<point ath="-87.69815029149362" atv="-7.822793321115201" />
+			<point ath="-88.19309420427612" atv="-7.718299994905011" />
+			<point ath="-88.93352638992457" atv="-7.560821822876268" />
+			<point ath="-89.42968299243608" atv="-7.313472189599201" />
+			<point ath="-89.97795741998527" atv="-6.92240147465351" />
+			<point ath="-90.86728402290106" atv="-6.475463965787648" />
+			<point ath="-91.47253407821455" atv="-5.748484458099083" />
+			<point ath="-91.9220350435483" atv="-5.408123797846537" />
+			<point ath="-92.48327246939408" atv="-4.534930255297193" />
+			<point ath="-92.90271926186551" atv="-3.6634492712446276" />
+			<point ath="-93.17912994399342" atv="-2.690704564946728" />
+			<point ath="-93.52293186194578" atv="-1.2235595950588247" />
+			<point ath="-93.59700520785935" atv="-0.5358267334894268" />
+			<point ath="-93.64517887234967" atv="0.7477206558830927" />
+			<point ath="-93.4612782761111" atv="2.340586398556266" />
+			<point ath="-93.1082392065099" atv="3.396429459721802" />
+			<point ath="-92.63929345063474" atv="4.057682364637081" />
+			<point ath="-92.1121431972469" atv="4.57172720743348" />
+			<point ath="-91.72437211141306" atv="4.882623569280744" />
+			<point ath="-91.38640491560125" atv="5.2442621384050625" />
+			<point ath="-90.89636728329918" atv="5.609890225733658" />
+			<point ath="-90.45325608436957" atv="5.8744731079899335" />
+			<point ath="-90.11270081730476" atv="6.341184351210595" />
+			<point ath="-89.61813309329233" atv="6.812254717285482" />
+			<point ath="-89.37582149820861" atv="7.2790099721780175" />
+			<point ath="-89.29774087884323" atv="8.204895696091805" />
+			<point ath="-89.30972438370236" atv="8.666823170009588" />
+			<point ath="-89.31639443453514" atv="8.923446018305132" />
+			<point ath="-89.32441035819465" atv="9.23137197359313" />
+			<point ath="-94.95239970036846" atv="9.134004886191413" />
+		</hotspot>
+		
+		<hotspot name="hs8" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="-51.5567382297225" atv="10.140967294665534" />
+			<point ath="-51.62599210942392" atv="7.261188207555749" />
+			<point ath="-44.88270979666896" atv="6.700887286498181" />
+			<point ath="-44.418724083198754" atv="6.759372764056631" />
+			<point ath="-44.46615819791708" atv="6.448440004365461" />
+			<point ath="-44.667560440738725" atv="6.083837214514011" />
+			<point ath="-44.86999017020577" atv="5.822805203143237" />
+			<point ath="-45.17483987463919" atv="5.560632878468717" />
+			<point ath="-45.31947414815221" atv="4.9396760949078224" />
+			<point ath="-45.56846226251014" atv="4.472903310444873" />
+			<point ath="-45.716165402849015" atv="4.110845562958808" />
+			<point ath="-45.76227914117953" atv="3.8016279710691125" />
+			<point ath="-45.850111000996776" atv="2.9271176023085177" />
+			<point ath="-45.99524962585713" atv="2.464310170277447" />
+			<point ath="-46.0367014423432" atv="1.9005096111257682" />
+			<point ath="-46.12791953854685" atv="1.2864531204932623" />
+			<point ath="-46.115858918084655" atv="0.5721256877913273" />
+			<point ath="-46.1055477723076" atv="-0.03873331280133633" />
+			<point ath="-46.09098205860681" atv="-0.9015963905089801" />
+			<point ath="-45.97980215065036" atv="-1.5091152695487642" />
+			<point ath="-45.90673144748126" atv="-2.8691986338908504" />
+			<point ath="-45.7441331079425" atv="-3.5716955298451576" />
+			<point ath="-45.688111036350676" atv="-3.9217758866309262" />
+			<point ath="-45.632151714906115" atv="-4.271167862697535" />
+			<point ath="-44.923220978260986" atv="-4.527486706742371" />
+			<point ath="-44.81685606606891" atv="-4.723674697194934" />
+			<point ath="-44.55228045521602" atv="-5.549583348247522" />
+			<point ath="-44.289205923519205" atv="-6.341328656010185" />
+			<point ath="-44.33680453150737" atv="-6.537084066907715" />
+			<point ath="-44.385441216802235" atv="-6.782168603707769" />
+			<point ath="-43.98003420100105" atv="-6.983546924489804" />
+			<point ath="-43.52326894250956" atv="-7.234099530566081" />
+			<point ath="-42.71461805272884" atv="-7.440121920250438" />
+			<point ath="-42.411106529193546" atv="-7.443520137403744" />
+			<point ath="-42.108299951230265" atv="-7.496110210037466" />
+			<point ath="-41.500747634832294" atv="-7.403993255595493" />
+			<point ath="-40.99443903551196" atv="-7.313070255858669" />
+			<point ath="-40.741517758832344" atv="-7.118523202095218" />
+			<point ath="-40.70430756369831" atv="12.054686195006282" />
+			<point ath="-41.446181572883745" atv="12.354349655116494" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_24" title="24" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/24.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/24.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_24">
+			<cube url="panos/24.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/24_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_24">
+			<cube url="panos/24.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/24_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="54.4" tz="+415.5" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-338" ty="103.4" tz="-5.5" keep="false" visible="true" enabled="true" linkedscene="scene_11"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="60.8" keep="false" visible="true" enabled="true" linkedscene="scene_25"/>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="-49.10730165807172" atv="9.780868301771688" />
+			<point ath="-48.96139454124034" atv="7.069373739981913" />
+			<point ath="-42.26139822471214" atv="6.34114422789909" />
+			<point ath="-42.177228501562865" atv="6.111041427802008" />
+			<point ath="-42.32544423311742" atv="5.953875900052609" />
+			<point ath="-42.70776206159536" atv="5.946614621009291" />
+			<point ath="-42.85249004564042" atv="5.712785741884165" />
+			<point ath="-42.98350641114399" atv="5.095346606748192" />
+			<point ath="-42.9648635443786" atv="4.55859790514408" />
+			<point ath="-42.94363438145024" atv="3.9464137114764837" />
+			<point ath="-43.078988124512875" atv="3.48645125534163" />
+			<point ath="-43.52615894091775" atv="3.3287837739940302" />
+			<point ath="-44.25064451720982" atv="2.6378502914792783" />
+			<point ath="-44.46272655789318" atv="2.3335159615054617" />
+			<point ath="-44.67101911391313" atv="1.954839401600379" />
+			<point ath="-44.65289742158171" atv="1.5037973378915843" />
+			<point ath="-44.841755730076954" atv="0.6791634254679577" />
+			<point ath="-44.87590996009425" atv="-0.2886298178155575" />
+			<point ath="-44.771983321941036" atv="-1.0291494063692368" />
+			<point ath="-44.68343387304992" atv="-1.3983593058851986" />
+			<point ath="-44.50091088080467" atv="-2.281008250390203" />
+			<point ath="-44.11629587135474" atv="-2.723477081686791" />
+			<point ath="-43.64162656444785" atv="-3.603139397410159" />
+			<point ath="-42.962748397383336" atv="-4.047572268744979" />
+			<point ath="-42.4331310637192" atv="-4.417176680632228" />
+			<point ath="-42.05587549091058" atv="-4.639601118474744" />
+			<point ath="-41.608641937983805" atv="-4.718208081666257" />
+			<point ath="-40.775532520898366" atv="-5.235758238113068" />
+			<point ath="-40.17890636663543" atv="-5.243768365350309" />
+			<point ath="-39.137388470238534" atv="-4.966097675610882" />
+			<point ath="-38.61091847799037" atv="-4.971510432043829" />
+			<point ath="-38.31257415424852" atv="-4.828694490980679" />
+			<point ath="-38.41743650629587" atv="11.805198862319834" />
+		</hotspot>
+		
+		<hotspot name="hs6" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="-21.72505350191568" atv="6.918399216139611" />
+			<point ath="-18.951799328650964" atv="5.9742833450949755" />
+			<point ath="-18.961280229796216" atv="4.363337510622673" />
+			<point ath="-22.455051196689112" atv="4.26388410193024" />
+			<point ath="-22.402646134497786" atv="4.108090734470482" />
+			<point ath="-22.089590188224804" atv="3.9005798712055055" />
+			<point ath="-21.7767674740262" atv="3.5892261234786664" />
+			<point ath="-21.464477011362703" atv="3.0187713604315825" />
+			<point ath="-21.204801157698853" atv="2.7081734364803314" />
+			<point ath="-20.998021273083964" atv="1.9840360412806173" />
+			<point ath="-20.894976300462304" atv="1.5709926862772245" />
+			<point ath="-20.74120967137344" atv="0.7467558887761324" />
+			<point ath="-20.743196749741173" atv="-0.17724733631463754" />
+			<point ath="-20.74506607662329" atv="-1.046419938314119" />
+			<point ath="-20.90017919619646" atv="-1.3014110057548793" />
+			<point ath="-21.209515372314797" atv="-1.4543095757177547" />
+			<point ath="-21.467232555973453" atv="-1.7087804749523163" />
+			<point ath="-21.621695600097155" atv="-1.7087949556344568" />
+			<point ath="-21.673224021949295" atv="-2.0644048944245506" />
+			<point ath="-21.51913390344407" atv="-2.6217475437481865" />
+			<point ath="-21.519340265502137" atv="-3.0763848992769387" />
+			<point ath="-21.724671931747082" atv="-3.429118747882216" />
+			<point ath="-22.288061224291425" atv="-4.081797235701116" />
+			<point ath="-22.594938101505704" atv="-4.281801433244073" />
+			<point ath="-23.156443537078246" atv="-4.430852800208361" />
+			<point ath="-23.615560207772887" atv="-4.679360417544372" />
+			<point ath="-24.2270865771344" atv="-4.72705304545103" />
+			<point ath="-24.635928936700793" atv="-4.625748651388676" />
+			<point ath="-25.196051874584896" atv="-4.573069321165565" />
+			<point ath="-25.098824783045018" atv="-3.9742075013903526" />
+			<point ath="-25.10998316880591" atv="-2.6182543992488627" />
+			<point ath="-25.67142382033603" atv="-2.7678902261164886" />
+			<point ath="-26.027077545890336" atv="-2.968092371674899" />
+			<point ath="-26.537133543691084" atv="-2.9659183693964755" />
+			<point ath="-26.64464739040858" atv="-2.4617039854800717" />
+			<point ath="-26.95886370302759" atv="-1.7531016237917691" />
+			<point ath="-27.328607571427654" atv="-0.737407421779372" />
+			<point ath="-27.34842215482132" atv="0.8448253573517511" />
+			<point ath="-27.20524425823993" atv="1.7171811481024477" />
+			<point ath="-26.956020792106756" atv="2.386840757377507" />
+			<point ath="-26.704144027403174" atv="2.903475829312617" />
+			<point ath="-26.24751708185397" atv="3.6805723144930207" />
+			<point ath="-25.682394295242375" atv="4.149568099167843" />
+			<point ath="-27.496823601537926" atv="4.345009194751669" />
+			<point ath="-27.578423421341256" atv="6.725950205474923" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_25" title="25" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/25.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/25.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_25">
+			<cube url="panos/25.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/25_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_25">
+			<cube url="panos/25.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/25_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="54.4" tz="+415.5" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="+338" ty="103.4" tz="-5.5" keep="false" visible="true" enabled="true" linkedscene="scene_11"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_23"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="60.8" keep="false" visible="true" enabled="true" linkedscene="scene_24"/>
+		
+		<hotspot name="hs2" style="golden_highlight" borderwidth="5" linkedscene="scene_3">
+			<point ath="18.78337536109484" atv="6.060988441887889" />
+			<point ath="18.692314438854282" atv="4.467538162453665" />
+			<point ath="21.36215834522477" atv="4.184592369227685" />
+			<point ath="21.363662510372365" atv="3.8740932147056215" />
+			<point ath="20.84965963831752" atv="3.6116237757914256" />
+			<point ath="20.491904051223173" atv="3.1954451908662826" />
+			<point ath="20.287948882386047" atv="2.935683298972293" />
+			<point ath="20.034821696393863" atv="2.365954645490767" />
+			<point ath="19.73012101183741" atv="1.9514520171285052" />
+			<point ath="19.529171793464116" atv="1.3832792906106004" />
+			<point ath="19.53271877451357" atv="0.8163022355186765" />
+			<point ath="19.486531588685807" atv="0.04371280047103865" />
+			<point ath="19.49074037597086" atv="-0.6250510202958476" />
+			<point ath="19.64788437367571" atv="-1.2934354715844472" />
+			<point ath="19.907947959817704" atv="-2.115605920426699" />
+			<point ath="20.422274153376975" atv="-2.733555226904232" />
+			<point ath="20.936188334847714" atv="-3.1976240584260522" />
+			<point ath="21.40009964457738" atv="-3.7125897729522706" />
+			<point ath="21.91579042586943" atv="-4.227547891142611" />
+			<point ath="22.482364231969484" atv="-4.487012501381668" />
+			<point ath="23.41001110503879" atv="-4.595067544688062" />
+			<point ath="24.18477917036489" atv="-4.752552981397158" />
+			<point ath="25.11484229398843" atv="-4.602943572084206" />
+			<point ath="26.150213793620367" atv="-4.2465390521173605" />
+			<point ath="27.23886012463612" atv="-3.6307173220782856" />
+			<point ath="27.654030374775118" atv="-2.909194001063656" />
+			<point ath="28.433220317477833" atv="-2.133879933518655" />
+			<point ath="28.48566480450421" atv="-1.5126620339327237" />
+			<point ath="28.486311635475772" atv="-0.7348284814486761" />
+			<point ath="28.43568050023748" atv="0.9803836914826415" />
+			<point ath="28.071448360498152" atv="1.3968812338562822" />
+			<point ath="27.863328440917712" atv="2.0738718984824023" />
+			<point ath="27.550666018282413" atv="2.5947766261339478" />
+			<point ath="27.081269582962932" atv="3.0634937069077828" />
+			<point ath="26.663739589122542" atv="3.5319426983018833" />
+			<point ath="26.193647956234486" atv="4.15603487608155" />
+			<point ath="27.185336636508964" atv="4.261075022500874" />
+			<point ath="28.334180831066135" atv="4.676821319366242" />
+			<point ath="28.492431429678504" atv="6.59799027569672" />
+			<point ath="21.605501019712506" atv="7.13203318817836" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" borderwidth="5" linkedscene="scene_13">
+			<point ath="39.30516993322925" atv="11.6155811592752" />
+			<point ath="49.104036273723864" atv="9.8859511203743" />
+			<point ath="48.85973862798994" atv="7.096012717464339" />
+			<point ath="41.9587481886424" atv="6.276039682479881" />
+			<point ath="41.90465197764922" atv="5.913081677355535" />
+			<point ath="41.90096033902955" atv="5.237957168552988" />
+			<point ath="42.7316088636145" atv="5.076363660877199" />
+			<point ath="43.041095644335996" atv="4.814602050222674" />
+			<point ath="43.34699773433482" atv="4.138177931559433" />
+			<point ath="43.49864121626126" atv="3.670631570991661" />
+			<point ath="43.649208946774195" atv="3.0998142851377586" />
+			<point ath="44.11074251259862" atv="2.786712616098346" />
+			<point ath="44.21071024637456" atv="2.5273771874784297" />
+			<point ath="44.81071608269076" atv="0.7708895220898027" />
+			<point ath="44.80191479197123" atv="-0.15476887647803336" />
+			<point ath="44.84420990282456" atv="-1.077926663938519" />
+			<point ath="44.63460514316489" atv="-1.6414296453390707" />
+			<point ath="44.11424306737922" atv="-2.6130245847300153" />
+			<point ath="43.75226896267043" atv="-3.1236787377998163" />
+			<point ath="43.13295448044033" atv="-3.788112338224159" />
+			<point ath="42.10326448907688" atv="-4.4536733167263725" />
+			<point ath="41.63981542487852" atv="-4.7095178792635775" />
+			<point ath="41.02201030610104" atv="-4.965720517132673" />
+			<point ath="40.353178679309394" atv="-5.019207867685638" />
+			<point ath="40.198443130314445" atv="-5.120962280065476" />
+			<point ath="39.83810299257698" atv="-5.122187436733271" />
+			<point ath="39.68362113872786" atv="-5.1226509604478405" />
+			<point ath="39.42644699124338" atv="-5.07418273757522" />
+			<point ath="39.323499354296644" atv="-5.023790294191148" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_26" title="26" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/26.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/26.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_26">
+			<cube url="panos/26.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/26_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_26">
+			<cube url="panos/26.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/26_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_25"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="+400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_24"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="+447" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_3" borderwidth="5">
+			<point ath="41.95077151058803" atv="12.188751447952255" />
+			<point ath="51.5865925351564" atv="10.231687563849073" />
+			<point ath="51.438697591874586" atv="7.431595131560815" />
+			<point ath="45.27977134106101" atv="6.755300790673401" />
+			<point ath="45.7122514744774" atv="6.096645339726497" />
+			<point ath="46.301132341896164" atv="5.826135022789251" />
+			<point ath="46.694665831407065" atv="5.644871305505587" />
+			<point ath="47.393448794034384" atv="5.281763785024188" />
+			<point ath="48.03538829276579" atv="4.3359610874304515" />
+			<point ath="49.10744837993883" atv="2.6365211057086606" />
+			<point ath="49.09558444908805" atv="1.4108770596220417" />
+			<point ath="49.43499288248313" atv="0.7732193802587023" />
+			<point ath="49.46553909703641" atv="-1.0698005594276738" />
+			<point ath="49.08160162976384" atv="-2.2438752988612842" />
+			<point ath="48.710191513217524" atv="-3.485788988326423" />
+			<point ath="48.0596611391137" atv="-4.524470881941777" />
+			<point ath="47.66221072625916" atv="-5.2057637288831" />
+			<point ath="47.00882664087874" atv="-5.955028737122632" />
+			<point ath="46.24767508036041" atv="-6.352721120198244" />
+			<point ath="45.00526135952407" atv="-7.055826840020245" />
+			<point ath="44.425067156379896" atv="-7.2786903277663155" />
+			<point ath="43.67994751296442" atv="-7.4911273806061" />
+			<point ath="43.433479522761445" atv="-7.561077438506045" />
+			<point ath="42.1890187907959" atv="-7.663777667777819" />
+			<point ath="42.02234785120868" atv="-7.655667419965282" />
+			<point ath="41.86501869791232" atv="-7.727643929016872" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" borderwidth="5" linkedscene="scene_13">
+			<point ath="74.54164284733349" atv="17.906247880552403" />
+			<point ath="74.5812839817313" atv="12.918241349245589" />
+			<point ath="78.91630498788527" atv="9.462621550880897" />
+			<point ath="83.20912387374119" atv="9.487218429458773" />
+			<point ath="83.28054022316473" atv="7.962629009052654" />
+			<point ath="83.17729272362965" atv="7.478196250483974" />
+			<point ath="82.981532509234" atv="7.182545882903531" />
+			<point ath="82.5938616975227" atv="6.784083283117238" />
+			<point ath="82.11407244632574" atv="6.4793312778051435" />
+			<point ath="81.7256978660426" atv="5.888319850354498" />
+			<point ath="81.24763218773569" atv="5.488074629072587" />
+			<point ath="80.68147104319996" atv="5.278951753843574" />
+			<point ath="80.39604354142989" atv="4.98183570242949" />
+			<point ath="80.29392018366372" atv="4.496816503646321" />
+			<point ath="80.10592640114612" atv="4.395622367187359" />
+			<point ath="79.91828940104182" atv="4.294545858980106" />
+			<point ath="80.02563156154974" atv="5.067727890222128" />
+			<point ath="80.03466619188987" atv="5.548033571836889" />
+			<point ath="80.04549615165877" atv="6.122748902663139" />
+			<point ath="79.96183670363837" atv="6.596796956242437" />
+			<point ath="79.60896116316644" atv="6.576431121072721" />
+			<point ath="79.24518661119089" atv="6.751837158346267" />
+			<point ath="78.87526999218738" atv="6.547997768766" />
+			<point ath="78.50484697546165" atv="6.250001771397385" />
+			<point ath="78.49683892630014" atv="5.871297076553954" />
+			<point ath="78.49082875924876" atv="5.586732776081928" />
+			<point ath="78.48080393826666" atv="5.111476882444598" />
+			<point ath="78.56387765396141" atv="4.733085898832884" />
+			<point ath="78.5538742375461" atv="4.2554956962498265" />
+			<point ath="78.72454004272089" atv="3.68512453278573" />
+			<point ath="78.79224324760798" atv="2.532084209752597" />
+			<point ath="78.66871426383489" atv="0.9840665587846091" />
+			<point ath="78.64268982909982" atv="-0.2773211873774747" />
+			<point ath="78.62864888110539" atv="-0.9578432755977261" />
+			<point ath="78.88076479457283" atv="-2.129513634200162" />
+			<point ath="79.3237238077229" atv="-3.114007593448849" />
+			<point ath="79.95516437681891" atv="-4.206503821019975" />
+			<point ath="80.59645165572545" atv="-5.109025984849392" />
+			<point ath="81.15386682486383" atv="-5.717389457955866" />
+			<point ath="81.90514277040381" atv="-6.433522534469916" />
+			<point ath="82.56662873027403" atv="-6.854924590055644" />
+			<point ath="83.82114108722897" atv="-7.493384705539381" />
+			<point ath="85.09677872227695" atv="-7.733714231022902" />
+			<point ath="86.78614739393527" atv="-7.983588059831429" />
+			<point ath="88.29587580265922" atv="-8.021958039334484" />
+			<point ath="89.92738387628299" atv="-7.3446043350314865" />
+			<point ath="91.36376309726552" atv="-6.754391412988744" />
+			<point ath="92.60419299471565" atv="-5.537355783284808" />
+			<point ath="93.53770312878672" atv="-4.206110216903877" />
+			<point ath="94.05784032194276" atv="-3.074482037499602" />
+			<point ath="94.58032994801894" atv="-1.1168935562749365" />
+			<point ath="94.58437222192552" atv="0.015289046546268283" />
+			<point ath="94.48684580735213" atv="1.4520833573642786" />
+			<point ath="94.4898587823941" atv="2.2704667030759547" />
+			<point ath="94.28797141418141" atv="3.0858281541959736" />
+			<point ath="93.57587982125901" atv="3.9969769549222884" />
+			<point ath="92.7647064174435" atv="4.90122054950411" />
+			<point ath="91.95461525140578" atv="5.39694334158223" />
+			<point ath="91.45056409058705" atv="5.792394260203525" />
+			<point ath="90.84852827897635" atv="6.383662292066236" />
+			<point ath="90.3502442728952" atv="7.071285431987848" />
+			<point ath="90.25458516261179" atv="7.662607194036868" />
+			<point ath="89.86418027559807" atv="8.930480396931795" />
+			<point ath="90.06544181076094" atv="9.032458886284088" />
+			<point ath="95.02492181916833" atv="9.204348552563044" />
+			<point ath="97.98550537908338" atv="13.276891843189984" />
+			<point ath="97.88438693183545" atv="18.428906241707345" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_27" title="27" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/27.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/27.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_27">
+			<cube url="panos/27.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/27_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_28">
+			<cube url="panos/27.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/27_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="367" ty="109.4" tz="45.69" keep="false" visible="true" enabled="true" linkedscene="scene_2"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_26"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="434" ty="62.9" tz="-5.3" keep="false" visible="true" enabled="true" linkedscene="scene_21"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_22"/>
+		
+		<!-- Circle 2 -->
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_13" borderwidth="5">
+			<point ath="147.8965050716142" atv="4.9189238960698125" />
+			<point ath="151.80271300473214" atv="4.366450843808231" />
+			<point ath="152.42917270080818" atv="4.471609986266094" />
+			<point ath="152.43065906573156" atv="3.221833815390392" />
+			<point ath="152.37857912402757" atv="3.1697298999118813" />
+			<point ath="152.27430034385355" atv="3.169630330121027" />
+			<point ath="152.01290764007084" atv="3.585791326280588" />
+			<point ath="151.7519327417478" atv="3.6895007657493375" />
+			<point ath="151.70000721804956" atv="3.585293274411538" />
+			<point ath="151.43932976344155" atv="3.5847969112187625" />
+			<point ath="151.3881448479729" atv="3.220396366040319" />
+			<point ath="151.23244212394397" atv="3.0119826290802303" />
+			<point ath="151.07794856501698" atv="2.4396432273617212" />
+			<point ath="150.92305816726795" atv="2.075591151004777" />
+			<point ath="150.82013255164807" atv="1.763787605740767" />
+			<point ath="150.7695933431499" atv="1.3484549919404205" />
+			<point ath="150.66685620258778" atv="1.0371304459294841" />
+			<point ath="150.61608871042543" atv="0.7260840034002839" />
+			<point ath="150.56536778741923" atv="0.41527956292229123" />
+			<point ath="150.51469344890833" atv="0.10473584092008029" />
+			<point ath="150.51702363120572" atv="-0.5155414725084541" />
+			<point ath="150.62226173979082" atv="-0.9800872866428126" />
+			<point ath="150.88292472209616" atv="-1.5471575639307638" />
+			<point ath="151.35071135985442" atv="-2.3189901394309866" />
+			<point ath="151.35152724195504" atv="-2.6268627484081093" />
+			<point ath="151.6102510489247" atv="-2.729791538891671" />
+			<point ath="152.54176852088565" atv="-3.2941319932746764" />
+			<point ath="152.9037439634987" atv="-3.447751999651712" />
+			<point ath="153.31728511951792" atv="-3.4478415887700558" />
+			<point ath="153.78251677387755" atv="-3.4477282020062185" />
+			<point ath="154.2993662302332" atv="-3.4473363358021065" />
+			<point ath="154.76439651100156" atv="-3.4467445917974016" />
+			<point ath="155.22936825006107" atv="-3.3948310201599567" />
+			<point ath="155.74643317940854" atv="-3.1380968376563994" />
+			<point ath="156.16045425155363" atv="-2.830067805518032" />
+			<point ath="156.62748157441658" atv="-2.2138874201211105" />
+			<point ath="156.93927366273186" atv="-1.7510888875297979" />
+			<point ath="157.25205552100144" atv="-1.1333453692056628" />
+			<point ath="157.3591746348037" atv="-0.4117044077034782" />
+			<point ath="157.4156379386711" atv="0.4664029361062669" />
+			<point ath="157.26488006176982" atv="1.294772826412457" />
+			<point ath="157.00770413523227" atv="1.6580733657372513" />
+			<point ath="156.4914999475201" atv="2.2300026371022383" />
+			<point ath="156.54499764431154" atv="2.5934843268745773" />
+			<point ath="156.54836798084742" atv="3.373064813043948" />
+			<point ath="156.4990195454277" atv="3.9972163590433727" />
+			<point ath="156.44805527463302" atv="4.25745665028251" />
+			<point ath="156.23991573469144" atv="4.310291398558264" />
+			<point ath="155.92687161105397" atv="4.207358346883748" />
+			<point ath="155.76980952471638" atv="3.999712406950569" />
+			<point ath="155.76878381602114" atv="3.6875057099095345" />
+			<point ath="155.8198311095461" atv="3.3752083595543527" />
+			<point ath="155.92287381039532" atv="3.062868208436437" />
+			<point ath="155.92196692584378" atv="2.802871619754958" />
+			<point ath="155.92142309785933" atv="2.6469043470410987" />
+			<point ath="155.76520057800036" atv="2.5952322364867655" />
+			<point ath="155.61008059043525" atv="2.9075394473600444" />
+			<point ath="155.50703397091587" atv="3.2718992359389074" />
+			<point ath="155.40401797424744" atv="3.6884334831543555" />
+			<point ath="155.40474574385314" atv="3.9486693700260744" />
+			<point ath="155.40605700861704" atv="4.417132754378884" />
+			<point ath="159.5129153879596" atv="4.75684379198302" />
+			<point ath="159.47834352440108" atv="6.827329036404444" />
+			<point ath="156.51438983760065" atv="7.582356003536734" />
+			<point ath="147.88101677884686" atv="7.043041669248048" />
+		</hotspot>
+
+	</scene>
+
+	<scene name="scene_28" title="28" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/28.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/28.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_28">
+			<cube url="panos/28.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/28_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_28">
+			<cube url="panos/28.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/28_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+250" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-300" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_29"/>
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_35" borderwidth="5">
+			<point ath="-158.50871601763976" atv="-11.932804650729809" />
+			<point ath="-158.46653240140475" atv="3.04216325330992" />
+			<point ath="-147.42979065296444" atv="2.9362840189267514" />
+			<point ath="-147.39279808697268" atv="-10.858889902390574" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_34" borderwidth="5">
+			<point ath="-120.91440976448905" atv="-9.808342591868419" />
+			<point ath="-120.74761013207956" atv="6.885373297723518" />
+			<point ath="-114.6785383555094" atv="5.67608178123324" />
+			<point ath="-114.7857073850193" atv="-8.02853802979676" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_33" borderwidth="5">
+			<point ath="-101.89714444924766" atv="-3.844295199343004" />
+			<point ath="-101.82502706858514" atv="2.6062821074592586" />
+			<point ath="-101.00065806828053" atv="2.6086497623919827" />
+			<point ath="-100.87544076867243" atv="-3.544187574692999" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_37" borderwidth="5">
+			<point ath="-69.93975994682904" atv="4.139615083366393" />
+			<point ath="-69.81053716130668" atv="-7.1356543984646095" />
+			<point ath="-76.66532497189911" atv="-4.823868214324947" />
+			<point ath="-76.74862568713303" atv="2.921015829194229" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_36" borderwidth="5">
+			<point ath="-28.65969595520744" atv="2.97820156523436" />
+			<point ath="-28.610167062287644" atv="-11.294252975427177" />
+			<point ath="-16.401865636451873" atv="-12.580833091070458" />
+			<point ath="-16.43161386955535" atv="3.1306075872188974" />
+		</hotspot>
+	</scene>
+
+	<scene name="scene_29" title="29" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/29.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/29.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_29">
+			<cube url="panos/29.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/29_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_29">
+			<cube url="panos/29.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/29_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+300" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_28"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="+390" ty="71" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_12"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-381" ty="97" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_30"/>
+		
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_35" borderwidth="5" >
+			<point ath="136.56603772386663" atv="2.3575603924343973" />
+			<point ath="136.6148642141744" atv="-9.344308738679176" />
+			<point ath="144.9664691467829" atv="-10.47460211386667" />
+			<point ath="145.0180378138711" atv="2.6871884323633273" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_34" borderwidth="5" >
+			<point ath="-162.03624239931213" atv="-17.543717676737256" />
+			<point ath="-161.9446868910881" atv="12.475344622188933" />
+			<point ath="-140.48840706155403" atv="10.428911612369655" />
+			<point ath="-140.59762436143154" atv="-14.53424683946126" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_33" borderwidth="5" >
+			<point ath="-106.69565516505887" atv="-5.405015225457132" />
+			<point ath="-106.55640558845784" atv="3.8510363550860864" />
+			<point ath="-104.52427274145938" atv="3.4214090304524003" />
+			<point ath="-104.59520503941494" atv="-4.765379169389401" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_37" borderwidth="5" >
+			<point ath="-71.04161561517844" atv="3.822512815337138" />
+			<point ath="-70.86567820330771" atv="-7.013276680658901" />
+			<point ath="-54.17271446620805" atv="-12.211860070386475" />
+			<point ath="-54.174308564816215" atv="7.040532960861405" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_36" borderwidth="5" >
+			<point ath="39.18400076295154" atv="2.523463902160276" />
+			<point ath="39.370850200746986" atv="-10.130864679362729" />
+			<point ath="46.97423263077411" atv="-9.246900517135936" />
+			<point ath="47.24819423440778" atv="2.264401557667827" />
+		</hotspot>
+
+	</scene>
+
+	<scene name="scene_30" title="30" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/30.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/30.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_30">
+			<cube url="panos/30.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/30_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_30">
+			<cube url="panos/30.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/30_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+365" ty="81" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_29"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="+522.5" ty="59.5" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_28"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-418.5" ty="93.5" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_31"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-477" ty="62" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_32"/>
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_35" borderwidth="5">
+			<point ath="113.41122662083495" atv="1.3105847879514896" />
+			<point ath="113.14431797560289" atv="-5.118411640892125" />
+			<point ath="115.7943084511453" atv="-5.5978957115791514" />
+			<point ath="115.85029605231563" atv="1.5735492837137564" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_34" borderwidth="5">
+			<point ath="133.5090091388674" atv="-12.847880106713278" />
+			<point ath="150.82270737237553" atv="-16.137964742181296" />
+			<point ath="150.93012205984627" atv="11.64361653340696" />
+			<point ath="133.58563932476514" atv="9.223740580917573" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_33" borderwidth="5">
+			<point ath="-116.76615361554937" atv="6.217834737773378" />
+			<point ath="-116.81326703119439" atv="-8.47268776258618" />
+			<point ath="-112.0346830567535" atv="-7.139036248828707" />
+			<point ath="-112.07651651779574" atv="5.228445192155811" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_37" borderwidth="5">
+			<point ath="-56.36614600344336" atv="6.599014538308417" />
+			<point ath="-56.26757858416221" atv="-11.390031637073049" />
+			<point ath="1.3610151293207196" atv="-20.113003484173856" />
+			<point ath="1.5711546550894582" atv="12.177423310156119" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_36" borderwidth="5">
+			<point ath="65.72274201804066" atv="1.2827765659836763" />
+			<point ath="65.65014296609502" atv="-5.379224183094187" />
+			<point ath="68.11704333488831" atv="-5.086678077717328" />
+			<point ath="68.04297578042036" atv="1.35416314134076" />
+		</hotspot>
+
+	</scene>
+
+	<scene name="scene_31" title="31" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/31.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/31.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_31">
+			<cube url="panos/31.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/31_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_31">
+			<cube url="panos/31.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/31_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+405.5" ty="102" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_30"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-405.5" ty="102" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_32"/>
+		
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_35" borderwidth="5">
+			<point ath="106.34825204701104" atv="0.9078386625533821" />
+			<point ath="106.18899536068335" atv="-3.6177211298098055" />
+			<point ath="105.14898662083647" atv="-3.406893403084987" />
+			<point ath="105.25728976351454" atv="0.8550844006832083" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_34" borderwidth="5">
+			<point ath="112.39148784553845" atv="5.097580158773646" />
+			<point ath="112.22773565965298" atv="-7.195466824527762" />
+			<point ath="117.5528276799892" atv="-8.66914775735285" />
+			<point ath="117.62880994032963" atv="6.46674892351258" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_33" borderwidth="5">
+			<point ath="-149.2098595945766" atv="11.485743336781676" />
+			<point ath="-149.15385374256317" atv="-15.885897596810903" />
+			<point ath="-132.4473223211344" atv="-12.804343180922816" />
+			<point ath="-132.5196368252383" atv="9.377154816399656" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_37" borderwidth="5">
+			<point ath="-5.610665620691293" atv="12.032856927351109" />
+			<point ath="-5.7391185467730566" atv="-19.854036111045602" />
+			<point ath="54.86312172036946" atv="-11.992699948372648" />
+			<point ath="54.97733786174092" atv="7.3641156992592505" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_36" borderwidth="5">
+			<point ath="74.46300982052219" atv="0.9220634298216018" />
+			<point ath="74.50523322497202" atv="-3.338508235354877" />
+			<point ath="75.44252808388694" atv="-2.925010761702648" />
+			<point ath="75.50078143769849" atv="0.9747816272834972" />
+		</hotspot>
+
+	</scene>
+
+	<scene name="scene_32" title="32" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/32.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/32.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_32">
+			<cube url="panos/32.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/32_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_32">
+			<cube url="panos/32.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/32_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+405.5" ty="102" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_31"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-250" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_35" borderwidth="5" >
+			<point ath="101.00966652840796" atv="0.4544689250813498" />
+			<point ath="101.05996642706023" atv="-2.46036886087014" />
+			<point ath="101.63331277729671" atv="-2.668976886072859" />
+			<point ath="101.79015532206031" atv="0.5584964937802115" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_34" borderwidth="5" >
+			<point ath="104.66519229483814" atv="3.309415690704716" />
+			<point ath="104.65728061533875" atv="-4.835557987036041" />
+			<point ath="106.99786168033188" atv="-5.517910266468057" />
+			<point ath="106.84562476355885" atv="4.039988221379031" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_33" borderwidth="5" >
+			<point ath="141.8530720504259" atv="-14.485338977240794" />
+			<point ath="141.90064579065037" atv="10.640158841054806" />
+			<point ath="163.80856462253686" atv="13.022209597042464" />
+			<point ath="163.85068072698738" atv="-17.46831110141212" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_37" borderwidth="5" >
+			<point ath="52.66845259190234" atv="7.254283918202221" />
+			<point ath="52.60908822406873" atv="-12.649490696947485" />
+			<point ath="70.62945166930217" atv="-7.144648023467648" />
+			<point ath="70.58721007624399" atv="4.214845153448074" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_36" borderwidth="5" >
+			<point ath="78.53825852013699" atv="0.590877994381204" />
+			<point ath="78.59128256766894" atv="-2.7872145169762303" />
+			<point ath="79.21474093721974" atv="-2.4252480910822563" />
+			<point ath="79.31802100785046" atv="0.5391914904546607" />
+		</hotspot>
+
+	</scene>
+
+	<scene name="scene_33" title="33" onstart="lookat(-175,1);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/33.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/33.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_33">
+			<cube url="panos/33.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/33_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_33">
+			<cube url="panos/33.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/33_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_34" title="34" onstart="lookat(-178,0,120);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/34.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/34.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_34">
+			<cube url="panos/34.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/34_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_34">
+			<cube url="panos/34.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/34_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_35" title="35" onstart="lookat(-176.77,0.6);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/35.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/35.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_35">
+			<cube url="panos/35.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/35_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_35">
+			<cube url="panos/35.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/35_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_36" title="36" onstart="lookat(6.5,4);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/36.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/36.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_36">
+			<cube url="panos/36.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/36_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_36">
+			<cube url="panos/36.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/36_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_37" title="37" onstart="lookat(3,2,120);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/37.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/37.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_37">
+			<cube url="panos/37.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/37_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_37">
+			<cube url="panos/37.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/37_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_38" title="38" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/38.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/38.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_38">
+			<cube url="panos/38.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/38_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_38">
+			<cube url="panos/38.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/38_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="54.4" tz="+415.5" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="-240" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot6" style="visual_floorspot" tx="+250" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_32"/>
+		
+	</scene>
+
+	<scene name="scene_39" title="39" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/39.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/39.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_39">
+			<cube url="panos/39.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/39_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_39">
+			<cube url="panos/39.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/39_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+
+	</scene>
+
+	<scene name="scene_40" title="40" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/40.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/40.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_40">
+			<cube url="panos/40.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/40_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_40">
+			<cube url="panos/40.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/40_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="54.4" tz="-415.5" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-338" ty="103.4" tz="+5.5" keep="false" visible="true" enabled="true" linkedscene="scene_41"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="-60.8" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+	</scene>
+
+	<scene name="scene_41" title="41" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/41.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/41.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_41">
+			<cube url="panos/41.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/41_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_41">
+			<cube url="panos/41.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/41_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-178.52" ty="84.5" tz="-358" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+178.52" ty="84.5" tz="-358" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+
+	</scene>
+
+	<scene name="scene_42" title="42" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/42.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/42.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_42">
+			<cube url="panos/42.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/42_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_42">
+			<cube url="panos/42.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/42_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="54.4" tz="-415.5" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="+338" ty="103.4" tz="+5.5" keep="false" visible="true" enabled="true" linkedscene="scene_41"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="-60.8" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+
+	</scene>
+
+	<scene name="scene_43" title="43" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/43.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/43.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_43">
+			<cube url="panos/43.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/43_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_43">
+			<cube url="panos/43.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/43_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
+		
+	</scene>
+
+	<scene name="scene_44" title="44" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/44.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/44.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_44">
+			<cube url="panos/44.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/44_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_44">
+			<cube url="panos/44.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/44_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="0" ty="103.4" tz="-341" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="54.4" tz="+415.5" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+
+	</scene>
+
+	<scene name="scene_45" title="45" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/45.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/45.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_45">
+			<cube url="panos/45.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/45_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_45">
+			<cube url="panos/45.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/45_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="+434" ty="62.9" tz="-5.3" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="+290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_47"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="59" tz="+447" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="+190" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+	</scene>
+
+	<scene name="scene_46" title="46" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/46.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/46.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_46">
+			<cube url="panos/46.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/46_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_46">
+			<cube url="panos/46.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/46_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="-367" ty="109.4" tz="-45.69" keep="false" visible="true" enabled="true" linkedscene="scene_47"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="0" ty="103.4" tz="+341" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="0" ty="59" tz="+447" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="-434" ty="62.9" tz="+5.3" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+	</scene>
+
+	<scene name="scene_47" title="47" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/47.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/47.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_47">
+			<cube url="panos/47.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/47_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_47">
+			<cube url="panos/47.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/47_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="-290.53" ty="95" tz="+67.5" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-178.52" ty="84.5" tz="+358" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		<hotspot name="spot4" style="visual_floorspot" tx="+290.53" ty="95" tz="+67.5" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+		
+		<hotspot name="spot5" style="visual_floorspot" tx="+178.52" ty="84.5" tz="+358" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+	</scene>
+
+	<scene name="scene_48" title="48" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/48.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/48.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_48">
+			<cube url="panos/48.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/48_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_48">
+			<cube url="panos/48.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/48_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+	<scene name="scene_49" title="49" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/49.tiles/thumb.jpg" lat="" lng="" heading="">
+
+		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
+
+		<preview url="panos/49.tiles/preview.jpg" />
+
+		<image if="!(webvr.isenabled OR device.mobilevr)" style="scene_49">
+			<cube url="panos/49.tiles/%s/l%l/%v/l%l_%s_%v_%h.jpg" multires="512,640,1280" />
+			<depthmap url="depthmaps/49_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+		<image stereo="true" stereolabels="1|2" if="webvr.isenabled OR device.mobilevr" style="scene_49">
+			<cube url="panos/49.tiles/vr/pano_%t_%s.jpg" />
+			<depthmap url="depthmaps/49_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
+		</image>
+
+	</scene>
+
+
+</krpano>

@@ -1,0 +1,403 @@
+<krpano>
+
+	<action name="print">
+		showlog();
+		trace(" ",%1);
+	</action>
+	
+	<action name="check_navigation" if="1">
+		screentosphere(mouse.x, mouse.y, mouse_hlookat, mouse_vlookat);
+		mod(mouse_hlookat,360);
+		if(mouse_hlookat LT 0,
+			add(mouse_hlookat,360));
+		
+		copy(v, global.view);
+			for(set(i,0), i LT style.count, inc(i),
+				indexoftxt(is_movable_hotspot, get(style[get(i)].name), 'scene_');
+				
+				if(is_movable_hotspot == 0,
+					copy(hs, style[get(i)]);
+					copy(x,hs.ox);
+					copy(y,hs.oy);
+					copy(z,hs.oz);
+					
+					sub(xlength,x,v.tx);
+					sub(zlength,z,v.tz);
+					
+					Math.atan2(hg,xlength,zlength);
+					mul(hg,180);
+					div(hg,Math.pi);
+					if(hg LT 0,
+						add(hg,360));
+					
+					calc(distance,sqrt(pow(xlength,2)+pow(zlength,2)));
+					sub(height,get(y),v.ty);
+					
+					Math.atan2(vg,height,distance);
+					
+					mul(vg,180);
+					div(vg,Math.pi);
+					
+					<!-- Check if close to mouse click -->
+					calc(angle_hdiff, abs(hg - mouse_hlookat));
+					calc(angle_vdiff, abs(vg - mouse_vlookat));
+					
+					if(image.angle_tolerance === null,
+						set(angle_tolerance,30);
+						,
+						copy(angle_tolerance,image.angle_tolerance);
+					);
+					if(image.vangle_tolerance === null,
+						set(vangle_tolerance,30);
+						,
+						copy(vangle_tolerance,image.vangle_tolerance);
+					);
+					
+					
+					if(angle_hdiff LE angle_tolerance AND angle_vdiff LE vangle_tolerance AND distance LE 800 AND distance GT 0,
+						
+						indexoftxt(is_allowed,get(image.allowed),get(hs.name));
+						<!-- WILDCARD 'ANY!' 
+							indexoftxt(is_allowed,get(image.allowed),'scene');
+						-->
+						indexoftxt(wildcard,get(image.allowed),'ANY!');
+						
+						if(wildcard != -1,
+							set(is_allowed,1); <!-- Allowed -->
+						);
+						if(is_allowed != -1,
+							if (winner !== null,
+								if(distance LE winnerdistance,
+									copy(winnerdistance,distance);
+									copy(winner,hs);
+								);
+								,
+								copy(winnerdistance,distance);
+								copy(winner,hs);
+							);
+						);
+					);
+				);
+				
+				
+				
+			);
+			if (winner !== null,
+				
+				if(xml.scene != winner.linkedscene,
+					tour_loadscene(get(winner.linkedscene));
+				);
+				<!--
+				tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), calc(winnerdistance*0.005), default);
+				-->
+				,
+				<!-- If no winner attempt to move and fail -->
+				
+			);
+			delete(winner);
+			delete(winnerdistance);
+			
+			
+	</action>
+	
+	<action name="tour_loadscene" scope="local" args="scenename">
+	if(xml.scene != scenename,
+		loadscene(get(scenename),null,MERGE|KEEPVIEW|KEEPMOVING,BLEND(0.5));		
+		tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), 2.0, default);
+
+		delete_golden_array();
+		
+		
+		copy(scenename,xml.scene);
+		indexoftxt(i,get(scenename),'_');
+		inc(i);
+		calc(scene_n,slice(get(scenename),i,scenename.length));
+		
+		if( (scene_n LT 11 AND scene_n GT 2) OR (scene_n LT 21 AND scene_n GT 12),
+			enable_sculpture_arrows();
+			,
+			disable_sculpture_arrows();
+		);
+		
+		if( scene_n GT 32 AND scene_n LT 38,
+			enable_works_ui();
+		);
+	);
+	</action>
+	
+	<action name="floorspot_onclick" scope="local">
+		
+		if(xml.scene != caller.linkedscene,
+			tour_loadscene(get(caller.linkedscene));
+		);
+	</action>
+	
+	<action name="generate_floorspots" autorun="onstart" scope="local">
+		set(floorheight, 160.0);
+		for(set(i,0), i LT style.count, inc(i),
+			if (style[get(i)].autohotspot == true,
+				copy(st, style[get(i)]);
+				addhotspot(calc('hotspot_' + (i+1)), hs);
+				hs.loadstyle(floorspot);
+				copy(hs.tx, st.ox);
+				copy(hs.tz, st.oz);
+				calc(hs.ty, floorheight + 1.0*st.oy - 1.0);
+				copy(hs.linkedscene, st.linkedscene);
+			);
+		);
+	</action>
+	
+	<style name="floorspot" keep="true" type="text"
+		css="font-size:20px;text-align:center;" vcenter="true"
+		width="200" height="200" scale="0.15"
+		bgroundedge="100" bgborder="2 0x000000 1" bgshadow="0 0 5 0xFFFFFF 1.0"
+		oversampling="2" mipmapping="true" zorder="1"
+		distorted="true" depth="0" depthbuffer="true"
+		torigin="world" rotationorder="xyz" rx="-90"
+		xalpha="0"
+		alpha="0.3"
+		onover.addevent="tween(scale,0.16); tween(alpha,0.6);"
+		onout.addevent="tween(scale,0.15); tween(alpha,0.3);"
+		onclick="floorspot_onclick();"
+		enabled="false"
+		visible="false"
+		/>
+	
+	<style name="visual_floorspot" keep="true" type="text"
+		css="font-size:20px;text-align:center;" vcenter="true"
+		width="200" height="200" scale="0.15"
+		bgroundedge="100" bgborder="2 0x000000 1" bgshadow="0 0 5 0xFFFFFF 1.0"
+		oversampling="2" mipmapping="true" zorder="1"
+		distorted="true" depth="0" depthbuffer="true"
+		torigin="image" rotationorder="xyz" rx="-90"
+		xalpha="0"
+		alpha="0.3"
+		onover.addevent="tween(scale,0.16); tween(alpha,0.6);"
+		onout.addevent="tween(scale,0.15); tween(alpha,0.3);"
+		onclick="floorspot_onclick();"
+		enabled="true"
+		visible="true"
+		/>
+	
+	<events name="orientation" keep="true" onresize="Orientation();"  />
+	
+	<action name="Orientation">
+	if(device.handheld == true,
+		if(stagewidth LT stageheight,
+				<!-- PORTRAIT -->
+				if(stagewidth LE 1010,
+					calc(fix_scale_value,stagewidth/1010);
+					roundval(fix_scale_value,2);
+					set(layer[infoslide3].scale,get(fix_scale_value));
+					set(layer[infoslide2].scale,get(fix_scale_value));
+					set(layer[infoslide1].scale,get(fix_scale_value));
+					,
+					set(layer[infoslide1].scale,1);
+					set(layer[infoslide2].scale,1);
+					set(layer[infoslide3].scale,1);
+				);
+				,
+				
+				<!-- LANDSCAPE -->
+				<!-- width and height IS updated. -->
+				if(stageheight LE 630,
+					calc(fix_scale_value,stageheight/630);
+					roundval(fix_scale_value,2);
+					set(layer[infoslide3].scale,get(fix_scale_value));
+					set(layer[infoslide2].scale,get(fix_scale_value));
+					set(layer[infoslide1].scale,get(fix_scale_value));
+					,
+					set(layer[infoslide1].scale,1);
+					set(layer[infoslide2].scale,1);
+					set(layer[infoslide3].scale,1);
+				);
+							
+				
+		);
+	);
+	</action>
+	
+	<action name="tweenlookat" scope="local" args="hlookat,vlookat">
+		lookto(get(hlookat),get(vlookat),120,smooth(250,120,100));
+	</action>
+	
+	<action name="prev_sculpture_pano">
+		copy(scenename,xml.scene);
+		indexoftxt(i,get(scenename),'_');
+		inc(i);
+		calc(scene_n,slice(get(scenename),i,scenename.length));
+		
+		if (scene_n LT 11 AND scene_n GT 2,
+			
+			dec(scene_n,3);
+			inc(scene_n);
+			mod(scene_n,8);
+			
+			if(scene_n == -1,
+			<!-- krpano module is retarded -->
+				set(scene_n,7);
+			);
+			
+			inc(scene_n,3);
+			
+			
+			tour_loadscene(calc('scene_' + scene_n));
+		);
+		
+		if (scene_n LT 21 AND scene_n GT 12,
+			
+			dec(scene_n,13);
+			inc(scene_n);
+			mod(scene_n,8);
+			
+			if(scene_n == -1,
+			<!-- krpano module is retarded -->
+				set(scene_n,7);
+			);
+			
+			inc(scene_n,13);
+			
+			
+			tour_loadscene(calc('scene_' + scene_n));
+		);
+		
+	</action>
+	
+	<action name="next_sculpture_pano">
+		copy(scenename,xml.scene);
+		indexoftxt(i,get(scenename),'_');
+		inc(i);
+		calc(scene_n,slice(get(scenename),i,scenename.length));
+		
+		if (scene_n LT 11 AND scene_n GT 2,
+			
+			dec(scene_n,3);
+			dec(scene_n);
+			
+			mod(scene_n,8);
+			
+			if(scene_n == -1,
+			<!-- krpano module is retarded -->
+				set(scene_n,7);
+			);
+			
+			inc(scene_n,3);
+			
+			
+			tour_loadscene(calc('scene_' + scene_n));
+		);
+		
+		if (scene_n LT 21 AND scene_n GT 12,
+			
+			dec(scene_n,13);
+			dec(scene_n);
+			mod(scene_n,8);
+			
+			if(scene_n == -1,
+			<!-- krpano module is retarded -->
+				set(scene_n,7);
+			);
+			
+			inc(scene_n,13);
+			
+			
+			tour_loadscene(calc('scene_' + scene_n));
+		);
+		
+	</action>
+	
+	<action name="enable_sculpture_arrows" scope="local">
+		tween(layer[prev_sculpture_arrow].alpha,1);
+		set(layer[prev_sculpture_arrow].enabled,true);
+		
+		tween(layer[next_sculpture_arrow].alpha,1);
+		set(layer[next_sculpture_arrow].enabled,true);
+		
+		enable_works_ui();
+	</action>
+	
+	<action name="disable_sculpture_arrows" scope="local">
+		tween(layer[prev_sculpture_arrow].alpha,0);
+		set(layer[prev_sculpture_arrow].enabled,false);
+		
+		tween(layer[next_sculpture_arrow].alpha,0);
+		set(layer[next_sculpture_arrow].enabled,false);
+		
+		disable_works_ui();
+	</action>
+	
+	<layer name="prev_sculpture_arrow" type="image" align="bottomcenter" x="-8%" y="20%" url="%ROOT%/icons/flipleftoff.png" keep="true"
+	scale="0.15" alpha="0" enabled="0" zorder="0"
+	onover="set(layer[prev_sculpture_arrow].url,%ROOT%/icons/fliplefton.png)"
+	onout="set(layer[prev_sculpture_arrow].url,%ROOT%/icons/flipleftoff.png)"
+	onclick="prev_sculpture_pano();"/>
+	
+	
+	<layer name="next_sculpture_arrow" type="image" align="bottomcenter" x="8%" y="20%" url="%ROOT%/icons/fliprightoff.png" keep="true"
+	scale="0.15" alpha="0" enabled="0" zorder="0"
+	onover="set(layer[next_sculpture_arrow].url,%ROOT%/icons/fliprighton.png)"
+	onout="set(layer[next_sculpture_arrow].url,%ROOT%/icons/fliprightoff.png)"
+	onclick="next_sculpture_pano();"/>
+	
+	
+	<layer name="works_ui" align="bottomleft" x="50" y="50" type="image" url="%ROOT%/icons/works_menu.png" keep="true" scale="0.2" 
+	scalechildren="true" maskchildren="true" handcursor="false" alpha="0" enabled="false">
+		<layer name="paybutton_icon" type="image" url="%ROOT%/icons/paybuttonoff.png" align="bottomleft" x="250" y="70" alpha="1" enabled="true"
+		onclick=""
+		onover="set(layer[paybutton_icon].url,%ROOT%/icons/paybuttonon.png);"
+		onout="set(layer[paybutton_icon].url,%ROOT%/icons/paybuttonoff.png);"/>
+		
+		<layer name="etiqueta_icon" type="image" url="%ROOT%/icons/etiquetaoff.png" align="bottomleft" x="750" y="70" alpha="1" enabled="true"
+		onclick="show_proper_work();"
+		onover="set(layer[etiqueta_icon].url,%ROOT%/icons/etiquetaon.png);"
+		onout="set(layer[etiqueta_icon].url,%ROOT%/icons/etiquetaoff.png);"/>
+	</layer>
+	
+	<action name="show_proper_work">
+		copy(scenename,xml.scene);
+		indexoftxt(i,get(scenename),'_');
+		inc(i);
+		calc(scene_n,slice(get(scenename),i,scenename.length));
+		
+		if (scene_n LT 11 AND scene_n GT 2,
+			toggle_workdisplay(1);
+		);
+		
+		if (scene_n LT 21 AND scene_n GT 12,
+			toggle_workdisplay(2);
+		);
+		
+		if( scene_n == 35,
+			toggle_workdisplay(3);
+		);
+		
+		if( scene_n == 34,
+			toggle_workdisplay(4);
+		);
+		
+		if( scene_n == 33,
+			toggle_workdisplay(5);
+		);
+		
+		if( scene_n == 37,
+			toggle_workdisplay(6);
+		);
+		
+		if( scene_n == 36,
+			toggle_workdisplay(7);
+		);
+	</action>
+	<action name="enable_works_ui">
+		tween(layer[works_ui].alpha,1);
+		set(layer[works_ui].enabled,true);
+	</action>
+	
+	<action name="disable_works_ui">
+		tween(layer[works_ui].alpha,0);
+		set(layer[works_ui].enabled,false);
+	</action>
+	
+	
+	
+	
+</krpano>
