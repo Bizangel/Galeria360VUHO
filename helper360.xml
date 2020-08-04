@@ -102,9 +102,13 @@
 	
 	<action name="tour_loadscene" scope="local" args="scenename">
 	if(xml.scene != scenename,
+		save_prev_pano(get(xml.scene));
+		
+		copy(to_load,scenename);
 		loadscene(get(scenename),null,MERGE|KEEPVIEW|KEEPMOVING,BLEND(0.5));		
 		tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), 2.0, default);
-
+		
+		disable_prev_exit();
 		delete_golden_array();
 		
 		
@@ -117,11 +121,18 @@
 			enable_sculpture_arrows();
 			,
 			disable_sculpture_arrows();
+			save_last_pano(get(to_load));
 		);
 		
 		if( scene_n GT 32 AND scene_n LT 38,
 			enable_works_ui();
+			enable_prev_exit();
 		);
+		
+		if( scene_n == 48 OR scene_n == 49,
+			enable_works_ui();
+			enable_prev_exit();
+		); 
 	);
 	</action>
 	
@@ -187,7 +198,8 @@
 				<!-- PORTRAIT -->
 				if(stagewidth LE 1010,
 					calc(fix_scale_value,stagewidth/1010);
-					roundval(fix_scale_value,2);
+					roundval(fix_scale_value,2)
+					mul(fix_scale_value,.6);
 					set(layer[infoslide3].scale,get(fix_scale_value));
 					set(layer[infoslide2].scale,get(fix_scale_value));
 					set(layer[infoslide1].scale,get(fix_scale_value));
@@ -313,6 +325,9 @@
 		tween(layer[next_sculpture_arrow].alpha,1);
 		set(layer[next_sculpture_arrow].enabled,true);
 		
+		tween(layer[Exit_sculpture].alpha,1);
+		set(layer[Exit_sculpture].enabled,true);
+		
 		enable_works_ui();
 	</action>
 	
@@ -323,27 +338,37 @@
 		tween(layer[next_sculpture_arrow].alpha,0);
 		set(layer[next_sculpture_arrow].enabled,false);
 		
+		tween(layer[Exit_sculpture].alpha,0);
+		set(layer[Exit_sculpture].enabled,false);
+		
 		disable_works_ui();
 	</action>
 	
 	<layer name="prev_sculpture_arrow" type="image" align="bottomcenter" x="-8%" y="20%" url="%ROOT%/icons/flipleftoff.png" keep="true"
-	scale="0.15" alpha="0" enabled="0" zorder="0"
+	scale="0.15" alpha="0" enabled="false" zorder="0"
 	onover="set(layer[prev_sculpture_arrow].url,%ROOT%/icons/fliplefton.png)"
 	onout="set(layer[prev_sculpture_arrow].url,%ROOT%/icons/flipleftoff.png)"
 	onclick="prev_sculpture_pano();"/>
 	
 	
 	<layer name="next_sculpture_arrow" type="image" align="bottomcenter" x="8%" y="20%" url="%ROOT%/icons/fliprightoff.png" keep="true"
-	scale="0.15" alpha="0" enabled="0" zorder="0"
+	scale="0.15" alpha="0" enabled="false" zorder="0"
 	onover="set(layer[next_sculpture_arrow].url,%ROOT%/icons/fliprighton.png)"
 	onout="set(layer[next_sculpture_arrow].url,%ROOT%/icons/fliprightoff.png)"
 	onclick="next_sculpture_pano();"/>
+	
+	<layer name="Exit_sculpture" type="image" align="bottomcenter" y="22%" url="%ROOT%/icons/exitoff.png" keep="true"
+	scale="0.3" alpha="0" enabled="false" zorder="0"
+	onclick="exit_to_last_pano();"
+	onover="set(layer[Exit_sculpture].url,%ROOT%/icons/exiton.png)"
+	onout="set(layer[Exit_sculpture].url,%ROOT%/icons/exitoff.png)"
+	/>
 	
 	
 	<layer name="works_ui" align="bottomleft" x="50" y="50" type="image" url="%ROOT%/icons/works_menu.png" keep="true" scale="0.2" 
 	scalechildren="true" maskchildren="true" handcursor="false" alpha="0" enabled="false">
 		<layer name="paybutton_icon" type="image" url="%ROOT%/icons/paybuttonoff.png" align="bottomleft" x="250" y="70" alpha="1" enabled="true"
-		onclick=""
+		onclick="show_pay_warning();"
 		onover="set(layer[paybutton_icon].url,%ROOT%/icons/paybuttonon.png);"
 		onout="set(layer[paybutton_icon].url,%ROOT%/icons/paybuttonoff.png);"/>
 		
@@ -386,18 +411,74 @@
 		if( scene_n == 36,
 			toggle_workdisplay(7);
 		);
+		
+		if( scene_n == 48,
+			toggle_workdisplay(8);
+		);
+		
+		if( scene_n == 49,
+			toggle_workdisplay(9);
+		);
 	</action>
+	
 	<action name="enable_works_ui">
 		tween(layer[works_ui].alpha,1);
 		set(layer[works_ui].enabled,true);
+		
+		if(device.handheld == true,
+			set(layer[OverlayMenu].x,2%);
+			overlay_animation_disable();
+		);
 	</action>
 	
 	<action name="disable_works_ui">
 		tween(layer[works_ui].alpha,0);
 		set(layer[works_ui].enabled,false);
+		
+		if(device.handheld == true,
+			set(layer[OverlayMenu].x,50);
+			overlay_animation_enable();
+		);
+	</action>
+	
+	<layer name="last_pano_holder" lastpano="scene_1" keep="true"/>
+	
+	<action name="save_last_pano" scope="local" args="lastpano_val">
+		set(layer[last_pano_holder].lastpano,get(lastpano_val));
+	</action>
+	
+	<layer name="prev_pano_holder" prevpano="scene_1" keep="true"/>
+	
+	<action name="save_prev_pano" scope="local" args="prevpano_val">
+		set(layer[prev_pano_holder].prevpano,get(prevpano_val));
 	</action>
 	
 	
+	<action name="exit_to_last_pano" scope="global">
+		tour_loadscene(get(layer[last_pano_holder].lastpano));
+	</action>
+	
+	<action name="load_prev_pano" scope="global">
+		tour_loadscene(get(layer[prev_pano_holder].prevpano));
+	</action>
+	
+	
+	<action name="enable_prev_exit" scope="local">
+		tween(layer[prev_exit].alpha,1);
+		set(layer[prev_exit].enabled,true);
+	</action>
+	
+	<action name="disable_prev_exit" scope="local">
+		tween(layer[prev_exit].alpha,0);
+		set(layer[prev_exit].enabled,false);
+	</action>
+	
+	<layer name="prev_exit" type="image" align="bottomcenter" y="5%" url="%ROOT%/icons/exitoff.png" keep="true"
+	scale="0.3" alpha="0" enabled="false" zorder="0"
+	onclick="load_prev_pano();"
+	onover="set(layer[prev_exit].url,%ROOT%/icons/exiton.png)"
+	onout="set(layer[prev_exit].url,%ROOT%/icons/exitoff.png)"
+	/>
 	
 	
 </krpano>

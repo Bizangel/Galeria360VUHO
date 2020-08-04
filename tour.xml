@@ -1,4 +1,4 @@
-﻿<krpano version="1.20.6" title="Galería Virtual - VUHO" showerrors="true" logkey="true">
+﻿<krpano version="1.20.6" title="Galería Virtual - VUHO" showerrors="false" logkey="false">
 	
 	
 	
@@ -7,6 +7,7 @@
 
 	<include url="works_info.xml" />
 	<include url="helper360.xml" />
+	<include url="paybutton.xml" />
 
 	<!-- customize skin settings: maps, gyro, webvr, thumbnails, tooltips, layout, design, ... -->
 	<skin_settings maps="false"
@@ -84,7 +85,7 @@
 	<events onkeydown="debugaction();" if="0"/>
 	<action name="debugaction" if="0" >
 		if(keycode == 89,
-			
+			print(get(layer[infoslide1].scale));
 		);
 		if(keycode == 85,
 			
@@ -96,6 +97,7 @@
 	
 	
 	<events onclick="check_navigation();"/>
+	
 	
 	<include url="plugins/depthmap_navigation.xml" if="0"/>
 	<include url="plugins/depthmap_helpertool.xml" if="0" /> 
@@ -290,14 +292,14 @@
 	<style name="scene_46"  ox="1731"    oy="0"   oz="1151"   linkedscene="scene_46" autohotspot="true" 
 	allowed="scene_45|scene_47|scene_38|scene_44|scene_39"/>
 	
-	<style name="scene_47"  ox="1319"    oy="0"   oz="1978"   linkedscene="scene_47" autohotspot="true" 
+	<style name="scene_47"  ox="1319"    oy="0"   oz="1035"   linkedscene="scene_47" autohotspot="true" 
 	allowed="scene_46|scene_38|scene_45|scene_44"/>
 	
 	<style name="scene_48" ox="1319"    oy="0"   oz="1978" linkedscene="scene_48" autohotspot="true"
 	allowed="ANY!"
 	/>
 	
-	<style name="scene_49" ox="1479"    oy="0"   oz="1954" linkedscene="scene_48" autohotspot="true"
+	<style name="scene_49" ox="1479"    oy="0"   oz="1954" linkedscene="scene_49" autohotspot="true"
 	allowed="ANY!"
 	/>
 	
@@ -456,6 +458,13 @@
 			<cube url="panos/03.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/03_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(1);" >
+			<point ath="158.59103799379113" atv="19.90523443038968" />
+			<point ath="159.93992013780706" atv="18.753591006376" />
+			<point ath="163.11774945241837" atv="19.016600879175687" />
+			<point ath="162.3300681790542" atv="20.307249261882447" />
+		</hotspot>
 
 	</scene>
 
@@ -474,7 +483,13 @@
 			<cube url="panos/04.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/04_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(1);" >
+			<point ath="-137.54134546951363" atv="25.801972099435027" />
+			<point ath="-133.97760445459227" atv="24.5788534211537" />
+			<point ath="-130.58112045435868" atv="26.006904932827595" />
+			<point ath="-133.83261210611224" atv="27.44578076281548" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_5" title="05" onstart="delayedcall(0.1,tweenlookat(-90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/05.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -492,7 +507,13 @@
 			<cube url="panos/05.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/05_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(1);" >
+			<point ath="-75.19471543217361" atv="22.21894311371322" />
+			<point ath="-76.08394125732093" atv="20.813959128891714" />
+			<point ath="-72.47183345149301" atv="20.486531169268872" />
+			<point ath="-70.99883318983723" atv="21.858862088177233" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_6" title="06" onstart="delayedcall(0.1,tweenlookat(-45,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/06.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -510,7 +531,14 @@
 			<cube url="panos/06.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/06_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(1);" >
+			<point ath="-29.677060766293494" atv="17.54438940944548" />
+			<point ath="-27.918704713517627" atv="16.598281021034882" />
+			<point ath="-25.373336834399595" atv="17.097493573663296" />
+			<point ath="-26.692473253655294" atv="17.969745794234875" />
+		</hotspot>
+		
 	</scene>
 
 	<scene name="scene_7" title="07" onstart="delayedcall(0.1,tweenlookat(0,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/07.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -582,6 +610,13 @@
 			<cube url="panos/10.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/10_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs5" style="golden_highlight" onclick="toggle_workdisplay(1);">
+			<point ath="119.6367201557265" atv="17.06520096898655" />
+			<point ath="118.17061013981501" atv="16.17791127709903" />
+			<point ath="120.66194096727912" atv="15.75883009211414" />
+			<point ath="122.23990626212677" atv="16.470947774027827" />
+		</hotspot>
 
 	</scene>
 
@@ -842,7 +877,14 @@
 			<cube url="panos/13.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/13_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="157.46708392867998" atv="20.981605309656075" />
+			<point ath="159.00862023121903" atv="19.62939593407249" />
+			<point ath="162.36807978420651" atv="20.184387835027934" />
+			<point ath="161.3283433702006" atv="21.4402789613459" />
+		</hotspot>
+		
 	</scene>
 
 	<scene name="scene_14" title="14" onstart="delayedcall(0.1,tweenlookat(-135,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/14.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -860,7 +902,14 @@
 			<cube url="panos/14.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/14_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="-134.29794446618217" atv="27.287825022753754" />
+			<point ath="-130.8574727054266" atv="25.67437149654363" />
+			<point ath="-126.90802931411366" atv="27.18526306787524" />
+			<point ath="-130.0463406357256" atv="28.964428731832992" />
+		</hotspot>
+		
 	</scene>
 
 	<scene name="scene_15" title="15" onstart="delayedcall(0.1,tweenlookat(-90,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/15.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -878,6 +927,13 @@
 			<cube url="panos/15.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/15_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="-71.42947970920028" atv="21.900750784650864" />
+			<point ath="-72.74870109235957" atv="20.555300870290612" />
+			<point ath="-69.16530628733204" atv="20.165805875931937" />
+			<point ath="-67.63945916485136" atv="21.441876811177153" />
+		</hotspot>
 
 	</scene>
 
@@ -896,7 +952,14 @@
 			<cube url="panos/16.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/16_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="-28.327069589846246" atv="16.654606286324583" />
+			<point ath="-26.910716471896592" atv="15.886040832292196" />
+			<point ath="-24.254065185821446" atv="16.352329167995574" />
+			<point ath="-25.44647320732588" atv="17.242679739575124" />
+		</hotspot>
+		
 	</scene>
 
 	<scene name="scene_17" title="17" onstart="delayedcall(0.1,tweenlookat(0,0););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/17.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -914,6 +977,13 @@
 			<cube url="panos/17.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/17_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="12.141891096504423" atv="14.031967803457503" />
+			<point ath="11.721990698131492" atv="13.406950700981625" />
+			<point ath="14.119603603104338" atv="13.171697279507587" />
+			<point ath="14.597954111932154" atv="13.845885193063495" />
+		</hotspot>
 
 	</scene>
 
@@ -950,6 +1020,13 @@
 			<cube url="panos/19.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/19_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="80.18736463897841" atv="13.980335348042468" />
+			<point ath="80.4656638681729" atv="13.207247394331985" />
+			<point ath="82.91745280382736" atv="13.392292697124867" />
+			<point ath="82.75273086496315" atv="14.014700064319022" />
+		</hotspot>
 
 	</scene>
 
@@ -968,6 +1045,13 @@
 			<cube url="panos/20.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/20_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(2);" >
+			<point ath="117.15834591302198" atv="17.311519562688687" />
+			<point ath="115.57988570728094" atv="16.38089771065488" />
+			<point ath="118.47740514995795" atv="16.108637160039198" />
+			<point ath="119.97274100000922" atv="16.967640921469496" />
+		</hotspot>
 
 	</scene>
 
@@ -2149,6 +2233,13 @@
 			<cube url="panos/33.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/33_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(5);" >
+			<point ath="139.16759464609362" atv="5.2155404883162815" />
+			<point ath="139.16561246710373" atv="0.6238876983128734" />
+			<point ath="142.7687964252134" atv="0.5759039211941893" />
+			<point ath="142.6906988290273" atv="5.401831287754573" />
+		</hotspot>
 
 	</scene>
 
@@ -2167,6 +2258,13 @@
 			<cube url="panos/34.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/34_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(4);" >
+			<point ath="-143.4747600097009" atv="5.503138727216477" />
+			<point ath="-143.49470468212272" atv="0.6452992935307759" />
+			<point ath="-139.6223130224988" atv="0.5452988717729461" />
+			<point ath="-139.53196937214642" atv="5.380052448652201" />
+		</hotspot>
 
 	</scene>
 
@@ -2185,7 +2283,13 @@
 			<cube url="panos/35.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/35_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
-
+		
+		<hotspot name="hs1" style="golden_highlight" onclick="toggle_workdisplay(3);" >
+			<point ath="-156.34424190323114" atv="11.91737595664583" />
+			<point ath="-156.3406782043093" atv="6.54833863861809" />
+			<point ath="-151.37521514569096" atv="6.218015349480022" />
+			<point ath="-151.39781472330287" atv="11.526296608484891" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_36" title="36" onstart="lookat(6.5,4);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/36.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2203,6 +2307,13 @@
 			<cube url="panos/36.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/36_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs5" style="golden_highlight" onclick="toggle_workdisplay(7);">
+			<point ath="-24.348018831707236" atv="12.141454792284517" />
+			<point ath="-24.331877181888615" atv="6.587059366535419" />
+			<point ath="-18.988051145111342" atv="6.833545210055995" />
+			<point ath="-18.83384780048715" atv="12.835093656554621" />
+		</hotspot>
 
 	</scene>
 
@@ -2221,6 +2332,15 @@
 			<cube url="panos/37.tiles/vr/pano_%t_%s.jpg" />
 			<depthmap url="depthmaps/37_sd.png" enabled ="true" scale="0.7" offset="0" style="depthmapsettings" />
 		</image>
+		
+		<hotspot name="hs4" style="golden_highlight" onclick="toggle_workdisplay(6);" >
+			<point ath="-51.74804960934296" atv="5.582603415312886" />
+			<point ath="-51.68096484074778" atv="3.0432380469996554" />
+			<point ath="-50.07502402013614" atv="3.102147555231829" />
+			<point ath="-50.137896941789165" atv="5.6473987946807185" />
+		</hotspot>
+		
+		
 
 	</scene>
 
@@ -2252,6 +2372,195 @@
 		
 		<hotspot name="spot6" style="visual_floorspot" tx="+250" ty="100" tz="0" keep="false" visible="true" enabled="true" linkedscene="scene_32"/>
 		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="-102.50990787809548" atv="-23.690321798970338" />
+			<point ath="-102.11001958309578" atv="-23.117886092508826" />
+			<point ath="-102.01031364771637" atv="-22.780478042392605" />
+			<point ath="-101.91053722957719" atv="-22.44109022430508" />
+			<point ath="-101.62400013931904" atv="-22.319786567693566" />
+			<point ath="-101.52318460434651" atv="-22.237845609413103" />
+			<point ath="-101.01831555479936" atv="-21.82512266924502" />
+			<point ath="-100.83390734077136" atv="-21.706358718322548" />
+			<point ath="-100.36479540966758" atv="-21.28008672362281" />
+			<point ath="-100.26246465330541" atv="-21.19436950040055" />
+			<point ath="-100.0667432937409" atv="-20.96151404271297" />
+			<point ath="-99.57292498074355" atv="-19.94454049100342" />
+			<point ath="-99.055828583054" atv="-19.31198608112792" />
+			<point ath="-99.055828583054" atv="-19.31198608112792" />
+			<point ath="-98.74532272253145" atv="-18.947692745940145" />
+			<point ath="-98.64106382532401" atv="-18.3885641340563" />
+			<point ath="-98.54209306041787" atv="-18.1287134919585" />
+			<point ath="-97.67044485563781" atv="-17.74281411463383" />
+			<point ath="-97.25421412887249" atv="-17.177205311927942" />
+			<point ath="-97.25395020497086" atv="-16.98575188450873" />
+			<point ath="-96.94204433974733" atv="-16.798093333937935" />
+			<point ath="-96.83767598120227" atv="-16.414583292596614" />
+			<point ath="-96.73322053948675" atv="-15.932817008267001" />
+			<point ath="-96.5248992447473" atv="-15.449864024675238" />
+			<point ath="-96.52420694729256" atv="-14.767212110631556" />
+			<point ath="-95.90159040329797" atv="-14.193745425092924" />
+			<point ath="-95.79735660600011" atv="-13.89869162555702" />
+			<point ath="-95.79705444837407" atv="-13.503386360796409" />
+			<point ath="-96.00481034884973" atv="-13.304032515667583" />
+			<point ath="-96.21218837850478" atv="-12.806246559437962" />
+			<point ath="-96.83542830480394" atv="-12.900484315488177" />
+			<point ath="-97.56183921681429" atv="-12.991841582653347" />
+			<point ath="-98.07999179433205" atv="-12.984940475912673" />
+			<point ath="-98.28722129640613" atv="-12.98031150931334" />
+			<point ath="-98.49393891795728" atv="-12.877885141193664" />
+			<point ath="-98.59748794771218" atv="-12.283507629904253" />
+			<point ath="-98.49593497056867" atv="-12.147625322010736" />
+			<point ath="-97.87406188574408" atv="-12.057848117286468" />
+			<point ath="-97.1477678798928" atv="-11.966000437588425" />
+			<point ath="-96.42078302288257" atv="-11.972294245702598" />
+			<point ath="-96.00474620484033" atv="-11.674264464791403" />
+			<point ath="-95.90070787699926" atv="-11.57445497392" />
+			<point ath="-95.58875954875202" atv="-11.47549585679128" />
+			<point ath="-95.27677482305825" atv="-11.376124306190086" />
+			<point ath="-94.86074964955321" atv="-11.175891166638694" />
+			<point ath="-94.75676128055466" atv="-11.176052668954743" />
+			<point ath="-94.44478247046368" atv="-11.176321855096527" />
+			<point ath="-94.0288043285858" atv="-11.176178286956873" />
+			<point ath="-93.40491247610925" atv="-11.174886421459142" />
+			<point ath="-93.19699053314952" atv="-11.174168911922196" />
+			<point ath="-92.78124248824855" atv="-11.172304033783085" />
+			<point ath="-91.9498501966109" atv="-11.166016941946245" />
+			<point ath="-91.11978491941483" atv="-11.156847564946743" />
+			<point ath="-90.60172458002262" atv="-11.250952261787704" />
+			<point ath="-90.49822845387632" atv="-11.249568309403518" />
+			<point ath="-89.46379313299872" atv="-11.632531984764663" />
+			<point ath="-88.22779191672936" atv="-11.904544337865588" />
+			<point ath="-87.81567316273788" atv="-12.292387520357368" />
+			<point ath="-87.50692429549423" atv="-12.581801942972131" />
+			<point ath="-85.87016127509224" atv="-13.319905484920373" />
+			<point ath="-84.85651959830886" atv="-13.28236976053303" />
+			<point ath="-84.65451930091598" atv="-13.274408606601064" />
+			<point ath="-83.94890646322756" atv="-13.342954190843544" />
+			<point ath="-83.34454092848028" atv="-13.705371549698016" />
+			<point ath="-82.14643101034875" atv="-13.936735577931296" />
+			<point ath="-81.84307372702023" atv="-14.68990820891976" />
+			<point ath="-81.84405675659809" atv="-14.690478319710886" />
+			<point ath="-82.13955770121646" atv="-14.994202103690057" />
+			<point ath="-82.7368528294935" atv="-15.026542267338828" />
+			<point ath="-83.23661953113657" atv="-15.052396669280531" />
+			<point ath="-83.73632739623571" atv="-15.36534397751935" />
+			<point ath="-83.93625631525947" atv="-15.566958433528132" />
+			<point ath="-83.9283535160763" atv="-15.581535411227911" />
+			<point ath="-84.30654433831677" atv="-15.604966623382905" />
+			<point ath="-84.50898344528758" atv="-15.614034460018946" />
+			<point ath="-84.71166750024946" atv="-15.622926732043695" />
+			<point ath="-85.42292339601914" atv="-15.652653727334362" />
+			<point ath="-86.03706510146401" atv="-15.193204803602011" />
+			<point ath="-86.34405826281409" atv="-15.107201145080483" />
+			<point ath="-86.75347164400915" atv="-15.121071603173231" />
+			<point ath="-87.06022895807746" atv="-15.325081189470776" />
+			<point ath="-87.05658776428123" atv="-16.19445615324394" />
+			<point ath="-86.5476883778652" atv="-16.35842391549033" />
+			<point ath="-85.83363810064947" atv="-16.281068216433194" />
+			<point ath="-84.82305226682053" atv="-16.328690006273582" />
+			<point ath="-83.21431523234935" atv="-17.37090569405226" />
+			<point ath="-83.3078483455389" atv="-18.492299226559545" />
+			<point ath="-83.30631107358147" atv="-18.7691008150164" />
+			<point ath="-83.30220976944821" atv="-19.503127836941683" />
+			<point ath="-82.90039646694726" atv="-20.022083814849637" />
+			<point ath="-82.8003668909929" atv="-20.105679967442743" />
+			<point ath="-82.79983361288481" atv="-20.196197626606992" />
+			<point ath="-82.89616138011507" atv="-20.74447890959492" />
+			<point ath="-83.29297165314239" atv="-21.132113588420303" />
+			<point ath="-83.39288908591749" atv="-21.139181569515458" />
+			<point ath="-83.9919145614677" atv="-21.0073242886148" />
+			<point ath="-84.90042128308937" atv="-20.70292919394746" />
+			<point ath="-85.70883107187143" atv="-20.754854624336126" />
+			<point ath="-86.23615417161523" atv="-20.489987836365756" />
+			<point ath="-86.81777315740118" atv="-19.90697589174486" />
+			<point ath="-87.0211241762322" atv="-19.371335228124913" />
+			<point ath="-87.5381805845011" atv="-18.922855892404996" />
+			<point ath="-88.05602457004102" atv="-18.469825727158234" />
+			<point ath="-88.46386650096167" atv="-18.410934787203264" />
+			<point ath="-88.87477003174774" atv="-18.253961014268416" />
+			<point ath="-89.78031424241027" atv="-17.6251300150223" />
+			<point ath="-90.09370522259707" atv="-17.342683315327307" />
+			<point ath="-90.82521684475176" atv="-16.67812739119777" />
+			<point ath="-90.92973871805896" atv="-16.582577253730406" />
+			<point ath="-90.93068408167312" atv="-16.583956470245408" />
+			<point ath="-91.52877198836711" atv="-17.554893592216978" />
+			<point ath="-92.02493051814793" atv="-17.810465177280868" />
+			<point ath="-92.43295455167174" atv="-18.155399396209162" />
+			<point ath="-93.36943559288142" atv="-18.90727314461216" />
+			<point ath="-93.89078175670267" atv="-19.266258685152973" />
+			<point ath="-92.76424502473611" atv="-18.816802549944786" />
+			<point ath="-95.44661067937" atv="-19.96495810122299" />
+			<point ath="-96.47381432180975" atv="-20.75151247594727" />
+			<point ath="-97.29311513039886" atv="-21.440167242361767" />
+			<point ath="-97.70177447491591" atv="-21.690994899940577" />
+			<point ath="-98.72035978082482" atv="-22.351968564908965" />
+			<point ath="-99.12644452061403" atv="-22.594512565978988" />
+			<point ath="-99.93344594246776" atv="-22.80614620693162" />
+			<point ath="-100.42414065882195" atv="-23.094772182029775" />
+			<point ath="-101.52490019901046" atv="-23.62141730236745" />
+			<point ath="-102.22122181803775" atv="-23.99459445858754" />
+		</hotspot>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_49" borderwidth="5" >
+			<point ath="-48.47190196559984" atv="-6.762253924200121" />
+			<point ath="-48.004080736077924" atv="-6.818868165528844" />
+			<point ath="-47.430670660431815" atv="-6.772285059640565" />
+			<point ath="-46.80585207348474" atv="-7.036753100890832" />
+			<point ath="-46.178870889345546" atv="-7.093001775713032" />
+			<point ath="-45.970024228056275" atv="-7.198116402402558" />
+			<point ath="-45.76141127660031" atv="-7.406984131634867" />
+			<point ath="-45.18790388440425" atv="-8.395585288007348" />
+			<point ath="-44.82443618430017" atv="-10.155484699944965" />
+			<point ath="-44.826175392005155" atv="-10.928049345253878" />
+			<point ath="-44.827336992577784" atv="-11.441824432492018" />
+			<point ath="-44.7756253474023" atv="-11.903567174010712" />
+			<point ath="-44.829315634039006" atv="-12.312659445766206" />
+			<point ath="-44.83083205374135" atv="-12.976195517541397" />
+			<point ath="-44.67440929331252" atv="-13.993527608573695" />
+			<point ath="-44.62341521354983" atv="-14.953952085076217" />
+			<point ath="-44.62494382135026" atv="-15.707828709056937" />
+			<point ath="-44.73215750535161" atv="-16.207557247050392" />
+			<point ath="-44.839519556811865" atv="-16.705397490329656" />
+			<point ath="-44.68097464649486" atv="-17.104133549560714" />
+			<point ath="-44.362510339042615" atv="-17.453046715534555" />
+			<point ath="-43.83008998396997" atv="-17.15797676759664" />
+			<point ath="-43.56395912375234" atv="-16.763350673635564" />
+			<point ath="-43.35116141281401" atv="-16.216908571387215" />
+			<point ath="-43.03239029267604" atv="-15.574367486283919" />
+			<point ath="-42.714109286831274" atv="-15.070385342735348" />
+			<point ath="-42.34239841786223" atv="-14.364398468989972" />
+			<point ath="-42.130034578835705" atv="-13.757781423053252" />
+			<point ath="-41.761142275577015" atv="-12.991047089307882" />
+			<point ath="-41.497267094144775" atv="-12.784938308921923" />
+			<point ath="-41.12869730051443" atv="-12.372859461886154" />
+			<point ath="-40.97107793759642" atv="-11.910574149786422" />
+			<point ath="-40.60300597402329" atv="-11.445204842209282" />
+			<point ath="-40.50323834002529" atv="-10.259581919964479" />
+			<point ath="-40.45316166231311" atv="-9.691295003147008" />
+			<point ath="-40.35068362502261" atv="-9.173083498712405" />
+			<point ath="-40.090953411870885" atv="-8.653136458418155" />
+			<point ath="-39.05091152742068" atv="-7.658367302628156" />
+			<point ath="-38.84190315520476" atv="-7.655724191277419" />
+			<point ath="-38.534243584038165" atv="-6.978574112079774" />
+			<point ath="-38.59686560955686" atv="-5.682111916068405" />
+			<point ath="-39.014358454629416" atv="-5.477776016229094" />
+			<point ath="-39.58517675091247" atv="-5.741599783877978" />
+			<point ath="-39.896370441850195" atv="-6.003550201443065" />
+			<point ath="-40.41817781348129" atv="-6.0590254567107795" />
+			<point ath="-40.99320938961603" atv="-6.0098887674014225" />
+			<point ath="-41.150055799421295" atv="-6.0105680408840225" />
+			<point ath="-41.672499316258325" atv="-6.22072647282114" />
+			<point ath="-42.248504862804396" atv="-6.170277427527139" />
+			<point ath="-42.668633781335984" atv="-6.171320948106187" />
+			<point ath="-43.26805953543652" atv="-6.223697528044219" />
+			<point ath="-43.897440492181715" atv="-6.3271875023506015" />
+			<point ath="-44.526255193478164" atv="-6.325652748860773" />
+			<point ath="-45.20683388298164" atv="-6.166462076428902" />
+			<point ath="-47.670560156459146" atv="-6.013558928168968" />
+			<point ath="-48.34632166470698" atv="-6.059002816857689" />
+			<point ath="-48.662080373270385" atv="-6.521998986710219" />
+		</hotspot>
+
 	</scene>
 
 	<scene name="scene_39" title="39" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/39.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2279,6 +2588,105 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_48" borderwidth="5">
+			<point ath="-141.099456712463" atv="-6.790255082460242" />
+			<point ath="-140.70655278221403" atv="-7.104176660377178" />
+			<point ath="-140.31810152089312" atv="-7.220219635760352" />
+			<point ath="-139.62184533400125" atv="-7.8457674924260665" />
+			<point ath="-139.11983899879718" atv="-8.36389237680704" />
+			<point ath="-138.91285521651818" atv="-8.76898318668256" />
+			<point ath="-138.10438421337454" atv="-9.597451019757743" />
+			<point ath="-137.69304259673112" atv="-10.207935735367872" />
+			<point ath="-136.57802713888483" atv="-11.049731705707194" />
+			<point ath="-131.5945254494682" atv="-15.832584698052706" />
+			<point ath="-131.59110930688337" atv="-16.021318368131276" />
+			<point ath="-132.00012552659192" atv="-16.18856077681773" />
+			<point ath="-132.7266156058024" atv="-15.77419093682492" />
+			<point ath="-133.15020995850477" atv="-15.482080885195682" />
+			<point ath="-133.5726153759029" atv="-14.795340567893968" />
+			<point ath="-135.5398521446312" atv="-13.260799380271889" />
+			<point ath="-137.27545740985687" atv="-11.710857354099725" />
+			<point ath="-138.592006474527" atv="-10.37046782301769" />
+			<point ath="-139.8698021700375" atv="-9.9077815114782" />
+			<point ath="-141.01109305580238" atv="-10.22579234706268" />
+			<point ath="-141.66005896245835" atv="-10.176672857418987" />
+			<point ath="-142.1306920501282" atv="-10.145333799300042" />
+			<point ath="-142.2050729429231" atv="-7.8230380274988205" />
+		</hotspot>
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_49" borderwidth="5">
+			<point ath="-96.56468654455432" atv="-7.850328266900316" />
+			<point ath="-97.59223509178707" atv="-8.750057329187293" />
+			<point ath="-97.77924544394227" atv="-9.501450885911234" />
+			<point ath="-98.04792975377762" atv="-10.164216490183769" />
+			<point ath="-98.06858473479787" atv="-10.918400746687322" />
+			<point ath="-97.49719842523132" atv="-11.527743072440076" />
+			<point ath="-96.66600407339484" atv="-12.06333817932656" />
+			<point ath="-96.41976823930514" atv="-12.40855435869819" />
+			<point ath="-96.34679596598363" atv="-12.914814698596112" />
+			<point ath="-96.02953450061307" atv="-13.932365076865349" />
+			<point ath="-95.95571523189074" atv="-14.518807600037132" />
+			<point ath="-95.89853046253307" atv="-15.769037703972307" />
+			<point ath="-96.6181522059104" atv="-17.137731192240704" />
+			<point ath="-96.65496610970234" atv="-18.6076718440297" />
+			<point ath="-96.5913759644929" atv="-19.503725183275755" />
+			<point ath="-97.95990164347194" atv="-22.208865861968896" />
+			<point ath="-98.48964228363502" atv="-22.640230976491004" />
+			<point ath="-98.50900589228286" atv="-23.26328703838311" />
+			<point ath="-98.52113865430402" atv="-23.650740509081576" />
+			<point ath="-98.51777387589408" atv="-23.728305774562862" />
+			<point ath="-97.90046948822561" atv="-23.31004548240058" />
+			<point ath="-97.45065316392487" atv="-22.717167153956396" />
+			<point ath="-97.43322960075926" atv="-22.088756200281136" />
+			<point ath="-96.60964476961152" atv="-20.389922589183435" />
+			<point ath="-96.51158227896286" atv="-19.846289501479124" />
+			<point ath="-96.0633693364286" atv="-19.22290479509253" />
+			<point ath="-95.70308643731676" atv="-18.675577726723272" />
+			<point ath="-95.51368075212201" atv="-17.947931270687516" />
+			<point ath="-95.22279301251115" atv="-16.476274637410757" />
+			<point ath="-94.50013387735117" atv="-14.757379235596455" />
+			<point ath="-94.13422757000575" atv="-13.677361834765826" />
+			<point ath="-93.69335891258345" atv="-13.184347804337825" />
+			<point ath="-93.51762971811985" atv="-13.020222700128935" />
+			<point ath="-93.25566358779832" atv="-12.860903074394779" />
+			<point ath="-92.81743086804101" atv="-12.532635772970995" />
+			<point ath="-92.47420121918299" atv="-12.79472209561249" />
+			<point ath="-91.8669866860115" atv="-12.892314334552186" />
+			<point ath="-91.60790180696631" atv="-13.067030661762264" />
+			<point ath="-91.08393356850047" atv="-12.99169967504674" />
+			<point ath="-90.64428059512181" atv="-12.658931663673851" />
+			<point ath="-90.37860985492125" atv="-12.23728548488254" />
+			<point ath="-90.02682630975784" atv="-11.900957565915624" />
+			<point ath="-89.84710663640453" atv="-11.220285461056353" />
+			<point ath="-89.84382634272265" atv="-10.793062037970339" />
+			<point ath="-89.14521176763355" atv="-10.457268849254069" />
+			<point ath="-88.27419107548042" atv="-10.462950007923691" />
+			<point ath="-86.61621195267026" atv="-10.038734387299924" />
+			<point ath="-84.26365208131938" atv="-10.286737329712494" />
+			<point ath="-78.66479609660786" atv="-9.347340813026914" />
+			<point ath="-78.41898603860767" atv="-8.831931905979225" />
+			<point ath="-78.59468545755396" atv="-8.57892472771105" />
+			<point ath="-78.76493119377164" atv="-8.582503582621321" />
+			<point ath="-79.78788381332765" atv="-8.687669510201806" />
+			<point ath="-81.2492056102713" atv="-8.54074702438183" />
+			<point ath="-81.93717920444811" atv="-8.635497268685441" />
+			<point ath="-82.88455267290078" atv="-8.989722482403291" />
+			<point ath="-83.31743209131997" atv="-8.993929515667206" />
+			<point ath="-83.922977604155" atv="-9.170410597656378" />
+			<point ath="-85.4000407179829" atv="-8.921300948589744" />
+			<point ath="-87.31265344502015" atv="-8.922925965213032" />
+			<point ath="-87.74705037350924" atv="-8.921865996543833" />
+			<point ath="-88.35592431584001" atv="-8.919121979517504" />
+			<point ath="-89.47498437749744" atv="-8.909779612121111" />
+			<point ath="-90.34273980530855" atv="-9.071593525239882" />
+			<point ath="-91.46627669588389" atv="-9.142605545242366" />
+			<point ath="-92.50033232838888" atv="-9.20992305017625" />
+			<point ath="-92.93215488261228" atv="-9.372438506342899" />
+			<point ath="-94.549976859774" atv="-9.080837044559456" />
+			<point ath="-95.0558825576071" atv="-8.899039009393851" />
+			<point ath="-96.14029262199904" atv="-8.279134939169706" />
+		</hotspot>
 
 	</scene>
 
@@ -2307,6 +2715,75 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="-400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="-60.8" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
+		
+		<hotspot name="hs6" style="golden_highlight" linkedscene="scene_49" borderwidth="5">
+			<point ath="-147.77839555158877" atv="-6.549422083405583" />
+			<point ath="-147.46815208086485" atv="-6.65662392851711" />
+			<point ath="-147.15861601472832" atv="-6.867484333263707" />
+			<point ath="-146.95324886495973" atv="-7.129136041817955" />
+			<point ath="-146.58735106291957" atv="-7.02911530004634" />
+			<point ath="-146.2222031962529" atv="-7.032589494974317" />
+			<point ath="-146.01706953095" atv="-7.450080040632175" />
+			<point ath="-145.97072191878618" atv="-8.125894463527233" />
+			<point ath="-146.18389496209724" atv="-8.539117281266043" />
+			<point ath="-146.18918543936067" atv="-9.109956915251963" />
+			<point ath="-146.45943814683505" atv="-9.93607666533259" />
+			<point ath="-146.15059062625596" atv="-10.61335998601459" />
+			<point ath="-145.84726051888848" atv="-12.064343463372865" />
+			<point ath="-145.85172615821557" atv="-12.579649840342396" />
+			<point ath="-145.80326187469447" atv="-13.09485934547781" />
+			<point ath="-145.8081309719794" atv="-13.659618515639167" />
+			<point ath="-145.7581808782915" atv="-14.019189286908036" />
+			<point ath="-145.65332918312848" atv="-14.17443889434013" />
+			<point ath="-145.17453307750662" atv="-14.078918834291471" />
+			<point ath="-144.853638221079" atv="-13.775306630062548" />
+			<point ath="-144.42490786180878" atv="-13.47347300610283" />
+			<point ath="-144.20918434677378" atv="-12.96225359103458" />
+			<point ath="-143.94076908098435" atv="-12.293488357865277" />
+			<point ath="-143.88645855268845" atv="-11.983757547069102" />
+			<point ath="-143.7243450115704" atv="-11.156456149102175" />
+			<point ath="-143.72281848767415" atv="-10.741680487356307" />
+			<point ath="-143.66773229242864" atv="-10.119096074468779" />
+			<point ath="-143.45442919960766" atv="-9.444447431604601" />
+			<point ath="-143.2949535611629" atv="-8.976906689517012" />
+			<point ath="-143.13516586912337" atv="-8.457138873815316" />
+			<point ath="-143.18469895255677" atv="-7.161971666459652" />
+			<point ath="-143.1308835250649" atv="-6.589328060346131" />
+			<point ath="-143.1308835250649" atv="-6.589328060346131" />
+			<point ath="-142.9203312047164" atv="-6.433665333307881" />
+			<point ath="-142.41089740570965" atv="-6.434092247000766" />
+			<point ath="-141.88685009386182" atv="-6.433985504264458" />
+			<point ath="-140.78665504482836" atv="-6.43202500249684" />
+			<point ath="-139.94881303694075" atv="-6.480977809466457" />
+			<point ath="-138.64075071407032" atv="-6.629300882286267" />
+			<point ath="-138.37913374035338" atv="-6.67888337695369" />
+			<point ath="-137.90915237582874" atv="-6.726858310626663" />
+			<point ath="-136.71228589460452" atv="-6.714104758679248" />
+			<point ath="-136.2452479966982" atv="-6.708522951026118" />
+			<point ath="-135.83078466461942" atv="-6.703199463653636" />
+			<point ath="-135.46868967198404" atv="-6.698264032927331" />
+			<point ath="-135.4220326903422" atv="-6.387422265866894" />
+			<point ath="-135.52945945189364" atv="-6.130368691326702" />
+			<point ath="-135.94364790286843" atv="-6.083743412772052" />
+			<point ath="-136.3058943003745" atv="-6.087914309582443" />
+			<point ath="-136.66862697641812" atv="-6.091848735777569" />
+			<point ath="-137.13566675861938" atv="-6.096557574945014" />
+			<point ath="-137.65759965210557" atv="-5.8942862925307065" />
+			<point ath="-138.69897685507448" atv="-5.901967924705221" />
+			<point ath="-140.7361063739026" atv="-5.8593768072134935" />
+			<point ath="-140.73716534594638" atv="-5.599475232786286" />
+			<point ath="-140.73851719175994" atv="-5.235613440118159" />
+			<point ath="-141.104824702096" atv="-4.976597648376169" />
+			<point ath="-142.35798949612195" atv="-4.977683502302738" />
+			<point ath="-143.08946748323172" atv="-4.97689883621287" />
+			<point ath="-144.95718203768567" atv="-5.386713508784872" />
+			<point ath="-146.25908710543905" atv="-5.379225513150779" />
+			<point ath="-147.09318044446206" atv="-5.632057706571922" />
+			<point ath="-147.66818442927703" atv="-5.988848753801967" />
+			<point ath="-147.77256064058304" atv="-6.039557891943657" />
+			<point ath="-147.82721390305835" atv="-6.24613913151588" />
+			<point ath="-147.83003916064087" atv="-6.453305214313971" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_41" title="41" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/41.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2332,6 +2809,114 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="+290.53" ty="95" tz="-67.5" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="+178.52" ty="84.5" tz="-358" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		
+		<hotspot name="hs7" style="golden_highlight" linkedscene="scene_49" borderwidth="5">
+			<point ath="173.41206108816817" atv="-7.763572986300684" />
+			<point ath="173.40840357631788" atv="-7.9690389222812374" />
+			<point ath="173.7663962147017" atv="-8.028344185259096" />
+			<point ath="174.38247501978424" atv="-8.092765015213295" />
+			<point ath="174.84336943444978" atv="-8.308108059663773" />
+			<point ath="175.09718266687713" atv="-8.62244599360112" />
+			<point ath="175.8737762177098" atv="-8.688643464575915" />
+			<point ath="176.2900498094298" atv="-8.644160239701254" />
+			<point ath="176.81224925984696" atv="-8.497287040686798" />
+			<point ath="177.22860872658333" atv="-8.556637328280168" />
+			<point ath="177.7508315147071" atv="-8.563486928157953" />
+			<point ath="177.8548989338767" atv="-8.61660302012685" />
+			<point ath="178.16715981467456" atv="-8.879918278009344" />
+			<point ath="178.16282415238584" atv="-9.39793240150153" />
+			<point ath="178.20907390919513" atv="-10.174392835926447" />
+			<point ath="178.2581977001368" atv="-10.58837797711615" />
+			<point ath="178.19967126669772" atv="-11.309754653850492" />
+			<point ath="178.03699709256313" atv="-11.873517640272308" />
+			<point ath="178.03610738080866" atv="-11.976328334378069" />
+			<point ath="178.2948649554757" atv="-12.596010094135915" />
+			<point ath="178.65853953199723" atv="-13.369953992462468" />
+			<point ath="179.0239542763078" atv="-14.090395534459322" />
+			<point ath="179.28287364699386" atv="-15.06075906165598" />
+			<point ath="179.54527193132895" atv="-15.621865547744587" />
+			<point ath="179.8638528691968" atv="-16.480328042828713" />
+			<point ath="-179.71125773995004" atv="-16.88708067618805" />
+			<point ath="-179.44615146547528" atv="-17.39070888888468" />
+			<point ath="-179.38982164397777" atv="-17.44008121337292" />
+			<point ath="-179.06818250409333" atv="-17.443934759770972" />
+			<point ath="-178.58664699825846" atv="-17.29610127224529" />
+			<point ath="-178.1052910393286" atv="-17.14693509875056" />
+			<point ath="-177.67767255085002" atv="-16.89617086155965" />
+			<point ath="-177.6246950412919" atv="-15.989888812422558" />
+			<point ath="-177.51850418974342" atv="-15.281336886345612" />
+			<point ath="-177.41237119029424" atv="-14.824199964159702" />
+			<point ath="-177.0943280229065" atv="-13.957187101696958" />
+			<point ath="-176.93487044903333" atv="-13.192360818619763" />
+			<point ath="-177.03612437036458" atv="-12.834146668075897" />
+			<point ath="-176.7202969471159" atv="-11.9573168403584" />
+			<point ath="-176.6161491648944" atv="-11.337709381331218" />
+			<point ath="-176.46010024297203" atv="-10.560850226586846" />
+			<point ath="-175.66672298582813" atv="-10.91781926080437" />
+			<point ath="-175.5611662192153" atv="-10.91694961019622" />
+			<point ath="-175.61506789083143" atv="-10.65903167919679" />
+			<point ath="-176.18095706128435" atv="-9.57037782440676" />
+			<point ath="-175.6539755735509" atv="-9.51562629804212" />
+			<point ath="-175.23220496020036" atv="-9.564791820492843" />
+			<point ath="-174.91590853311249" atv="-9.614292763934197" />
+			<point ath="-174.6527032174294" atv="-9.612037061048012" />
+			<point ath="-174.07455454069088" atv="-9.554488996819646" />
+			<point ath="-173.92128101162191" atv="-8.981367584243777" />
+			<point ath="-174.0302141176316" atv="-8.46257824051931" />
+			<point ath="-174.4001107992192" atv="-8.102156541245742" />
+			<point ath="-175.13319453501305" atv="-8.31576849823495" />
+			<point ath="-175.4482493893463" atv="-8.161110421573754" />
+			<point ath="-174.50746386764314" atv="-7.68627248485798" />
+			<point ath="-174.24702338367746" atv="-7.528162584065845" />
+			<point ath="-173.77640577376218" atv="-7.523931713887453" />
+			<point ath="-173.30635464195794" atv="-7.519204950826915" />
+			<point ath="-172.47229976862195" atv="-7.509586325983531" />
+			<point ath="-172.21211968279053" atv="-7.506263729257726" />
+			<point ath="-172.16698172454744" atv="-6.987395892525955" />
+			<point ath="-172.16903951409648" atv="-6.831950471936621" />
+			<point ath="-172.6398882460602" atv="-6.57807730392569" />
+			<point ath="-173.16007984608373" atv="-6.583333899357496" />
+			<point ath="-174.35811804971922" atv="-6.7493230610532935" />
+			<point ath="-175.08968116858594" atv="-6.806186396159675" />
+			<point ath="-175.76971381973874" atv="-6.91382874443005" />
+			<point ath="-177.08026362743283" atv="-6.970137094709258" />
+			<point ath="-177.23747602663036" atv="-7.07456552681822" />
+			<point ath="-178.02471840883507" atv="-7.075138449412428" />
+			<point ath="-178.0250416289354" atv="-6.762637001546586" />
+			<point ath="-178.23449432075657" atv="-6.293898740000851" />
+			<point ath="-178.44386410532059" atv="-6.137551494271341" />
+			<point ath="-178.07711600763548" atv="-5.721389366517992" />
+			<point ath="-177.55388549086064" atv="-5.7212945732674" />
+			<point ath="-176.92540574539862" atv="-5.668183629032262" />
+			<point ath="-176.9306889188814" atv="-5.696889622405415" />
+			<point ath="-177.24621673814752" atv="-4.969591929100649" />
+			<point ath="-178.02977442985653" atv="-4.762507636038927" />
+			<point ath="-178.7085210118691" atv="-4.762342486223452" />
+			<point ath="-178.96978729601238" atv="-4.917981100581336" />
+			<point ath="-179.49325099227943" atv="-5.384972674370593" />
+			<point ath="-179.80686881449037" atv="-5.384084427568501" />
+			<point ath="179.59611253346958" atv="-5.277933283835979" />
+			<point ath="179.5446075295368" atv="-5.173926347836479" />
+			<point ath="179.59907803452768" atv="-4.811385740522282" />
+			<point ath="179.888764728414" atv="-4.680320955026608" />
+			<point ath="179.62947560568531" atv="-4.420149981316297" />
+			<point ath="179.15930006350504" atv="-4.677998226311014" />
+			<point ath="178.68838363362232" atv="-4.987232958865254" />
+			<point ath="178.32145718203518" atv="-5.296757695205693" />
+			<point ath="178.16216928860473" atv="-5.659200773746607" />
+			<point ath="178.26424222430498" atv="-5.919487430016222" />
+			<point ath="178.41906575621218" atv="-6.128257013915896" />
+			<point ath="178.3658607023102" atv="-6.231473874096028" />
+			<point ath="177.8408588665847" atv="-6.591374862197244" />
+			<point ath="177.2118736699051" atv="-6.896951937847898" />
+			<point ath="175.2886862823205" atv="-6.926167397223736" />
+			<point ath="174.87054720001925" atv="-7.178735120904031" />
+			<point ath="173.83751001680798" atv="-7.213442688124654" />
+			<point ath="173.4744064849081" atv="-7.361551096999171" />
+			<point ath="173.26369029478428" atv="-7.615150527828636" />
+			<point ath="173.25953342805016" atv="-7.821151273650427" />
+		</hotspot>
 
 	</scene>
 
@@ -2360,6 +2945,92 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="+400" ty="63.9" tz="-238.8" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="-60.8" keep="false" visible="true" enabled="true" linkedscene="scene_40"/>
+		
+		<hotspot name="hs8" style="golden_highlight" linkedscene="scene_49" borderwidth="5" >
+			<point ath="139.3297930869668" atv="-6.295681859346835" />
+			<point ath="138.55059282652354" atv="-6.236186729194519" />
+			<point ath="138.6040801446605" atv="-6.081182597562244" />
+			<point ath="138.60669652827846" atv="-5.8219394027244755" />
+			<point ath="139.07494428187508" atv="-5.722498276646118" />
+			<point ath="140.42818159124096" atv="-5.732687755906986" />
+			<point ath="141.4720019375784" atv="-5.73837742633165" />
+			<point ath="141.68139602395152" atv="-5.6874645058483155" />
+			<point ath="142.3610228275507" atv="-5.689822242751465" />
+			<point ath="143.51233530393503" atv="-5.483674308335473" />
+			<point ath="143.87854523746324" atv="-5.640131186609763" />
+			<point ath="145.34434257760103" atv="-5.586252434039272" />
+			<point ath="145.7481233961175" atv="-5.63712405087582" />
+			<point ath="146.11402049293326" atv="-5.635833613349352" />
+			<point ath="146.20555219600402" atv="-14.677144509552202" />
+			<point ath="145.88641866098902" atv="-14.629238366201475" />
+			<point ath="145.61851463728374" atv="-14.019638166265763" />
+			<point ath="145.10302374242076" atv="-13.249548604683183" />
+			<point ath="144.8365986108079" atv="-12.736488612522372" />
+			<point ath="144.46451239186035" atv="-12.016452963954666" />
+			<point ath="144.0934307198527" atv="-11.455006228823727" />
+			<point ath="143.82899990883232" atv="-10.626450280103736" />
+			<point ath="143.6699565475908" atv="-10.16002992261283" />
+			<point ath="143.3009560120032" atv="-9.276410509519385" />
+			<point ath="142.98645586588316" atv="-8.547315337290897" />
+			<point ath="142.88204216648018" atv="-8.234737252965486" />
+			<point ath="142.83105943769078" atv="-7.661937399606152" />
+			<point ath="142.6739730828451" atv="-7.5052450737526" />
+			<point ath="142.35881555075287" atv="-7.556143370867213" />
+			<point ath="141.78126287583555" atv="-7.553132879427445" />
+			<point ath="141.4858079898971" atv="-7.602983099497374" />
+			<point ath="140.4381653635771" atv="-7.594588728117073" />
+			<point ath="139.81275289079417" atv="-7.379814878389991" />
+			<point ath="139.64682134519958" atv="-7.053014790604199" />
+			<point ath="139.64849968458753" atv="-6.897320130102281" />
+			<point ath="139.54789547933956" atv="-6.584422130157464" />
+			<point ath="139.1870087544368" atv="-6.321420013761007" />
+		</hotspot>
+		
+		<hotspot name="hs9" style="golden_highlight" linkedscene="scene_48" borderwidth="5">
+			<point ath="157.17015576328168" atv="-4.340726517999171" />
+			<point ath="157.58805179744965" atv="-4.133705722175647" />
+			<point ath="157.9010578646707" atv="-4.1344031055125114" />
+			<point ath="158.5275749096714" atv="-3.979228967232969" />
+			<point ath="159.04954234458543" atv="-3.979689928022102" />
+			<point ath="159.57160007767982" atv="-4.136045401260484" />
+			<point ath="159.8327110639671" atv="-4.1880620958580925" />
+			<point ath="160.2506995972007" atv="-4.291883444150661" />
+			<point ath="160.51202987620997" atv="-4.447792126452737" />
+			<point ath="161.03442626048013" atv="-4.551000867356917" />
+			<point ath="161.60925037518248" atv="-4.757728132144727" />
+			<point ath="162.13183622961313" atv="-4.9640412498530635" />
+			<point ath="162.1848580825499" atv="-5.171942759207762" />
+			<point ath="161.97688157149327" atv="-5.380939497621994" />
+			<point ath="160.82694823550807" atv="-5.228355783218584" />
+			<point ath="159.99048702535003" atv="-5.437933113168615" />
+			<point ath="159.72895839892556" atv="-5.5943460096147986" />
+			<point ath="159.4672953289865" atv="-5.802715851360182" />
+			<point ath="159.93861536999356" atv="-6.062869489963878" />
+			<point ath="160.2004941022405" atv="-6.11464244880265" />
+			<point ath="160.35786561887755" atv="-6.322626457034397" />
+			<point ath="160.51573600549696" atv="-6.790666714849231" />
+			<point ath="160.62109875760314" atv="-7.102506813294045" />
+			<point ath="160.67436538023452" atv="-7.41397030953924" />
+			<point ath="160.83290375286535" atv="-7.984851978313704" />
+			<point ath="160.93881253018438" atv="-8.399604101301597" />
+			<point ath="161.04547280355322" atv="-9.07291061011724" />
+			<point ath="161.0999883797744" atv="-9.848560643312679" />
+			<point ath="161.10090281730123" atv="-10.210028854737871" />
+			<point ath="160.99572469292085" atv="-10.262159190365189" />
+			<point ath="160.4690344709519" atv="-10.264282362267398" />
+			<point ath="160.15195654236396" atv="-9.801120469945754" />
+			<point ath="159.7832262645129" atv="-9.521229001685816" />
+			<point ath="159.5725204480776" atv="-9.003263599126678" />
+			<point ath="159.20326010240393" atv="-8.692894873160864" />
+			<point ath="158.6880616501949" atv="-8.0364733730202" />
+			<point ath="158.5309179273513" atv="-7.77622724283458" />
+			<point ath="158.32187827056867" atv="-7.30767285593721" />
+			<point ath="158.05909612413018" atv="-7.5148767427413805" />
+			<point ath="157.74335533808954" atv="-7.72136966235175" />
+			<point ath="157.3237671394171" atv="-7.719321710182271" />
+			<point ath="157.11386177526066" atv="-7.665968873068024" />
+			<point ath="157.0614529800484" atv="-7.665654515494707" />
+		</hotspot>
 
 	</scene>
 
@@ -2389,6 +3060,131 @@
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="0" ty="59" tz="-447" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
 		
+		<hotspot name="hs10" style="golden_highlight" linkedscene="scene_49" borderwidth="5">
+			<point ath="84.23870308967014" atv="-9.786360838471296" />
+			<point ath="84.47194111187662" atv="-10.512753429613493" />
+			<point ath="84.72282760850317" atv="-10.726350856498602" />
+			<point ath="85.18582120158453" atv="-10.792167436696019" />
+			<point ath="85.90957810003584" atv="-10.864869905442289" />
+			<point ath="86.37191521597362" atv="-11.0840938718499" />
+			<point ath="86.89594883646703" atv="-10.995756011159926" />
+			<point ath="87.67914556953514" atv="-11.06612007707999" />
+			<point ath="88.25502985611001" atv="-11.130394538323596" />
+			<point ath="88.77974715685838" atv="-11.192704284451315" />
+			<point ath="89.83407362297459" atv="-11.210969655797475" />
+			<point ath="90.2567331880208" atv="-11.217252687318473" />
+			<point ath="91.84368517734688" atv="-11.443816909376364" />
+			<point ath="92.21569722498748" atv="-11.394856795543822" />
+			<point ath="92.90757170722148" atv="-11.138858829226232" />
+			<point ath="94.28869079541826" atv="-11.142986434298434" />
+			<point ath="95.0335672793195" atv="-11.14249639966343" />
+			<point ath="96.62661088834713" atv="-11.135216444316859" />
+			<point ath="97.26302419449169" atv="-11.129961358383913" />
+			<point ath="98.64004140072959" atv="-11.113281224048325" />
+			<point ath="98.95318410897102" atv="-10.848827919369628" />
+			<point ath="99.271200394847" atv="-10.947897519705167" />
+			<point ath="99.91244843326342" atv="-11.456065353295278" />
+			<point ath="100.1274459779548" atv="-11.658377060037832" />
+			<point ath="100.19297113587814" atv="-12.329758500737626" />
+			<point ath="100.80105929507658" atv="-14.063149763294396" />
+			<point ath="101.02830496395626" atv="-14.778150485688569" />
+			<point ath="101.30714325926635" atv="-15.386570780948055" />
+			<point ath="101.59281161774737" atv="-16.248553082046996" />
+			<point ath="101.87759948922437" atv="-17.054711563899417" />
+			<point ath="102.35364330145893" atv="-18.140913649761142" />
+			<point ath="102.8600405487405" atv="-19.123414968978686" />
+			<point ath="103.34508892936987" atv="-19.831859854996534" />
+			<point ath="103.8535564443279" atv="-20.84246403033351" />
+			<point ath="103.86765961725598" atv="-21.28690417567744" />
+			<point ath="104.47567515001307" atv="-21.938832980513713" />
+			<point ath="104.49009493034214" atv="-22.425172448296742" />
+			<point ath="104.31646155274123" atv="-22.984366191784854" />
+			<point ath="105.21718029721629" atv="-22.91456552995022" />
+			<point ath="104.98751101046949" atv="-22.263880897972772" />
+			<point ath="104.53454078915098" atv="-21.46388028786599" />
+			<point ath="104.40619724685644" atv="-20.832451294306097" />
+			<point ath="104.22579747803942" atv="-20.153211416214152" />
+			<point ath="104.21232284185601" atv="-19.51555541585281" />
+			<point ath="104.186844196626" atv="-18.711535147088636" />
+			<point ath="104.16319179867995" atv="-17.9614099109145" />
+			<point ath="104.12590838691776" atv="-16.903412961986362" />
+			<point ath="103.83515610810937" atv="-16.05651002640614" />
+			<point ath="103.70445052409869" atv="-15.251642268858308" />
+			<point ath="103.77114354418549" atv="-14.125712168211477" />
+			<point ath="104.19878666715564" atv="-12.982361155423519" />
+			<point ath="104.47043410989437" atv="-11.896681368520747" />
+			<point ath="104.80006373700371" atv="-11.07185956331365" />
+			<point ath="105.21949282214874" atv="-11.362016163524709" />
+			<point ath="105.53476329572669" atv="-11.604125246144154" />
+			<point ath="105.73741471730042" atv="-11.690402880723544" />
+			<point ath="106.35336378906712" atv="-11.865781515931884" />
+			<point ath="106.86638100656776" atv="-12.043993037321773" />
+			<point ath="107.35068611168839" atv="-11.614452398094476" />
+			<point ath="107.38342034031908" atv="-11.207823235826545" />
+			<point ath="107.25131957384451" atv="-10.496900364721393" />
+			<point ath="107.30124192219591" atv="-10.494651251737288" />
+			<point ath="106.63957083915662" atv="-10.269843901028676" />
+			<point ath="105.92077766491789" atv="-9.9427678489058" />
+			<point ath="105.24975414122176" atv="-9.561419355472784" />
+			<point ath="104.2094361748905" atv="-8.831136057014934" />
+			<point ath="101.77072648011747" atv="-8.381944241211869" />
+			<point ath="99.8494871743984" atv="-8.210777955164223" />
+			<point ath="98.28524225516344" atv="-8.233161903642523" />
+			<point ath="96.60611481268481" atv="-7.989698518337016" />
+			<point ath="96.13390045559098" atv="-7.9929512050180405" />
+			<point ath="95.92715443470604" atv="-8.410273665738648" />
+			<point ath="95.92991338138268" atv="-8.722235842488956" />
+			<point ath="95.93180238904674" atv="-8.967809829263857" />
+			<point ath="95.03167716921877" atv="-9.027381933653386" />
+			<point ath="93.88679064083374" atv="-9.02729564665676" />
+			<point ath="92.14636864627718" atv="-9.020218758519864" />
+			<point ath="90.98788073666012" atv="-9.010467981879136" />
+			<point ath="90.3570979784057" atv="-9.003221083505224" />
+			<point ath="89.56794837293046" atv="-9.302559084598979" />
+			<point ath="88.46647260767156" atv="-9.438430031287577" />
+			<point ath="86.98631444762464" atv="-9.457016246983002" />
+			<point ath="85.94798974734488" atv="-9.58628048677278" />
+			<point ath="84.91548246278859" atv="-9.710240550902034" />
+			<point ath="84.6593239511763" atv="-9.70251455452932" />
+		</hotspot>
+		
+		<hotspot name="hs11" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="136.23252346556848" atv="-8.533260159083056" />
+			<point ath="136.49378994594352" atv="-8.691981017308363" />
+			<point ath="137.1194310717981" atv="-8.697541582521282" />
+			<point ath="137.85489892597718" atv="-8.909897996569773" />
+			<point ath="137.85503079692606" atv="-9.118622665787328" />
+			<point ath="138.27715669546134" atv="-9.01618491552127" />
+			<point ath="139.22639911234177" atv="-8.809899569691344" />
+			<point ath="139.9644997257824" atv="-9.018107859415053" />
+			<point ath="139.9128673562154" atv="-9.382685763582096" />
+			<point ath="140.38011634024258" atv="-10.143349690974137" />
+			<point ath="140.43484854830186" atv="-10.50747107001154" />
+			<point ath="140.6357008824496" atv="-10.755184839505795" />
+			<point ath="140.5329181703281" atv="-11.743907061763244" />
+			<point ath="140.53442984330874" atv="-12.211595385670481" />
+			<point ath="140.53554879320612" atv="-12.574920113564" />
+			<point ath="140.69761811439838" atv="-13.196612437258146" />
+			<point ath="140.91189000363843" atv="-13.402714461651202" />
+			<point ath="141.1797677439727" atv="-13.608120020433532" />
+			<point ath="141.45155947953836" atv="-14.433251357915596" />
+			<point ath="141.50915251688218" atv="-15.103255866562138" />
+			<point ath="142.48671013920375" atv="-16.58092804567008" />
+			<point ath="142.8117040533451" atv="-16.831580781389437" />
+			<point ath="142.8705063463056" atv="-6.6847545529235255" />
+			<point ath="142.4500393365683" atv="-6.376124067867957" />
+			<point ath="141.77105762003592" atv="-6.379650805576884" />
+			<point ath="141.19515527403965" atv="-6.382618432934102" />
+			<point ath="141.09411642321044" atv="-6.383344523595178" />
+			<point ath="140.78297749079744" atv="-6.384401249097761" />
+			<point ath="140.07868420707345" atv="-6.748790655710421" />
+			<point ath="139.5020531909261" atv="-6.904420722866107" />
+			<point ath="139.0823112412056" atv="-7.059721695985585" />
+			<point ath="138.0836000611412" atv="-7.576498947673876" />
+			<point ath="137.29630820635936" atv="-7.67617801137523" />
+			<point ath="137.03069610814552" atv="-8.090273788752123" />
+		</hotspot>
+
 	</scene>
 
 	<scene name="scene_44" title="44" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/44.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2416,6 +3212,113 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="54.4" tz="+415.5" keep="false" visible="true" enabled="true" linkedscene="scene_42"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_39"/>
+		
+		<hotspot name="hs1" style="golden_highlight" linkedscene="scene_49" borderwidth="5" >
+			<point ath="42.00993291675189" atv="-6.096254725008416" />
+			<point ath="42.326507084375635" atv="-6.099932338610062" />
+			<point ath="43.12302877445421" atv="-5.844216473926011" />
+			<point ath="43.75792285400786" atv="-5.902722863450986" />
+			<point ath="44.1816719554929" atv="-5.959829991511483" />
+			<point ath="44.712053760305025" atv="-6.069460442547606" />
+			<point ath="44.49130148818625" atv="-6.91541698278935" />
+			<point ath="44.00763633973179" atv="-7.334998939267363" />
+			<point ath="43.68266927414135" atv="-7.808339930216184" />
+			<point ath="43.67915938334295" atv="-8.1174884253514" />
+			<point ath="43.67072307388338" atv="-8.858730303799215" />
+			<point ath="43.66225622355796" atv="-9.59966191500197" />
+			<point ath="43.70676346484095" atv="-10.393666945280346" />
+			<point ath="43.80518370388404" atv="-11.187653856601845" />
+			<point ath="43.78563622190029" atv="-12.92627217654556" />
+			<point ath="43.61266140746568" atv="-13.867875330690072" />
+			<point ath="43.59589570987589" atv="-15.278366105593902" />
+			<point ath="43.58465247822653" atv="-16.21384902071174" />
+			<point ath="43.524565734725115" atv="-16.67870617441554" />
+			<point ath="42.81687944445986" atv="-16.71280151918344" />
+			<point ath="42.494947113813396" atv="-16.44555097332357" />
+			<point ath="42.28765476362662" atv="-15.818258992909943" />
+			<point ath="41.969080020333195" atv="-15.445991599397447" />
+		</hotspot>
+		
+		<hotspot name="hs2" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="80.59081326460011" atv="-11.93998014325631" />
+			<point ath="81.36960772976977" atv="-12.490387485119868" />
+			<point ath="82.09826918360397" atv="-13.143580600356612" />
+			<point ath="82.94477020494122" atv="-13.589527896308853" />
+			<point ath="83.48672184157579" atv="-13.394474358722766" />
+			<point ath="83.97116839630348" atv="-13.40700108294835" />
+			<point ath="84.07217208106931" atv="-13.777749418651066" />
+			<point ath="84.27277597092649" atv="-14.623587007530912" />
+			<point ath="83.87788972156352" atv="-15.397331300981797" />
+			<point ath="83.34117548880397" atv="-15.831581883856177" />
+			<point ath="82.69209216195657" atv="-16.523942927972385" />
+			<point ath="81.70548061208581" atv="-17.200264463712568" />
+			<point ath="81.11085389028437" atv="-18.016260703122313" />
+			<point ath="80.54732922741107" atv="-18.856429188599158" />
+			<point ath="80.29857754188356" atv="-19.909507619982808" />
+			<point ath="79.55895901476111" atv="-21.0727497648891" />
+			<point ath="79.55895901476111" atv="-21.0727497648891" />
+			<point ath="78.67624571417974" atv="-23.096736154050948" />
+			<point ath="78.36512851042494" atv="-24.14969388379055" />
+			<point ath="77.73765263911184" atv="-24.96944033982844" />
+			<point ath="77.40105434729321" atv="-25.276409038063548" />
+			<point ath="77.09043677773604" atv="-26.20368828188889" />
+			<point ath="77.34234849925389" atv="-26.60764954916127" />
+			<point ath="77.92423835859336" atv="-26.94617449321719" />
+			<point ath="78.6926019433223" atv="-26.824555817761226" />
+			<point ath="79.1358823401834" atv="-26.684882850405014" />
+			<point ath="79.85437926045421" atv="-26.428331766581426" />
+			<point ath="80.51291704305595" atv="-26.066202531813946" />
+			<point ath="81.42140696093611" atv="-25.348501682487743" />
+			<point ath="82.16312503715972" atv="-24.715521226767397" />
+			<point ath="83.64747401195484" atv="-23.501383591765105" />
+			<point ath="84.72676852736765" atv="-22.74293912453889" />
+			<point ath="85.47056542724363" atv="-21.752233202330434" />
+			<point ath="86.00571966309576" atv="-21.318447308073463" />
+			<point ath="86.29144420856068" atv="-20.660051484566633" />
+			<point ath="86.27757930498854" atv="-20.59269623815495" />
+			<point ath="87.18187580012489" atv="-19.3139233448404" />
+			<point ath="87.74214262784938" atv="-18.796324832550184" />
+			<point ath="88.1373986670938" atv="-17.856567145420378" />
+			<point ath="88.7495405062657" atv="-16.25456025101748" />
+			<point ath="88.75037280740537" atv="-15.41433138100123" />
+			<point ath="88.69581995778043" atv="-15.043411415978971" />
+			<point ath="89.3020228112216" atv="-15.043410850119196" />
+			<point ath="90.15386590624567" atv="-14.987170629195335" />
+			<point ath="90.9259989369705" atv="-15.458166158359582" />
+			<point ath="92.07991982447282" atv="-15.497527562764503" />
+			<point ath="92.85637863823823" atv="-16.065922388198896" />
+			<point ath="94.07642433483667" atv="-16.50967053355381" />
+			<point ath="94.74431746951171" atv="-16.855860104949574" />
+			<point ath="93.22442163884199" atv="-14.680001176126005" />
+			<point ath="94.15108780765098" atv="-14.712685963872122" />
+			<point ath="94.9163334441493" atv="-14.904138158006909" />
+			<point ath="95.46388420200228" atv="-15.099103460026585" />
+			<point ath="97.15102404627007" atv="-15.46152189403561" />
+			<point ath="97.42183135905748" atv="-15.50331482371852" />
+			<point ath="97.62258046152456" atv="-15.07615962898797" />
+			<point ath="97.44413530940972" atv="-14.55871361088828" />
+			<point ath="97.11576742000142" atv="-14.362893776158032" />
+			<point ath="96.40932581713804" atv="-14.123893109739003" />
+			<point ath="95.42551882329869" atv="-13.625992803750169" />
+			<point ath="94.71038429622001" atv="-13.063103120787149" />
+			<point ath="94.37774069273055" atv="-12.701593343757768" />
+			<point ath="94.09961387130798" atv="-12.33798976207977" />
+			<point ath="93.93205305596197" atv="-12.131411835442103" />
+			<point ath="93.23366196860715" atv="-11.679273141322382" />
+			<point ath="93.18751096807577" atv="-11.743157394067353" />
+			<point ath="92.69396291757087" atv="-11.219680370486959" />
+			<point ath="91.66387158685615" atv="-10.806027224134999" />
+			<point ath="91.23121741574292" atv="-10.703247919012469" />
+			<point ath="89.66388824093076" atv="-10.232602878182261" />
+			<point ath="87.07632848425442" atv="-10.01472595635164" />
+			<point ath="86.10743298481958" atv="-10.060353205900572" />
+			<point ath="85.56287074631871" atv="-10.584532020657832" />
+			<point ath="84.26353585164736" atv="-11.096340778199936" />
+			<point ath="83.78021039695466" atv="-11.088194057493428" />
+			<point ath="83.24244263050468" atv="-11.130024187233703" />
+			<point ath="82.32621443772598" atv="-11.373130975500748" />
+			<point ath="81.03139531391469" atv="-11.866175442129045" />
+		</hotspot>
 
 	</scene>
 
@@ -2444,6 +3347,81 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="0" ty="59" tz="+447" keep="false" visible="true" enabled="true" linkedscene="scene_43"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="+400" ty="63.9" tz="+190" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		<hotspot name="hs3" style="golden_highlight" linkedscene="scene_49" borderwidth="5" >
+			<point ath="20.42586112466404" atv="-3.9285412153594614" />
+			<point ath="21.257295175340857" atv="-4.13957241593752" />
+			<point ath="21.934191658272766" atv="-4.2976409269697" />
+			<point ath="22.8207489038071" atv="-4.50766881007131" />
+			<point ath="23.499497912610195" atv="-4.7166744194338985" />
+			<point ath="23.446958503774" atv="-5.0290668578202995" />
+			<point ath="23.44647724359976" atv="-5.549873398384509" />
+			<point ath="23.550748351578818" atv="-6.07080931146902" />
+			<point ath="23.65524357872755" atv="-6.539615055130376" />
+			<point ath="23.550090978358696" atv="-6.9561048582789065" />
+			<point ath="23.81220664556139" atv="-7.632914892007763" />
+			<point ath="23.812090085986824" atv="-8.04907145541088" />
+			<point ath="24.07509574853367" atv="-9.036424465595882" />
+			<point ath="24.12786935177678" atv="-9.451581545194413" />
+			<point ath="24.44447365197709" atv="-9.9697065003991" />
+			<point ath="24.65587605945575" atv="-10.331811423310231" />
+			<point ath="24.81441981111459" atv="-10.486666808433082" />
+			<point ath="25.078413911096163" atv="-10.537585402193098" />
+			<point ath="25.44767710831877" atv="-10.48436970686774" />
+			<point ath="25.498589567558724" atv="-9.81115680216773" />
+			<point ath="25.444610041012083" atv="-9.293134906982035" />
+			<point ath="25.442682732571086" atv="-8.566289461698085" />
+			<point ath="25.70285322271934" atv="-7.681609562874829" />
+			<point ath="25.858697547245526" atv="-7.212770199389638" />
+			<point ath="25.961897236894515" atv="-6.744010416475705" />
+			<point ath="25.95963688329789" atv="-6.119394941504528" />
+			<point ath="25.904933932655922" atv="-5.442852930374798" />
+			<point ath="25.850894062821965" atv="-4.922522357283392" />
+			<point ath="26.319367458718773" atv="-4.608911279184013" />
+			<point ath="26.68281465813351" atv="-4.29565837647414" />
+			<point ath="26.993881805607487" atv="-4.034666467599726" />
+			<point ath="27.460741882298294" atv="-3.825091287747623" />
+			<point ath="26.93960066316731" atv="-3.6192891703952172" />
+			<point ath="26.52444371986269" atv="-3.8284686156848275" />
+			<point ath="25.847376876144153" atv="-3.8821690014044323" />
+			<point ath="25.22165316194713" atv="-3.883356893299646" />
+			<point ath="23.96956688351372" atv="-4.09224587032112" />
+			<point ath="23.343613119254655" atv="-3.831801650549649" />
+			<point ath="22.87432949514249" atv="-3.7792676403451773" />
+			<point ath="22.14474977329553" atv="-3.7259717758602413" />
+			<point ath="21.520040114776975" atv="-3.7238356362053633" />
+			<point ath="20.741037226925187" atv="-3.5653405497855872" />
+			<point ath="20.637316366837013" atv="-3.564728771586741" />
+		</hotspot>
+		
+		<hotspot name="hs4" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="45.18069073801013" atv="-10.072105896599231" />
+			<point ath="45.49094705750474" atv="-10.387561571592867" />
+			<point ath="45.75247239650878" atv="-10.495949925441618" />
+			<point ath="45.90762293390179" atv="-10.705181664282609" />
+			<point ath="46.27323573025308" atv="-10.917585018714622" />
+			<point ath="46.53426282007831" atv="-11.128150050624399" />
+			<point ath="47.11287688384442" atv="-11.23939516596951" />
+			<point ath="47.31859674899283" atv="-11.913440714782313" />
+			<point ath="48.638708792030684" atv="-12.391754331751233" />
+			<point ath="49.27376658542846" atv="-12.757312306889911" />
+			<point ath="49.856833752434795" atv="-13.223836890281838" />
+			<point ath="50.33522726208878" atv="-13.37972516715727" />
+			<point ath="50.65420542958179" atv="-13.791425646764115" />
+			<point ath="50.97374056218359" atv="-13.894247359343106" />
+			<point ath="50.44065648955757" atv="-14.304056289803292" />
+			<point ath="49.58443715941644" atv="-14.198232236175814" />
+			<point ath="48.89314123678258" atv="-13.987901105103402" />
+			<point ath="48.415651961075014" atv="-13.777991732096103" />
+			<point ath="47.98897386947033" atv="-13.723165567745971" />
+			<point ath="47.675018429003615" atv="-13.07074144498584" />
+			<point ath="47.305163554019146" atv="-12.80795093666575" />
+			<point ath="47.04302864048776" atv="-12.546462719493846" />
+			<point ath="46.46250903544308" atv="-12.485440486091058" />
+			<point ath="45.88868019632315" atv="-11.959871622758271" />
+			<point ath="45.41882823993126" atv="-11.693076316589021" />
+			<point ath="45.157822134388425" atv="-11.584693283207924" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_46" title="46" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/46.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2471,6 +3449,84 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="-434" ty="62.9" tz="+5.3" keep="false" visible="true" enabled="true" linkedscene="scene_45"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="-400" ty="63.9" tz="+238.8" keep="false" visible="true" enabled="true" linkedscene="scene_44"/>
+		
+		
+		
+		<hotspot name="hs6" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="-48.413247144516674" atv="-9.149509613822346" />
+			<point ath="-48.623529301351596" atv="-9.301086055869845" />
+			<point ath="-48.62876128028245" atv="-9.765635899902142" />
+			<point ath="-48.21104740932344" atv="-9.772709695159259" />
+			<point ath="-47.68561667726806" atv="-9.522419260623039" />
+			<point ath="-46.899561327508025" atv="-9.48110380626167" />
+			<point ath="-45.69230412871349" atv="-9.545485086077916" />
+			<point ath="-44.95557128965953" atv="-9.499280504310033" />
+			<point ath="-44.11358344478026" atv="-9.711323244077457" />
+			<point ath="-43.37565862015185" atv="-9.81743510289954" />
+			<point ath="-42.584424049367385" atv="-10.077492109012525" />
+			<point ath="-43.165408036179144" atv="-10.54331121923067" />
+			<point ath="-43.536237938195654" atv="-10.852068943757146" />
+			<point ath="-43.56108946478986" atv="-11.338372236185984" />
+			<point ath="-43.56249906210752" atv="-12.060047604362804" />
+			<point ath="-43.3506978137828" atv="-12.677271418098778" />
+			<point ath="-43.13951071394615" atv="-13.44679522802726" />
+			<point ath="-42.87439617266148" atv="-13.958431754370464" />
+			<point ath="-42.34248648923784" atv="-15.332022108896272" />
+			<point ath="-41.9687582786637" atv="-16.089752296887173" />
+			<point ath="-41.5403983171355" atv="-16.28952488004455" />
+			<point ath="-40.898716186507784" atv="-16.43577459581649" />
+			<point ath="-40.257225684774596" atv="-16.22781795752555" />
+			<point ath="-39.732067899432764" atv="-15.058105976317268" />
+			<point ath="-39.734557193692126" atv="-14.498765406271838" />
+			<point ath="-39.423763027934626" atv="-13.42359616052872" />
+			<point ath="-39.166813058801836" atv="-12.395538385164217" />
+			<point ath="-38.91139766069887" atv="-11.312187406936914" />
+			<point ath="-38.91964998716276" atv="-10.228865681919057" />
+			<point ath="-39.1334762777542" atv="-9.714312640477178" />
+			<point ath="-38.978738469078735" atv="-9.350203377943432" />
+			<point ath="-38.769457188070305" atv="-9.295996093454248" />
+			<point ath="-38.67893433743518" atv="-7.479876906544932" />
+			<point ath="-39.56815969197959" atv="-7.383903048957761" />
+			<point ath="-40.615926651947234" atv="-7.286856258594788" />
+			<point ath="-41.66453477405395" atv="-7.343374952232296" />
+			<point ath="-42.871737267024685" atv="-7.605813462496242" />
+			<point ath="-43.92258354078382" atv="-7.813199524108002" />
+			<point ath="-44.92133520675634" atv="-8.070064955826517" />
+			<point ath="-45.814190191753426" atv="-8.169032018020067" />
+			<point ath="-47.70392541296593" atv="-8.669654449533724" />
+			<point ath="-48.5937191122174" atv="-8.86470669836878" />
+		</hotspot>
+		
+		<hotspot name="hs7" style="golden_highlight" linkedscene="scene_49" borderwidth="5" >
+			<point ath="-25.29461380889819" atv="-3.991963143410228" />
+			<point ath="-24.619102314334782" atv="-3.937165442388012" />
+			<point ath="-24.15305220883897" atv="-3.779248940390048" />
+			<point ath="-23.79186080859023" atv="-3.5700157371744683" />
+			<point ath="-22.8612888078826" atv="-3.5130525864251276" />
+			<point ath="-22.293202113571226" atv="-3.5611692049027415" />
+			<point ath="-21.97934755463075" atv="-3.9725184552395207" />
+			<point ath="-21.3619003112114" atv="-3.9674301164787384" />
+			<point ath="-20.489319120176106" atv="-4.010990852732031" />
+			<point ath="-19.570962407672937" atv="-3.9500749736561214" />
+			<point ath="-19.922390959560914" atv="-4.314075969723839" />
+			<point ath="-20.636465600825773" atv="-4.47652222216154" />
+			<point ath="-20.992870180316572" atv="-4.686756418789991" />
+			<point ath="-22.023155780212733" atv="-4.645279253597376" />
+			<point ath="-22.383417538691333" atv="-4.7520305227251" />
+			<point ath="-22.584747222175793" atv="-5.2718317010407425" />
+			<point ath="-22.524776606299383" atv="-6.048422696137153" />
+			<point ath="-22.517595940891113" atv="-6.744156641054416" />
+			<point ath="-22.719985006638524" atv="-7.264619922572874" />
+			<point ath="-23.23486777957214" atv="-7.840869577336622" />
+			<point ath="-23.439249020977968" atv="-8.309581502555158" />
+			<point ath="-23.541114441242883" atv="-8.673668841114669" />
+			<point ath="-24.05723300683212" atv="-9.559555336555762" />
+			<point ath="-24.26272125144942" atv="-10.233999167595293" />
+			<point ath="-24.471327378253932" atv="-10.442989316379865" />
+			<point ath="-24.785846212488934" atv="-10.653624040055783" />
+			<point ath="-25.102650188832342" atv="-10.45056505675157" />
+			<point ath="-25.210643172576056" atv="-9.934900779624108" />
+		</hotspot>
 	</scene>
 
 	<scene name="scene_47" title="47" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/47.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2496,9 +3552,67 @@
 		<hotspot name="spot4" style="visual_floorspot" tx="+290.53" ty="95" tz="+67.5" keep="false" visible="true" enabled="true" linkedscene="scene_46"/>
 		
 		<hotspot name="spot5" style="visual_floorspot" tx="+178.52" ty="84.5" tz="+358" keep="false" visible="true" enabled="true" linkedscene="scene_38"/>
+		
+		
+		<hotspot name="hs5" style="golden_highlight" linkedscene="scene_48" borderwidth="5" >
+			<point ath="-5.207265655963454" atv="-11.09861097457556" />
+			<point ath="-6.250482410020538" atv="-11.07094089451776" />
+			<point ath="-6.240654789094378" atv="-10.71003089324842" />
+			<point ath="-6.390926167152315" atv="-10.501112701607601" />
+			<point ath="-5.38742925768679" atv="-9.905368751711004" />
+			<point ath="-4.493418019881574" atv="-9.561122621873473" />
+			<point ath="-3.3887128200795473" atv="-9.218183262971042" />
+			<point ath="-2.649203186591535" atv="-8.812917199338566" />
+			<point ath="-1.17424887179493" atv="-8.204148466045506" />
+			<point ath="-0.06953960660109715" atv="-7.899677702007503" />
+			<point ath="1.243124949523974" atv="-7.591526788628826" />
+			<point ath="2.0299979471329266" atv="-7.64347869787112" />
+			<point ath="2.0303833026134726" atv="-7.955020029831983" />
+			<point ath="2.29350933616206" atv="-8.214452383917905" />
+			<point ath="2.820242585282699" atv="-8.525093405672603" />
+			<point ath="2.768999474148359" atv="-8.889202948253258" />
+			<point ath="2.190700408272619" atv="-9.514861534014502" />
+			<point ath="1.9270123218312278" atv="-9.827509413476102" />
+			<point ath="2.403681797756633" atv="-10.243350425370604" />
+			<point ath="2.723629766848944" atv="-10.450391833046469" />
+			<point ath="3.2026135334197647" atv="-10.916888817482228" />
+			<point ath="3.4702844246681934" atv="-11.331819783300912" />
+			<point ath="4.059481075301051" atv="-12.003869579466093" />
+			<point ath="4.333558809113924" atv="-12.780652870900642" />
+			<point ath="4.876346189635001" atv="-13.708682451008018" />
+			<point ath="5.854296021528171" atv="-14.77838821213299" />
+			<point ath="6.844422664634067" atv="-16.24265034777187" />
+			<point ath="7.010811579818835" atv="-16.546054431527548" />
+			<point ath="6.695303732581351" atv="-16.86228223499572" />
+			<point ath="5.0270206219221905" atv="-16.746035740075126" />
+			<point ath="3.834122034613358" atv="-15.99207818456383" />
+			<point ath="3.1290551628463845" atv="-15.48397817743359" />
+			<point ath="2.5865004480299945" atv="-14.504250091675198" />
+			<point ath="1.5126396254872816" atv="-13.93720626622194" />
+			<point ath="0.28003230169338167" atv="-13.207946806083125" />
+			<point ath="-0.3568664275566107" atv="-12.476634119533076" />
+			<point ath="-0.9892675551135426" atv="-11.483150153533423" />
+			<point ath="-1.2010077015543743" atv="-11.429320280261942" />
+			<point ath="-2.2559164908873868" atv="-12.863805314693897" />
+			<point ath="-3.4424241847833628" atv="-13.928537176523525" />
+			<point ath="-4.671099718707637" atv="-14.817456441940367" />
+			<point ath="-5.534410561645473" atv="-15.55703601841549" />
+			<point ath="-6.067015869748843" atv="-15.741314215851236" />
+			<point ath="-5.233720669315801" atv="-14.029410418169697" />
+			<point ath="-4.637397078347362" atv="-13.275133580245544" />
+			<point ath="-4.203162937020522" atv="-12.67041225529948" />
+			<point ath="-3.621135958236664" atv="-12.334304421233407" />
+			<point ath="-2.8854475383828913" atv="-11.736389264624492" />
+			<point ath="-2.4012093123674276" atv="-11.17411932105296" />
+			<point ath="-2.028284444632618" atv="-10.972292876478955" />
+			<point ath="-1.867951858873937" atv="-10.81844687873149" />
+			<point ath="-2.2331348663382187" atv="-10.50196934776307" />
+			<point ath="-3.54519965860527" atv="-10.326306074727402" />
+		</hotspot>
+
 	</scene>
 
-	<scene name="scene_48" title="48" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/48.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_48" title="48" onstart="delayedcall(0.1,tweenlookat(-177.04,-21.68););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/48.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
@@ -2516,7 +3630,7 @@
 
 	</scene>
 
-	<scene name="scene_49" title="49" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/49.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_49" title="49" onstart="delayedcall(0.1,tweenlookat(-44,-21.68););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/49.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="0.0" vlookat="0.0" fovtype="MFOV" fov="120" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 

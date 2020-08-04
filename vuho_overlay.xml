@@ -197,9 +197,30 @@
 	<action name="overlay_mobile_exceptions" scope="local" autorun="onstart">
 		if(device.handheld == true,
 			set(layer[OverlayMenu].scale,0.10);
+			
+			set(layer[works_ui].scale,0.10);
+			set(layer[works_ui].x,2%);
+			
 			set(layer[information_icon].url,%ROOT%/icons/infoon.png);
 			set(layer[material_icon].url,%ROOT%/icons/switchmaton.png);
 			
+			set(layer[Close_Button].scale,0.8);
+			set(layer[Close_Button2].scale,0.8);
+			set(layer[Close_Button3].scale,0.8);
+			
+			set(layer[Next_Button].scale,0.8);
+			set(layer[Next_Button2].scale,0.8);
+			
+			set(layer[Prev_Button].scale,0.8);
+			set(layer[Prev_Button2].scale,0.8);
+			
+			set(layer[prev_sculpture_arrow].scale,0.1);
+			set(layer[next_sculpture_arrow].scale,0.1);
+			
+			set(layer[prev_sculpture_arrow].x,-24%);
+			set(layer[next_sculpture_arrow].x,+24%);
+			
+			set(layer[Exit_sculpture].scale,0.12);
 		);
 		
 		removelayer(webvr_enterbutton); <!-- Remove EnterVR button attop -->
@@ -295,9 +316,11 @@
 		if(stagewidth LE 1010,
 			calc(fix_scale_value,stagewidth/1010);
 			roundval(fix_scale_value,2);
+			mul(fix_scale_value,.6);
 			set(layer[infoslide3].scale,get(fix_scale_value));
 			set(layer[infoslide2].scale,get(fix_scale_value));
 			set(layer[infoslide1].scale,get(fix_scale_value));
+			updatescreen();
 		);
 	</action>
 	

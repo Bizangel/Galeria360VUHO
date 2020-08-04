@@ -1,0 +1,119 @@
+<krpano>
+	<layer name="pay_warning" type="container" align="center" x="0" y="0" width="300" height="300" bgcolor="0x333333" bgalpha="0.7" bgcapture="true" keep="true" scalechildren="true" handcursor="false" alpha="0" enabled="false">
+	
+		<layer name="pay_warning_title" style="text" align="top" y="5" width="100%" css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" html="Confirmación" handcursor="false"/>
+		
+		<layer name="pay_textarea" type="container" align="lefttop" x="10" y="30" width="280" height="260" bgcolor="0xFFFFFF" bgalpha="1.0" maskchildren="true" handcursor="false">
+		
+			<layer name="pay_text" style="text" enabled="true" align="lefttop" x="0" y="0" width="100%" autoheight="true" css="text-align:left; color:#000000; font-family:Arial; font-size:22px; text-align: justify;" html="data:PayWarning" handcursor="false"/>
+			
+			<layer name="pay_confirm_button" style="custom_webvr_button" html="¡Sí, Deseo Entrar!" width="50%" x="0" height="20%" y="80%"
+			onclick="pay_redirect();close_pay_warning();"/>
+			
+			
+			<layer name="pay_close_button_webvr" style="custom_pay_button" html="¡No, Gracias!" width="50%" x="50%" height="20%" y="80%"
+			onclick="close_pay_warning();"/>
+		
+		</layer>
+	</layer>
+	
+	<data name="PayWarning">
+		Serás redirigido a nuestra plataforma de pagos manejada por Wenjoy para la compra de la Obra.
+		¿Estás seguro que quieres entrar?
+	</data>	
+	
+	<style name="custom_pay_button" type="text" css="text-align:center; font-size:20px;" padding="4 0" mergedalpha="false" bgborder="0 0xFFFFFF 1" bgroundedge="1" bgshadow="0 1 4 0x000000 1.0" ondown="set(bgcolor, 0xDDDDDD);" onup="set(bgcolor, 0xFFFFFF);" bgcapture="true" />
+	
+	<action name="close_pay_warning">
+		tween(layer[pay_warning].alpha,0);
+		set(layer[pay_warning].enabled,false);
+	</action>
+	
+	<action name="show_pay_warning">
+		tween(layer[pay_warning].alpha,1);
+		set(layer[pay_warning].enabled,true);
+	</action>
+	
+	<action name="pay_redirect" scope="local">
+		copy(scenename,xml.scene);
+		indexoftxt(i,get(scenename),'_');
+		inc(i);
+		calc(scene_n,slice(get(scenename),i,scenename.length));
+		
+		
+		if (scene_n LT 11 AND scene_n GT 2,
+			pay_internal_redirect(1);
+		);
+		
+		if (scene_n LT 21 AND scene_n GT 12,
+			pay_internal_redirect(2);
+		);
+		
+		if( scene_n == 35,
+			pay_internal_redirect(3);
+		);
+		
+		if( scene_n == 34,
+			pay_internal_redirect(4);
+		);
+		
+		if( scene_n == 33,
+			pay_internal_redirect(5);
+		);
+		
+		if( scene_n == 37,
+			pay_internal_redirect(6);
+		);
+		
+		if( scene_n == 36,
+			pay_internal_redirect(7);
+		);
+		
+		if( scene_n == 48,
+			pay_internal_redirect(8);
+		);
+		
+		if( scene_n == 49,
+			pay_internal_redirect(9);
+		);
+	</action>
+	
+	<action name="pay_internal_redirect" scope="local" args="workid">
+		if(workid == 1,
+			openurl(https://linkstaging.wenjoy.com.co/pay/WR194359AnV10720);
+		);
+		
+		if(workid == 2,
+			openurl(https://linkstaging.wenjoy.com.co/pay/je003403IMC80224);
+		);
+		
+		if(workid == 3,
+			openurl(https://linkstaging.wenjoy.com.co/pay/LQ003420bBA82224);
+		);
+		
+		if(workid == 4,
+			openurl(https://linkstaging.wenjoy.com.co/pay/lH003428oSC20058);
+		);
+		
+		if(workid == 5,
+			openurl(https://linkstaging.wenjoy.com.co/pay/qU003443yRC01001);
+		);
+		
+		if(workid == 6,
+			openurl(https://linkstaging.wenjoy.com.co/pay/JY003504via50092);
+		);
+		
+		if(workid == 7,
+			openurl(https://linkstaging.wenjoy.com.co/pay/Rv003604gnz04802);
+		);
+		
+		if(workid == 8,
+			openurl(https://linkstaging.wenjoy.com.co/pay/am003548Soe40050);
+		);
+		
+		if(workid == 9,
+			openurl(https://linkstaging.wenjoy.com.co/pay/rI003628wGP50007);
+		);
+	</action>
+	
+</krpano>
