@@ -98,6 +98,7 @@
 			set(layer[get(work_scroller)].y,10%);
 			
 			
+			
 			set(layer[get(work_image)].width,90%);
 			set(layer[get(work_image)].height,50%);
 			set(layer[get(work_image)].y,8%);
@@ -108,7 +109,12 @@
 			set(layer[get(work_closebutton)].y,3%);
 			set(layer[get(work_closebutton)].width,20%);
 			set(layer[get(work_closebutton)].height,5%);
-				
+			
+			if( i == 6,
+				set(layer[get(work_scroller)].x,5%);
+				set(layer[get(work_image)].x,0%);
+				set(layer[get(work_image)].width,90%);
+			);
 			
 		);
 		delayedcall(1,
