@@ -108,6 +108,7 @@
 		loadscene(get(scenename),null,MERGE|KEEPVIEW|KEEPMOVING,BLEND(0.5));		
 		tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), 2.0, default);
 		
+		fix_scroll_area_height();
 		disable_prev_exit();
 		delete_golden_array();
 		
@@ -212,6 +213,9 @@
 				set_mobile_vertical_works();
 				set(layer[prev_exit].scale,0.15);
 				set(layer[prev_exit].x,10%);
+				
+				set(layer[prev_sculpture_arrow].x,-24%);
+				set(layer[next_sculpture_arrow].x,+24%);
 				,
 				
 				<!-- LANDSCAPE -->
@@ -231,6 +235,10 @@
 				
 				set(layer[prev_exit].scale,0.3);
 				set(layer[prev_exit].x,0%);
+				
+				set(layer[prev_sculpture_arrow].x,-8%);
+				set(layer[next_sculpture_arrow].x,8%);
+				
 				restore_backup_default_works_attributes();
 		);
 	);
