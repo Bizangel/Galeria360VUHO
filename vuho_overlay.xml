@@ -326,6 +326,24 @@
 			set(layer[infoslide1].scale,get(fix_scale_value));
 			updatescreen();
 		);
+		
+		<!-- height is 630 scaled to 6, remember mul6
+		-->
+		
+		calc(checkvalue,stageheight*0.1 + 630);
+		if(stageheight LE checkvalue,
+			calc(fix_scale_value,stageheight/630);
+			roundval(fix_scale_value,2);
+			mul(fix_scale_value,.6);
+			
+			set(layer[infoslide3].scale,get(fix_scale_value));
+			set(layer[infoslide2].scale,get(fix_scale_value));
+			set(layer[infoslide1].scale,get(fix_scale_value));
+			
+			set(layer[infoslide1].y,0);
+			set(layer[infoslide2].y,0);
+			set(layer[infoslide3].y,0);
+		);
 	</action>
 	
 	<action name="force_infodisplay" scope="local" args="infoslidenumber">
