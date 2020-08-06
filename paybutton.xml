@@ -1,5 +1,5 @@
 <krpano>
-	<layer name="pay_warning" type="container" align="center" x="0" y="0" width="300" height="300" bgcolor="0x333333" bgalpha="0.7" bgcapture="true" keep="true" scalechildren="true" handcursor="false" alpha="0" enabled="false">
+	<layer name="pay_warning" type="container" align="center" x="0" y="0" width="300" height="300" bgcolor="0x333333" bgalpha="0.7" bgcapture="true" keep="true" scalechildren="true" handcursor="false" alpha="0" enabled="false" zorder="21">
 	
 		<layer name="pay_warning_title" style="text" align="top" y="5" width="100%" css="text-align:center; color:#FFFFFF; font-family:Arial; font-weight:bold; font-size:14px;" html="Confirmación" handcursor="false"/>
 		

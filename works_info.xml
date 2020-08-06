@@ -16,6 +16,15 @@
 	       enabled="false"
 		   textalign="center"
 	       />
+	
+	<style name="works_text_very_small"
+	       type="text"
+	       background="false"
+	       css=" font-family: Varela-Round; font-size: 12px;  color:#FFFFFF; text-align: justify;"
+	       enabled="false"
+		   textalign="center"
+	       />
+		   
 		   
 	<style name="works_title"
 	       type="text"
@@ -31,6 +40,7 @@
 		"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
 		
 		"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
+		[/br]
 	</data>
 	
 	
@@ -49,7 +59,7 @@
 	
 	<action name="toggle_workdisplay" scope="local" args="n_work">
 		calc(workname, 'workdisplay' + n_work);
-		
+		fix_scroll_area_height();
 		if(layer[get(workname)].enabled == true,
 			set(layer[get(workname)].enabled,false);
 			tween(layer[get(workname)].alpha,0);
@@ -61,16 +71,148 @@
 	</action>
 	
 	<action name="disable_works" scope="local">
-		for(set(i,1), i LT 8, inc(i),
+		for(set(i,1), i LT 10, inc(i),
 			calc(workname, 'workdisplay' + i);
 			set(layer[get(workname)].enabled,false);
 			tween(layer[get(workname)].alpha,0);
 		);
 	</action>
 	
+	
+	<action name="set_mobile_vertical_works" scope="local">
+		for(set(i,1), i LT 10, inc(i),
+			calc(work_scroller, 'work' + i + '_scroller_container');
+			calc(work_title, 'work' + i + '_title');
+			calc(work_desc, 'work' + i + '_desc');
+			calc(work_closebutton, 'work' + i + '_close_button');
+			calc(work_image, 'work' + i + '_image');
+			
+			layer[get(work_desc)].loadstyle(works_text_small);
+			layer[get(work_title)].loadstyle(works_text);
+			
+			set(layer[get(work_title)].y,2%);
+			set(layer[get(work_title)].width,90%);
+			
+			set(layer[get(work_scroller)].width,90%);
+			set(layer[get(work_scroller)].height,28%);
+			set(layer[get(work_scroller)].y,10%);
+			
+			
+			set(layer[get(work_image)].width,90%);
+			set(layer[get(work_image)].height,50%);
+			set(layer[get(work_image)].y,8%);
+			
+			set(layer[get(work_image)].y,10%);
+			set(layer[get(work_image)].x,5%);
+
+			set(layer[get(work_closebutton)].y,3%);
+			set(layer[get(work_closebutton)].width,20%);
+			set(layer[get(work_closebutton)].height,5%);
+				
+			
+		);
+		delayedcall(1,
+			fix_scroll_area_height();
+		);
+	</action>
+	
+	<action name="backup_default_works_attributes" scope="local">
+		for(set(i,1), i LT 10, inc(i),
+			calc(work_scroller, 'work' + i + '_scroller_container');
+			calc(work_title, 'work' + i + '_title');
+			calc(work_desc, 'work' + i + '_desc');
+			calc(work_closebutton, 'work' + i + '_close_button');
+			calc(work_image, 'work' + i + '_image');
+			
+			calc(work_scroller_bk, 'work' + i + '_scroller_container_backup');
+			calc(work_title_bk, 'work' + i + '_title_backup');
+			calc(work_desc_bk, 'work' + i + '_desc_backup');
+			calc(work_closebutton_bk, 'work' + i + '_close_button_backup');
+			calc(work_image_bk, 'work' + i + '_image_backup');
+		
+			addlayer(get(work_scroller_bk));
+			addlayer(get(work_title_bk));
+			addlayer(get(work_desc_bk));
+			addlayer(get(work_closebutton_bk));
+			addlayer(get(work_image_bk));
+			
+			<!-- copyattributes(work1_image_backup,work1_image); -->
+			copyattributes(get(layer[get(work_scroller_bk)]), get(layer[get(work_scroller)]));
+			copyattributes(get(layer[get(work_title_bk)]), get(layer[get(work_title)]));
+			copyattributes(get(layer[get(work_desc_bk)]), get(layer[get(work_desc)]));
+			copyattributes(get(layer[get(work_closebutton_bk)]), get(layer[get(work_closebutton)]));
+			copyattributes(get(layer[get(work_image_bk)]), get(layer[get(work_image)]));
+			
+			set(layer[get(work_scroller_bk)].visible,false);
+			set(layer[get(work_title_bk)].visible,false);
+			set(layer[get(work_desc_bk)].visible,false);
+			set(layer[get(work_closebutton_bk)].visible,false);
+			set(layer[get(work_image_bk)].visible,false);
+		);
+	</action>
+	
+	<action name="restore_backup_default_works_attributes" scope="local">
+		for(set(i,1), i LT 10, inc(i),
+			calc(work_scroller, 'work' + i + '_scroller_container');
+			calc(work_title, 'work' + i + '_title');
+			calc(work_desc, 'work' + i + '_desc');
+			calc(work_closebutton, 'work' + i + '_close_button');
+			calc(work_image, 'work' + i + '_image');
+			
+			calc(work_scroller_bk, 'work' + i + '_scroller_container_backup');
+			calc(work_title_bk, 'work' + i + '_title_backup');
+			calc(work_desc_bk, 'work' + i + '_desc_backup');
+			calc(work_closebutton_bk, 'work' + i + '_close_button_backup');
+			calc(work_image_bk, 'work' + i + '_image_backup');
+			
+			<!-- copyattributes(work1_image_backup,work1_image); -->
+			copyattributes(get(layer[get(work_scroller)]), get(layer[get(work_scroller_bk)]));
+			copyattributes(get(layer[get(work_title)]), get(layer[get(work_title_bk)]));
+			copyattributes(get(layer[get(work_desc)]), get(layer[get(work_desc_bk)]));
+			copyattributes(get(layer[get(work_closebutton)]), get(layer[get(work_closebutton_bk)]));
+			copyattributes(get(layer[get(work_image)]), get(layer[get(work_image_bk)]));
+			
+			set(layer[get(work_scroller)].visible,true);
+			set(layer[get(work_title)].visible,true);
+			set(layer[get(work_desc)].visible,true);
+			set(layer[get(work_closebutton)].visible,true);
+			set(layer[get(work_image)].visible,true);
+			
+		);
+		delayedcall(1,
+			fix_scroll_area_height();
+		);
+	</action>
+	
+	
+	<action name="works_mobile_exceptions" scope="local" autorun="onstart">
+		if(device.handheld == true,
+			for(set(i,1), i LT 10, inc(i),
+				calc(work_title, 'work' + i + '_title');
+				calc(work_desc, 'work' + i + '_desc');
+				calc(work_scroller, 'work' + i + '_scroller_container');
+			
+				layer[get(work_desc)].loadstyle(works_text_small);
+				layer[get(work_title)].loadstyle(works_text);
+				
+				if(i != 6,
+					set(layer[get(work_title)].y,10%);
+					set(layer[get(work_scroller)].height,40%);
+					set(layer[get(work_scroller)].y,15%);
+					,
+					layer[get(work_title)].loadstyle(works_text_small);
+					layer[get(work_desc)].loadstyle(works_text_very_small);
+				);
+			);
+			backup_default_works_attributes(); <!-- Save horizontal attributes for landscape view -->
+			
+			
+		
+		);
+	</action>
 	<!-- Set size based on font-->
 	<layer name="workdisplay1" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work1_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -85,14 +227,15 @@
 			
 		</layer>
 		
-		<layer name="work1_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work1_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work1_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
 		<layer name="work1_image" type="image" url="%ROOT%/works/work1.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay1"
 		handcursor="false"
@@ -101,7 +244,7 @@
 	</layer>
 	
 	<layer name="workdisplay2" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work2_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -116,14 +259,15 @@
 			
 		</layer>
 		
-		<layer name="work2_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work2_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work2_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
 		<layer name="work2_image" type="image" url="%ROOT%/works/work2.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay2"
 		handcursor="false"
@@ -132,7 +276,7 @@
 	</layer>
 	
 	<layer name="workdisplay3" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work3_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -147,23 +291,26 @@
 			
 		</layer>
 		
-		<layer name="work3_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work3_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work3_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
-		<layer name="work3_image" type="image" url="%ROOT%/works/work3.jpg" scale="1.3" y="100" x="50%" parent="workdisplay3"
-		handcursor="false"
+		
+		<layer name="work3_image" type="image" url="%ROOT%/works/work3.jpg" y="5%" x="50%" parent="workdisplay3"
+		handcursor="false" 
+		width="30%" height="90%"
 		/>
 	
 	</layer>
 	
 	<layer name="workdisplay4" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work4_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -178,23 +325,26 @@
 			
 		</layer>
 		
-		<layer name="work4_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work4_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work4_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
-		<layer name="work4_image" type="image" url="%ROOT%/works/work4.jpg" scale="1.4" y="50" x="40%" parent="workdisplay4"
+			
+		<layer name="work4_image" type="image" url="%ROOT%/works/work4.jpg" y="5%" x="40%" parent="workdisplay4"
 		handcursor="false"
+		height="90%" width="30%"
 		/>
 	
 	</layer>
 	
 	<layer name="workdisplay5" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work5_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -209,23 +359,27 @@
 			
 		</layer>
 		
-		<layer name="work5_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work5_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work5_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
-		<layer name="work5_image" type="image" url="%ROOT%/works/work5.jpg" scale="1.3" y="50" x="50%" parent="workdisplay5"
+			
+		<layer name="work5_image" type="image" url="%ROOT%/works/work5.jpg" y="5%" x="50%" parent="workdisplay5"
 		handcursor="false"
+		height="90%"
+		width="30%"
 		/>
 	
 	</layer>
 	
 	<layer name="workdisplay6" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" bgcapture="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work6_scroller_container" keep="true" type="container" align="bottomleft" width="68%" height="20%" 
@@ -238,25 +392,30 @@
 			</layer>
 			
 			
-		</layer>
+		</layer>	
 		
-		<layer name="work6_title" style="works_title" html="Título de la Obra" align="bottomleft" x="3%" y="20%"/>
+		<layer name="work6_title" style="works_title" html="Título de la Obra" align="topleft" x="3%" y="75%" width="20%" height="20%"
+		bgborder="0 0x000000 0"/>
 		
 		<layer name="work6_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="30" y="50"
-			scale="0.4"
+			align="bottomright" x="2%" y="8%"
+			width="5.3%"
+			height="4%"
 			/>
-		<layer name="work6_image" type="image" url="%ROOT%/works/work6.jpg" scale="1.1" y="50" align="topcenter" parent="workdisplay6"
+			
+		<layer name="work6_image" type="image" url="%ROOT%/works/work6.jpg" y="2%" align="topcenter" parent="workdisplay6"
 		handcursor="false"
+		width="85%"
+		height="70%"
 		/>
 	
 	</layer>
 	
 	<layer name="workdisplay7" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" bgcapture="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work7_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -271,23 +430,27 @@
 			
 		</layer>
 		
-		<layer name="work7_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work7_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work7_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
-		<layer name="work7_image" type="image" url="%ROOT%/works/work7.jpg" scale="0.65" x="50%" y="50" parent="workdisplay7"
+			
+		<layer name="work7_image" type="image" url="%ROOT%/works/work7.jpg" x="50%" y="10%" parent="workdisplay7"
 		handcursor="false"
+		height="80%"
+		width="30%"
 		/>
 	
 	</layer>
 	
 	<layer name="workdisplay8" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work8_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -302,15 +465,17 @@
 			
 		</layer>
 		
-		<layer name="work8_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work8_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work8_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
+			
 		<layer name="work8_image" type="image" url="%ROOT%/works/work8.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay8"
 		handcursor="false"
 		/>
@@ -318,7 +483,7 @@
 	</layer>
 	
 	<layer name="workdisplay9" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
-	scalechildren="true" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
+	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
 		<layer name="work9_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
@@ -333,15 +498,17 @@
 			
 		</layer>
 		
-		<layer name="work9_title" style="works_title" html="Título de la Obra" x="5%" y="30%"/>
+		<layer name="work9_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work9_close_button" type="image" url="%ROOT%/icons/closeoff.png"
 			onover="set(url,%ROOT%/icons/closeon.png);"
 			onout="set(url,%ROOT%/icons/closeoff.png);"
 			onclick="disable_works();"
-			align="bottomright" x="100" y="100"
-			scale="0.3"
+			align="bottomright" x="4%" y="8%"
+			width="8%"
+			height="6%"
 			/>
+			
 		<layer name="work9_image" type="image" url="%ROOT%/works/work9.png" width="40%" height="90%" y="5%" x="40%" parent="workdisplay9"
 		handcursor="false"
 		/>

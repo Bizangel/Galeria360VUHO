@@ -126,7 +126,6 @@
 		
 		if( scene_n GT 32 AND scene_n LT 38,
 			enable_works_ui();
-			enable_prev_exit();
 		);
 		
 		if( scene_n == 48 OR scene_n == 49,
@@ -193,6 +192,7 @@
 	<events name="orientation" keep="true" onresize="Orientation();"  />
 	
 	<action name="Orientation">
+	fix_scroll_area_height();
 	if(device.handheld == true,
 		if(stagewidth LT stageheight,
 				<!-- PORTRAIT -->
@@ -208,6 +208,10 @@
 					set(layer[infoslide2].scale,1);
 					set(layer[infoslide3].scale,1);
 				);
+				
+				set_mobile_vertical_works();
+				set(layer[prev_exit].scale,0.15);
+				set(layer[prev_exit].x,10%);
 				,
 				
 				<!-- LANDSCAPE -->
@@ -215,6 +219,7 @@
 				if(stageheight LE 630,
 					calc(fix_scale_value,stageheight/630);
 					roundval(fix_scale_value,2);
+					mul(fix_scale_value,.6);
 					set(layer[infoslide3].scale,get(fix_scale_value));
 					set(layer[infoslide2].scale,get(fix_scale_value));
 					set(layer[infoslide1].scale,get(fix_scale_value));
@@ -223,8 +228,10 @@
 					set(layer[infoslide2].scale,1);
 					set(layer[infoslide3].scale,1);
 				);
-							
 				
+				set(layer[prev_exit].scale,0.3);
+				set(layer[prev_exit].x,0%);
+				restore_backup_default_works_attributes();
 		);
 	);
 	</action>
@@ -358,7 +365,7 @@
 	onclick="next_sculpture_pano();"/>
 	
 	<layer name="Exit_sculpture" type="image" align="bottomcenter" y="22%" url="%ROOT%/icons/exitoff.png" keep="true"
-	scale="0.3" alpha="0" enabled="false" zorder="0"
+	scale="0.2" alpha="0" enabled="false" zorder="0"
 	onclick="exit_to_last_pano();"
 	onover="set(layer[Exit_sculpture].url,%ROOT%/icons/exiton.png)"
 	onout="set(layer[Exit_sculpture].url,%ROOT%/icons/exitoff.png)"

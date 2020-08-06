@@ -84,11 +84,15 @@
 	<include url="%VIEWER%/plugins/fps.xml" if="0" />
 	<events onkeydown="debugaction();" if="0"/>
 	<action name="debugaction" if="0" >
-		if(keycode == 89,
-			print(get(layer[infoslide1].scale));
+		if(keycode == 89, <!-- Y KEY -->
+			set_mobile_vertical_works(); 
+			print(vertical!);
 		);
-		if(keycode == 85,
-			
+		if(keycode == 85, <!-- U KEY -->
+			backup_default_works_attributes();
+		);
+		if(keycode == 72, <!-- H KEY -->
+			restore_backup_default_works_attributes();
 		);
 	</action>
 	
@@ -153,54 +157,54 @@
 	
 	<!-- First Circle -->
 	<style name="scene_3"  ox="4518"    oy="0"   oz="1926"   linkedscene="scene_3" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_4"  ox="4728"    oy="0"   oz="1822"   linkedscene="scene_4" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_5"  ox="4865"    oy="0"   oz="1633"   linkedscene="scene_5" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_6"  ox="4728"    oy="0"   oz="1439"   linkedscene="scene_6" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_7"  ox="4518"    oy="0"   oz="1355"   linkedscene="scene_7" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_8"  ox="4325"    oy="0"   oz="1460"   linkedscene="scene_8" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_9"  ox="4255"    oy="0"   oz="1633"   linkedscene="scene_9" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_10"  ox="4325"    oy="0"   oz="1839"   linkedscene="scene_10" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<!-- Second Circle -->
 	
 	<style name="scene_13"  ox="4518"    oy="0"   oz="1443"   linkedscene="scene_13" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_17"  ox="4518"    oy="0"   oz="859"   linkedscene="scene_17" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_14"  ox="4728"    oy="0"   oz="1326"   linkedscene="scene_14" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_16"  ox="4728"    oy="0"   oz="959"   linkedscene="scene_16" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_15"  ox="4804"    oy="0"   oz="1137"   linkedscene="scene_15" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_19"  ox="4248"    oy="0"   oz="1153"   linkedscene="scene_19" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_20"  ox="4341"    oy="0"   oz="1339"   linkedscene="scene_20" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	<style name="scene_18"  ox="4341"    oy="0"   oz="955"   linkedscene="scene_18" autohotspot="true" 
-	allowed="ANY!"/>
+	allowed=""/>
 	
 	
 	<!-- Right Side of Room -->
@@ -309,7 +313,7 @@
 	
 	
 	
-	<scene name="scene_1" title="01" onstart="infodisplay(1);delayedcall(3,fix_scroll_area_height(););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_1" title="01" onstart="infodisplay(1);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="-176.610" vlookat="0.194" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
@@ -2240,7 +2244,9 @@
 			<point ath="142.7687964252134" atv="0.5759039211941893" />
 			<point ath="142.6906988290273" atv="5.401831287754573" />
 		</hotspot>
-
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="200" ty="103.5" tz="148" keep="false" visible="true" enabled="true" linkedscene="scene_31"/>
+		<hotspot name="spot2" style="visual_floorspot" tx="-116" ty="103.5" tz="129.5" keep="false" visible="true" enabled="true" linkedscene="scene_32"/>
 	</scene>
 
 	<scene name="scene_34" title="34" onstart="lookat(-178,0,120);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/34.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2265,7 +2271,13 @@
 			<point ath="-139.6223130224988" atv="0.5452988717729461" />
 			<point ath="-139.53196937214642" atv="5.380052448652201" />
 		</hotspot>
-
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="143.5" ty="103.5" tz="158" keep="false" visible="true" enabled="true" linkedscene="scene_29"/>
+		
+		<hotspot name="spot2" style="visual_floorspot" tx="306.5" ty="77.5" tz="91" keep="false" visible="true" enabled="true" linkedscene="scene_27"/>
+		
+		<hotspot name="spot3" style="visual_floorspot" tx="-215" ty="103.5" tz="155.5" keep="false" visible="true" enabled="true" linkedscene="scene_30"/>
+		
 	</scene>
 
 	<scene name="scene_35" title="35" onstart="lookat(-176.77,0.6);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/35.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2290,6 +2302,10 @@
 			<point ath="-151.37521514569096" atv="6.218015349480022" />
 			<point ath="-151.39781472330287" atv="11.526296608484891" />
 		</hotspot>
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="108.5" ty="103.5" tz="122" keep="false" visible="true" enabled="true" linkedscene="scene_28"/>
+		<hotspot name="spot2" style="visual_floorspot" tx="-198" ty="103.5" tz="129.5" keep="false" visible="true" enabled="true" linkedscene="scene_29"/>
+		
 	</scene>
 
 	<scene name="scene_36" title="36" onstart="lookat(6.5,4);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/36.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2314,7 +2330,10 @@
 			<point ath="-18.988051145111342" atv="6.833545210055995" />
 			<point ath="-18.83384780048715" atv="12.835093656554621" />
 		</hotspot>
-
+		
+		<hotspot name="spot1" style="visual_floorspot" tx="118" ty="119" tz="-142" keep="false" visible="true" enabled="true" linkedscene="scene_28"/>
+		<hotspot name="spot2" style="visual_floorspot" tx="-215.5" ty="130" tz="-156" keep="false" visible="true" enabled="true" linkedscene="scene_29"/>
+		
 	</scene>
 
 	<scene name="scene_37" title="37" onstart="lookat(3,2,120);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/37.tiles/thumb.jpg" lat="" lng="" heading="">
@@ -2340,8 +2359,9 @@
 			<point ath="-50.137896941789165" atv="5.6473987946807185" />
 		</hotspot>
 		
+		<hotspot name="spot1" style="visual_floorspot" tx="180" ty="95.5" tz="-70.5" keep="false" visible="true" enabled="true" linkedscene="scene_30"/>
+		<hotspot name="spot2" style="visual_floorspot" tx="-165.5" ty="101.5" tz="-75.5" keep="false" visible="true" enabled="true" linkedscene="scene_31"/>
 		
-
 	</scene>
 
 	<scene name="scene_38" title="38" onstart="" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/38.tiles/thumb.jpg" lat="" lng="" heading="">

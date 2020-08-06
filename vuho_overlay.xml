@@ -196,6 +196,10 @@
 	
 	<action name="overlay_mobile_exceptions" scope="local" autorun="onstart">
 		if(device.handheld == true,
+			set(layer[infoslide1].y,0%);
+			set(layer[infoslide2].y,0%);
+			set(layer[infoslide3].y,0%);
+			
 			set(layer[OverlayMenu].scale,0.10);
 			
 			set(layer[works_ui].scale,0.10);
