@@ -45,7 +45,7 @@
 	
 	
 	
-	<action name="fix_scroll_area_height" scope="local">
+	<action name="fix_scroll_area_height" scope="global">
 		set(layer[work1_scrollarea].height,get(layer[work1_desc].height));
 		set(layer[work2_scrollarea].height,get(layer[work2_desc].height));
 		set(layer[work3_scrollarea].height,get(layer[work3_desc].height));
@@ -63,11 +63,21 @@
 		if(layer[get(workname)].enabled == true,
 			set(layer[get(workname)].enabled,false);
 			tween(layer[get(workname)].alpha,0);
+			enable_mwheel_support();
 			,
 			set(layer[get(workname)].enabled,true);
 			tween(layer[get(workname)].alpha,1);
+			disable_mwheel_support();
 		);
-		
+	
+	</action>
+	
+	<action name="enable_mwheel_support" scope="global">
+		set(control.disablewheel,false);
+	</action>
+	
+	<action name="disable_mwheel_support" scope="global">
+		set(control.disablewheel,true);
 	</action>
 	
 	<action name="disable_works" scope="local">
@@ -76,8 +86,69 @@
 			set(layer[get(workname)].enabled,false);
 			tween(layer[get(workname)].alpha,0);
 		);
+		enable_mwheel_support();
 	</action>
 	
+	<action name="while_scrolling_work" scope="local" args="nscroll">
+		calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
+		calc(work_toparrow, 'work' + nscroll + '_toparrow');
+		calc(work_botarrow, 'work' + nscroll + '_botarrow');
+
+		copy(current_y, layer[get(work_scrollarea)].y);
+		
+		calc(scrollbox_height, stageheight * 0.8 * 0.2 );
+		
+		calc(max_height, layer[get(work_scrollarea)].height * -1 + scrollbox_height);
+		<!--
+		print(calc('Y: ' + current_y + ' TO REACH ' + max_height + ' STAGEHEIGHT: ' + scrollbox_height));
+		-->
+		if(current_y GE 0,
+			<!-- Do not display top arrow -->
+			set(layer[get(work_toparrow)].visible,false);
+			work_scroll_up_disable();
+			,
+			set(layer[get(work_toparrow)].visible,true);
+		);
+		
+		if(current_y LE max_height,
+			<!-- Do not display bottom arrow -->
+			set(layer[get(work_botarrow)].visible,false);
+			work_scroll_down_disable();
+			,
+			set(layer[get(work_botarrow)].visible,true);
+		);
+		
+	</action>
+	
+	<action name="work_scroll_up" scope="local" args="nscroll">
+		setinterval(scrollup_interval,0,
+			calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
+			copy(current_y, layer[get(work_scrollarea)].y);
+			calc(new_y,current_y + 5);
+			set(layer[get(work_scrollarea)].y, get(new_y));
+			while_scrolling_work(get(nscroll));
+		);
+		
+		
+	</action>
+	
+	<action name="work_scroll_up_disable" scope="local" args="nscroll">
+		clearinterval(scrollup_interval);
+	</action>
+	
+	<action name="work_scroll_down" scope="local" args="nscroll">
+		setinterval(scrolldown_interval,0,
+			calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
+			copy(current_y, layer[get(work_scrollarea)].y);
+			calc(new_y,current_y - 5);
+			set(layer[get(work_scrollarea)].y, get(new_y));
+			while_scrolling_work(get(nscroll));
+		);
+	</action>
+	
+	<action name="work_scroll_down_disable" scope="local" args="nscroll">
+		clearinterval(scrolldown_interval);
+	</action>
 	
 	<action name="set_mobile_vertical_works" scope="local">
 		for(set(i,1), i LT 10, inc(i),
@@ -217,6 +288,7 @@
 		);
 	</action>
 	<!-- Set size based on font-->
+	
 	<layer name="workdisplay1" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
@@ -226,13 +298,29 @@
 		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
 		
 		
-			<layer name="work1_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
+			<layer name="work1_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v" keep="true" onscroll="while_scrolling_work(1);">
 				<layer name="work1_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
 			</layer>
 			
-			
 		</layer>
 		
+		<layer name="work1_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(1);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work1_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(1);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+
+
 		<layer name="work1_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work1_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -265,6 +353,22 @@
 			
 		</layer>
 		
+		<layer name="work2_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(2);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work2_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(2);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work2_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work2_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -297,6 +401,22 @@
 			
 		</layer>
 		
+		<layer name="work3_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(3);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work3_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(3);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work3_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work3_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -331,6 +451,22 @@
 			
 		</layer>
 		
+		<layer name="work4_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(4);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work4_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(4);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work4_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work4_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -365,6 +501,22 @@
 			
 		</layer>
 		
+		<layer name="work5_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(5);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work5_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(5);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work5_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work5_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -436,6 +588,22 @@
 			
 		</layer>
 		
+		<layer name="work7_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(7);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work7_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(7);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work7_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work7_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -471,6 +639,22 @@
 			
 		</layer>
 		
+		<layer name="work8_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(8);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work8_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(8);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work8_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work8_close_button" type="image" url="%ROOT%/icons/closeoff.png"
@@ -504,6 +688,22 @@
 			
 		</layer>
 		
+		<layer name="work9_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
+			x="18%" y="53%" align="bottomleft"
+			ondown="work_scroll_up(9);"
+			onup="work_scroll_up_disable();"
+			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
+			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
+			width="70" height="40" devices="desktop"/>
+			
+		<layer name="work9_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
+			x="18%" y="20%" align="bottomleft"
+			ondown="work_scroll_down(9);"
+			onup="work_scroll_down_disable();"
+			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
+			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
+			width="70" height="40" devices="desktop"/>
+			
 		<layer name="work9_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
 		<layer name="work9_close_button" type="image" url="%ROOT%/icons/closeoff.png"
