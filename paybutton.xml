@@ -80,39 +80,39 @@
 	
 	<action name="pay_internal_redirect" scope="local" args="workid">
 		if(workid == 1,
-			openurl(https://linkstaging.wenjoy.com.co/pay/WR194359AnV10720);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 2,
-			openurl(https://linkstaging.wenjoy.com.co/pay/je003403IMC80224);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 3,
-			openurl(https://linkstaging.wenjoy.com.co/pay/LQ003420bBA82224);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 4,
-			openurl(https://linkstaging.wenjoy.com.co/pay/lH003428oSC20058);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 5,
-			openurl(https://linkstaging.wenjoy.com.co/pay/qU003443yRC01001);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 6,
-			openurl(https://linkstaging.wenjoy.com.co/pay/JY003504via50092);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 7,
-			openurl(https://linkstaging.wenjoy.com.co/pay/Rv003604gnz04802);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 8,
-			openurl(https://linkstaging.wenjoy.com.co/pay/am003548Soe40050);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 		
 		if(workid == 9,
-			openurl(https://linkstaging.wenjoy.com.co/pay/rI003628wGP50007);
+			openurl(https://link.wenjoy.com.co/pay/cD202136Wjn31980);
 		);
 	</action>
 	
