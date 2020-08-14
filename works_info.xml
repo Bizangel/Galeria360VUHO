@@ -90,6 +90,7 @@
 	</action>
 	
 	<action name="while_scrolling_work" scope="local" args="nscroll">
+		fix_scroll_area_height();
 		calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
 		calc(work_toparrow, 'work' + nscroll + '_toparrow');
 		calc(work_botarrow, 'work' + nscroll + '_botarrow');
