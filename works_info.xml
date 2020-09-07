@@ -1,4 +1,75 @@
 <krpano>
+	<action name="add_html_code" type="Javascript" devices="desktop"><![CDATA[
+	
+		var div = document.createElement("div");
+		
+		// basic styles to fit into the layer size and allow scrolling:
+		div.style.width = "100%";
+		div.style.height = "100%";
+		div.style.overflow = "auto";
+		div.style.boxSizing = "border-box";
+		div.style.padding = args[2] ? (args[2] + "px") : "0";
+		div.align = "justify";
+		// allow text selection (optional):
+		div.style.webkitUserSelect =
+		div.style.MozUserSelect =
+		div.style.msUserSelect =
+		div.style.userSelect = "text";
+		div.style.fontFamily = "Varela-Round";
+		div.style.fontSize = "20px";
+		div.style.scrollbarColor = "#616c73";
+
+		// hacks for browsed-based mouse-wheel and touch-scrolling support:
+		div.addEventListener("mousewheel", function(event){ event.stopPropagation(); }, true);
+		div.addEventListener("DOMMouseScroll", function(event){ event.stopPropagation(); }, true);
+		div.addEventListener("touchstart", function(event){ if(krpano.device.ios && window.innerHeight == krpano.display.htmltarget.offsetHeight){ /* avoid the iOS 'overscrolling' for fullpage viewers */ var bs = document.body.parentNode.style; bs.position="fixed"; bs.top=0; bs.left=0; bs.right=0; bs.bottom=0; } krpano.control.preventTouchEvents = false; event.stopPropagation(); }, true);
+		div.addEventListener("touchend", function(event){ krpano.control.preventTouchEvents = true; event.stopPropagation(); }, true);
+		div.addEventListener("gesturestart", function(event){ event.preventDefault(); }, true);
+		
+		// add some html code:
+		div.innerHTML = args[1];
+	
+		// add the div to the layer element:
+		caller.sprite.appendChild(div);
+	
+	]]></action>
+	
+	<action name="add_html_code" type="Javascript" devices="handheld"><![CDATA[
+	
+		var div = document.createElement("div");
+		
+		// basic styles to fit into the layer size and allow scrolling:
+		div.style.width = "100%";
+		div.style.height = "100%";
+		div.style.overflow = "auto";
+		div.style.boxSizing = "border-box";
+		div.style.padding = args[2] ? (args[2] + "px") : "0";
+		div.align = "justify";
+		// allow text selection (optional):
+		div.style.webkitUserSelect =
+		div.style.MozUserSelect =
+		div.style.msUserSelect =
+		div.style.userSelect = "text";
+		div.style.fontFamily = "Varela-Round";
+		div.style.fontSize = "16px";
+		div.style.scrollbarColor = "#616c73";
+
+		// hacks for browsed-based mouse-wheel and touch-scrolling support:
+		div.addEventListener("mousewheel", function(event){ event.stopPropagation(); }, true);
+		div.addEventListener("DOMMouseScroll", function(event){ event.stopPropagation(); }, true);
+		div.addEventListener("touchstart", function(event){ if(krpano.device.ios && window.innerHeight == krpano.display.htmltarget.offsetHeight){ /* avoid the iOS 'overscrolling' for fullpage viewers */ var bs = document.body.parentNode.style; bs.position="fixed"; bs.top=0; bs.left=0; bs.right=0; bs.bottom=0; } krpano.control.preventTouchEvents = false; event.stopPropagation(); }, true);
+		div.addEventListener("touchend", function(event){ krpano.control.preventTouchEvents = true; event.stopPropagation(); }, true);
+		div.addEventListener("gesturestart", function(event){ event.preventDefault(); }, true);
+		
+		// add some html code:
+		div.innerHTML = args[1];
+	
+		// add the div to the layer element:
+		caller.sprite.appendChild(div);
+	
+	]]></action>
+	
+	
 	<!-- Scroll Area Textbox -->
 	
 	<style name="works_text"
@@ -35,31 +106,15 @@
 	       />
 		   
 	<data name="lorem_ipsum">
-		"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 		
-		"Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+		Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur
 		
-		"At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat."
-		[/br]
+		At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
 	</data>
-	
-	
-	
-	<action name="fix_scroll_area_height" scope="global">
-		set(layer[work1_scrollarea].height,get(layer[work1_desc].height));
-		set(layer[work2_scrollarea].height,get(layer[work2_desc].height));
-		set(layer[work3_scrollarea].height,get(layer[work3_desc].height));
-		set(layer[work4_scrollarea].height,get(layer[work4_desc].height));
-		set(layer[work5_scrollarea].height,get(layer[work5_desc].height));
-		set(layer[work6_scrollarea].height,get(layer[work6_desc].height));
-		set(layer[work7_scrollarea].height,get(layer[work7_desc].height));
-		set(layer[work8_scrollarea].height,get(layer[work8_desc].height));
-		set(layer[work9_scrollarea].height,get(layer[work9_desc].height));
-	</action>
 	
 	<action name="toggle_workdisplay" scope="local" args="n_work">
 		calc(workname, 'workdisplay' + n_work);
-		fix_scroll_area_height();
 		if(layer[get(workname)].enabled == true,
 			set(layer[get(workname)].enabled,false);
 			tween(layer[get(workname)].alpha,0);
@@ -89,77 +144,13 @@
 		enable_mwheel_support();
 	</action>
 	
-	<action name="while_scrolling_work" scope="local" args="nscroll">
-		fix_scroll_area_height();
-		calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
-		calc(work_toparrow, 'work' + nscroll + '_toparrow');
-		calc(work_botarrow, 'work' + nscroll + '_botarrow');
-
-		copy(current_y, layer[get(work_scrollarea)].y);
-		
-		calc(scrollbox_height, stageheight * 0.8 * 0.2 );
-		
-		calc(max_height, layer[get(work_scrollarea)].height * -1 + scrollbox_height);
-		<!--
-		print(calc('Y: ' + current_y + ' TO REACH ' + max_height + ' STAGEHEIGHT: ' + scrollbox_height));
-		-->
-		if(current_y GE 0,
-			<!-- Do not display top arrow -->
-			set(layer[get(work_toparrow)].visible,false);
-			work_scroll_up_disable();
-			,
-			set(layer[get(work_toparrow)].visible,true);
-		);
-		
-		if(current_y LE max_height,
-			<!-- Do not display bottom arrow -->
-			set(layer[get(work_botarrow)].visible,false);
-			work_scroll_down_disable();
-			,
-			set(layer[get(work_botarrow)].visible,true);
-		);
-		
-	</action>
-	
-	<action name="work_scroll_up" scope="local" args="nscroll">
-		setinterval(scrollup_interval,0,
-			calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
-			copy(current_y, layer[get(work_scrollarea)].y);
-			calc(new_y,current_y + 5);
-			set(layer[get(work_scrollarea)].y, get(new_y));
-			while_scrolling_work(get(nscroll));
-		);
-		
-		
-	</action>
-	
-	<action name="work_scroll_up_disable" scope="local" args="nscroll">
-		clearinterval(scrollup_interval);
-	</action>
-	
-	<action name="work_scroll_down" scope="local" args="nscroll">
-		setinterval(scrolldown_interval,0,
-			calc(work_scrollarea, 'work' + nscroll + '_scrollarea');
-			copy(current_y, layer[get(work_scrollarea)].y);
-			calc(new_y,current_y - 5);
-			set(layer[get(work_scrollarea)].y, get(new_y));
-			while_scrolling_work(get(nscroll));
-		);
-	</action>
-	
-	<action name="work_scroll_down_disable" scope="local" args="nscroll">
-		clearinterval(scrolldown_interval);
-	</action>
-	
 	<action name="set_mobile_vertical_works" scope="local">
 		for(set(i,1), i LT 10, inc(i),
 			calc(work_scroller, 'work' + i + '_scroller_container');
 			calc(work_title, 'work' + i + '_title');
-			calc(work_desc, 'work' + i + '_desc');
 			calc(work_closebutton, 'work' + i + '_close_button');
 			calc(work_image, 'work' + i + '_image');
 			
-			layer[get(work_desc)].loadstyle(works_text_small);
 			layer[get(work_title)].loadstyle(works_text);
 			
 			set(layer[get(work_title)].y,2%);
@@ -189,41 +180,33 @@
 			);
 			
 		);
-		delayedcall(1,
-			fix_scroll_area_height();
-		);
 	</action>
 	
 	<action name="backup_default_works_attributes" scope="local">
 		for(set(i,1), i LT 10, inc(i),
 			calc(work_scroller, 'work' + i + '_scroller_container');
 			calc(work_title, 'work' + i + '_title');
-			calc(work_desc, 'work' + i + '_desc');
 			calc(work_closebutton, 'work' + i + '_close_button');
 			calc(work_image, 'work' + i + '_image');
 			
 			calc(work_scroller_bk, 'work' + i + '_scroller_container_backup');
 			calc(work_title_bk, 'work' + i + '_title_backup');
-			calc(work_desc_bk, 'work' + i + '_desc_backup');
 			calc(work_closebutton_bk, 'work' + i + '_close_button_backup');
 			calc(work_image_bk, 'work' + i + '_image_backup');
 		
 			addlayer(get(work_scroller_bk));
 			addlayer(get(work_title_bk));
-			addlayer(get(work_desc_bk));
 			addlayer(get(work_closebutton_bk));
 			addlayer(get(work_image_bk));
 			
 			<!-- copyattributes(work1_image_backup,work1_image); -->
 			copyattributes(get(layer[get(work_scroller_bk)]), get(layer[get(work_scroller)]));
 			copyattributes(get(layer[get(work_title_bk)]), get(layer[get(work_title)]));
-			copyattributes(get(layer[get(work_desc_bk)]), get(layer[get(work_desc)]));
 			copyattributes(get(layer[get(work_closebutton_bk)]), get(layer[get(work_closebutton)]));
 			copyattributes(get(layer[get(work_image_bk)]), get(layer[get(work_image)]));
 			
 			set(layer[get(work_scroller_bk)].visible,false);
 			set(layer[get(work_title_bk)].visible,false);
-			set(layer[get(work_desc_bk)].visible,false);
 			set(layer[get(work_closebutton_bk)].visible,false);
 			set(layer[get(work_image_bk)].visible,false);
 		);
@@ -233,32 +216,25 @@
 		for(set(i,1), i LT 10, inc(i),
 			calc(work_scroller, 'work' + i + '_scroller_container');
 			calc(work_title, 'work' + i + '_title');
-			calc(work_desc, 'work' + i + '_desc');
 			calc(work_closebutton, 'work' + i + '_close_button');
 			calc(work_image, 'work' + i + '_image');
 			
 			calc(work_scroller_bk, 'work' + i + '_scroller_container_backup');
 			calc(work_title_bk, 'work' + i + '_title_backup');
-			calc(work_desc_bk, 'work' + i + '_desc_backup');
 			calc(work_closebutton_bk, 'work' + i + '_close_button_backup');
 			calc(work_image_bk, 'work' + i + '_image_backup');
 			
 			<!-- copyattributes(work1_image_backup,work1_image); -->
 			copyattributes(get(layer[get(work_scroller)]), get(layer[get(work_scroller_bk)]));
 			copyattributes(get(layer[get(work_title)]), get(layer[get(work_title_bk)]));
-			copyattributes(get(layer[get(work_desc)]), get(layer[get(work_desc_bk)]));
 			copyattributes(get(layer[get(work_closebutton)]), get(layer[get(work_closebutton_bk)]));
 			copyattributes(get(layer[get(work_image)]), get(layer[get(work_image_bk)]));
 			
 			set(layer[get(work_scroller)].visible,true);
 			set(layer[get(work_title)].visible,true);
-			set(layer[get(work_desc)].visible,true);
 			set(layer[get(work_closebutton)].visible,true);
 			set(layer[get(work_image)].visible,true);
 			
-		);
-		delayedcall(1,
-			fix_scroll_area_height();
 		);
 	</action>
 	
@@ -267,10 +243,8 @@
 		if(device.handheld == true,
 			for(set(i,1), i LT 10, inc(i),
 				calc(work_title, 'work' + i + '_title');
-				calc(work_desc, 'work' + i + '_desc');
 				calc(work_scroller, 'work' + i + '_scroller_container');
 			
-				layer[get(work_desc)].loadstyle(works_text_small);
 				layer[get(work_title)].loadstyle(works_text);
 				
 				if(i != 6,
@@ -279,7 +253,6 @@
 					set(layer[get(work_scroller)].y,15%);
 					,
 					layer[get(work_title)].loadstyle(works_text_small);
-					layer[get(work_desc)].loadstyle(works_text_very_small);
 				);
 			);
 			backup_default_works_attributes(); <!-- Save horizontal attributes for landscape view -->
@@ -293,33 +266,14 @@
 	<layer name="workdisplay1" type="image" url="%ROOT%/icons/works_bg.png" keep="true" width="100%" height="80%" y="20%" align="bottomleft"
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
-		<!-- only modify container -->
-		<layer name="work1_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work1_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v" keep="true" onscroll="while_scrolling_work(1);">
-				<layer name="work1_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-		</layer>
-		
-		<layer name="work1_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(1);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work1_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(1);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+
+		<layer name="work1_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 
 
 		<layer name="work1_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
@@ -342,33 +296,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work2_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work2_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work2_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work2_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(2);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work2_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(2);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work2_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work2_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -390,33 +324,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work3_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work3_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work3_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work3_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(3);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work3_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(3);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work3_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work3_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -440,33 +354,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work4_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work4_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work4_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work4_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(4);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work4_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(4);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work4_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work4_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -490,33 +384,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work5_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work5_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work5_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work5_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(5);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work5_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(5);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work5_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work5_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -541,17 +415,13 @@
 	scalechildren="false" bgcapture="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work6_scroller_container" keep="true" type="container" align="bottomleft" width="68%" height="20%" 
-		y="4%" x="22%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work6_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work6_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>	
+		<layer name="work6_scroller_container"
+	       type="container"
+		   align="bottomleft" width="68%" height="20%" y="4%" x="22%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 		
 		<layer name="work6_title" style="works_title" html="Título de la Obra" align="topleft" x="3%" y="75%" width="20%" height="20%"
 		bgborder="0 0x000000 0"/>
@@ -577,33 +447,13 @@
 	scalechildren="false" bgcapture="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work7_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work7_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work7_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work7_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(7);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work7_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(7);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work7_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work7_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -628,33 +478,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work8_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work8_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work8_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work8_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(8);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work8_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(8);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work8_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work8_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		
@@ -677,33 +507,13 @@
 	scalechildren="false" capturebg="true" handcursor="false" alpha="0" enabled="false" zorder="10">
 		
 		<!-- only modify container -->
-		<layer name="work9_scroller_container" keep="true" type="container" align="bottomleft" width="30%" height="20%" 
-		y="30%" x="5%"
-		bgcolor="0xFFFFFF" bgalpha="0" scalechildren="true" handcursor="false">
-		
-		
-			<layer name="work9_scrollarea" url="%SWFPATH%/plugins/scrollarea.swf" alturl="%SWFPATH%/plugins/scrollarea.js" align="topleft" width="100%" height="3640" direction="v">
-				<layer name="work9_desc" style="works_text" html="data:lorem_ipsum" align="center" width="100%" wordwrap="true"/>
-			</layer>
-			
-			
-		</layer>
-		
-		<layer name="work9_toparrow" type="image" url="%ROOT%/icons/scrolltop_off.png" alpha="1" enabled="true" 
-			x="18%" y="53%" align="bottomleft"
-			ondown="work_scroll_up(9);"
-			onup="work_scroll_up_disable();"
-			onover="set(url,%ROOT%/icons/scrolltop_on.png);"
-			onout="set(url,%ROOT%/icons/scrolltop_off.png);work_scroll_up_disable();"
-			width="70" height="40" devices="desktop"/>
-			
-		<layer name="work9_botarrow" type="image" url="%ROOT%/icons/scrollbot_off.png" alpha="1" enabled="true" 
-			x="18%" y="20%" align="bottomleft"
-			ondown="work_scroll_down(9);"
-			onup="work_scroll_down_disable();"
-			onover="set(url,%ROOT%/icons/scrollbot_on.png);"
-			onout="set(url,%ROOT%/icons/scrollbot_off.png);work_scroll_down_disable();"
-			width="70" height="40" devices="desktop"/>
+		<layer name="work9_scroller_container"
+	       type="container"
+		   align="bottomleft" width="30%" height="35%" y="25%" x="5%"
+	       bgborder="1 0xFFFFFF 0.5" bgcolor="0x555555" bgalpha="0"
+	       bgcapture="true" capture="true" handcursor="false"
+	       onloaded="add_html_code(get(data[lorem_ipsum].content), 10);"
+	       keep = "true"/>
 			
 		<layer name="work9_title" style="works_title" html="Título de la Obra" x="5%" y="30%" bgborder="0 0x000000 0" width="30%"/>
 		

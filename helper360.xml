@@ -108,7 +108,6 @@
 		loadscene(get(scenename),null,MERGE|KEEPVIEW|KEEPMOVING,BLEND(0.5));		
 		tween(view.tx|view.ty|view.tz, calc(image.ox + '|' + image.oy + '|' + image.oz), 2.0, default);
 		
-		fix_scroll_area_height();
 		disable_prev_exit();
 		delete_golden_array();
 		
@@ -193,7 +192,6 @@
 	<events name="orientation" keep="true" onresize="Orientation();"  />
 	
 	<action name="Orientation">
-	fix_scroll_area_height();
 	if(device.handheld == true,
 		if(stagewidth LT stageheight,
 				<!-- PORTRAIT -->

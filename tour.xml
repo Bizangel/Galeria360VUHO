@@ -83,10 +83,10 @@
 	
 	<include url="%VIEWER%/plugins/fps.xml" if="0" />
 	<events onkeydown="debugaction();" if="0"/>
-	<action name="debugaction" if="0" >
+	
+	<action name="debugaction" if="1" >
 		if(keycode == 89, <!-- Y KEY -->
-			set_mobile_vertical_works(); 
-			print(vertical!);
+			
 		);
 		if(keycode == 85, <!-- U KEY -->
 			backup_default_works_attributes();
@@ -313,7 +313,7 @@
 	
 	
 	
-	<scene name="scene_1" title="01" onstart="infodisplay(1);delayedcall(3,fix_scroll_area_height(););" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
+	<scene name="scene_1" title="01" onstart="infodisplay(1);" havevrimage.mobilevr="false" havevrimage.no-mobilevr="true" thumburl="panos/01.tiles/thumb.jpg" lat="" lng="" heading="">
 
 		<view hlookat="-176.610" vlookat="0.194" fovtype="MFOV" fov="120.000" maxpixelzoom="2.0" fovmin="70" fovmax="140" limitview="auto" />
 
